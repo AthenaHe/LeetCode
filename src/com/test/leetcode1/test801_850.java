@@ -1,11 +1,13 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 
 public class test801_850 {
@@ -105,10 +107,100 @@ public String toGoatLatin(String S) {
 	return res.trim();
     
 }
-	public static void main(String[] args) {
-		String[] words = {"gin", "zen", "gig", "msg"};
-		System.out.println(uniqueMorseRepresentations(words));
+	/*
+	 * 832. 翻转图像
+	 */
+	public static int[][] flipAndInvertImage(int[][] A) {
+		int tmp = 0;
+//先水平翻转
+		for (int i = 0; i < A.length; i++) {
+			for (int j = 0; j < A[i].length / 2; j++) {
+				tmp = A[i][j];
+				A[i][j] = A[i][A[i].length - j - 1];
+				A[i][A[i].length - j - 1] = tmp;
+			}
+		}
+//再自己翻转
+		for (int i = 0; i < A.length; i++) {
+			for (int j = 0; j < A[i].length; j++) {
+				if (A[i][j] == 0) {
+					A[i][j] = 1;
+				} else {
+					A[i][j] = 0;
+				}
 
+			}
+		}
+		for (int i1 = 0; i1 < A.length; i1++) {
+			for (int j = 0; j < A[i1].length; j++) {
+				System.out.print(A[i1][j] + ",");
+			}
+			System.out.println();
+		}
+		return A;
+}
+/*
+ * 836. 矩形重叠 不懂不懂	
+ */
+public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
+	return !(rec1[2] <= rec2[0] ||   // left
+            rec1[3] <= rec2[1] ||   // bottom
+            rec1[0] >= rec2[2] ||   // right
+            rec1[1] >= rec2[3]);    // top
+    }
+
+/*
+ * 844. 比较含退格的字符串 
+ * 	第一眼就想到了栈
+ */
+public boolean backspaceCompare(String S, String T) {
+	Stack<Character> Sstack = new Stack<>();
+	Stack<Character> Tstack = new Stack<>();
+	for (int i = 0; i < S.length(); i++) {
+		if (S.charAt(i)!='#') {
+			Sstack.push(S.charAt(i));
+		}else if (S.charAt(i)=='#'&&!S.isEmpty()) {
+			Sstack.pop();
+		}	
+	}
+	for (int i = 0; i < T.length(); i++) {
+		if (T.charAt(i)!='#') {
+			Tstack.push(T.charAt(i));
+		}else if (T.charAt(i)=='#'&&!T.isEmpty()) {
+			Tstack.pop();
+		}	
+	}	
+	return Sstack.equals(Tstack);    
+}
+
+/*
+ * 849. 到最近的人的最大距离
+ */
+public static int maxDistToClosest(int[] seats) {
+	int first=0,last=seats.length-1;
+	while (seats[first]==0) {
+		first++;
+	}	
+	while (seats[last]==0) {
+		last--;
+	}	
+	int max=Math.max(first, seats.length-1-last);
+	int num=0;
+	while (first<=last) {
+		if (seats[first++]==0) {
+			num++;
+		}else {
+			if ((num+1)/2>max) {
+				max=(num+1)/2;
+			}
+		num=0;
+		}		
+	}
+return max;
+}
+	public static void main(String[] args) {
+	int[] a = {1,0,0,0,1};
+System.out.println(maxDistToClosest(a));
 	}
 
 }
