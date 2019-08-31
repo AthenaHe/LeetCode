@@ -198,19 +198,7 @@ public static int maxDistToClosest(int[] seats) {
 	}
 return max;
 }
-/*
- * 852. 山脉数组的峰顶索引 so easy
- */
-public int peakIndexInMountainArray(int[] A) {
-for (int i = 0; i < A.length-1; i++) {
-		if (A[i]>A[i+1]) {
-			return i;
-		}
-	}
-return 0;
-	
-    
-}
+
 	public static void main(String[] args) {
 	int[] a = {1,0,0,0,1};
 System.out.println(maxDistToClosest(a));
