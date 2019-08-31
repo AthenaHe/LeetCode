@@ -11,6 +11,11 @@ import java.util.Stack;
 
 
 public class test801_850 {
+public class ListNode {
+   int val;
+   ListNode next;
+   ListNode(int x) { val = x; }
+}
 /*
  * 804. 唯一摩尔斯密码词
  */
@@ -207,13 +212,129 @@ for (int i = 0; i < A.length-1; i++) {
 			return i;
 		}
 	}
-return 0;
+return 0;  
+}
+/*
+ * 859. 亲密字符串
+ */
+public boolean buddyStrings(String A, String B) {
+	//1.如果A，B长度不相等或者都是空串，不满足条件
+	if (A.length()!=B.length()||(A.length()==0&&B.length()==0)) {
+		return false;
+	}
 	
+	Set<Character> set = new HashSet<>();
+	for (int i = 0; i < A.length(); i++) {
+		set.add(A.charAt(i));
+	}
+	//2.如果A等于B，并且A中有重复字符，说明可以交换重复字符，满足条件
+	if (A.equals(B)&&set.size()<A.length()) {
+		return true;
+	}
+	//3.1 如果A中只有2个字符位置和B不同，继续判断
+	List<Character> alist = new ArrayList<Character>();
+	List<Character> blist = new ArrayList<Character>();
+	int count=0;
+	for (int i = 0; i < A.length(); i++) {
+		if (A.charAt(i)!=B.charAt(i)) {
+			count++;
+			if (count<=2) {
+			alist.add(A.charAt(i));
+			blist.add(B.charAt(i));
+			}else {
+				return false;
+			}						
+		}				
+	}
+	//3.2 如果A中2个不同字符正好与B相反，则满足条件。
+	if (alist.size()==2&&blist.size()==2) {
+		return alist.get(0)==blist.get(1)&& alist.get(1)==blist.get(0);
+	}
+	return false;	
+}
+/*
+ * 860. 柠檬水找零
+ */
+public boolean lemonadeChange(int[] bills) {
+	//0.如果第一个收到的不是5元，并且后面还有顾客要买，那么游戏over
+	if (bills.length>1&&bills[0]!=5) {
+		return false;
+	}
+	int five = 1;//假装收到了第一位顾客的5块钱
+    int ten = 0;
+    for (int i = 1; i < bills.length; i++) {
+        switch (bills[i]) {
+            case 5: //1.收到了5块钱，不找零
+                five++;
+                break;
+            case 10:	//2.收到了10块钱
+                if (five > 0) { //找零一张5元
+                    five--;
+                    ten++;
+                } else {
+                    return false;
+                }
+                break;
+            case 20:  //3.收到了20块钱，先尽量把10元找出去，5元尽量留着
+                if (five > 0 && ten > 0) { //3.1找零一张5元，一张10元
+                    five--;
+                    ten--;
+                } else if (five >= 3) { //3.2找零3张5元
+                    five -= 3;
+                } else {
+                    return false;//(最好不要收到20块，20块只能自己留着了，因为没有机会找零出去的)
+                }
+                break;
+        }
+    }
+    return true;    
+}
+/*
+ * 867. 转置矩阵
+ */
+public int[][] transpose(int[][] A) {
+	int[][] B = new int[A[0].length][A.length];
+	for (int i =0; i < A.length; i++) {
+		for (int j = 0; j < A[i].length; j++) {
+			B[j][i] = A[i][j];
+		}
+	}
+	return B;
+}
+/*
+ * 868. 二进制间距
+ */
+public static int binaryGap(int N) {
+	String str = Integer.toBinaryString(N);
+	int i=0,j=0,max=0;
+	while (i<str.length()) {
+		if (str.charAt(i)=='1') {
+			max = Math.max(max, i-j);
+			j=i;	
+		}
+		i++;		
+	}
+	return max;    
+}
+/*
+ * 876. 链表的中间结点
+ */
+public ListNode middleNode(ListNode head) {
+	ListNode slow=head;
+	ListNode fast = head;
+	while (fast!=null&&fast.next!=null) {
+		slow=slow.next;
+		fast=fast.next.next;
+		
+	}	
+	return slow;
     
 }
 	public static void main(String[] args) {
-	int[] a = {1,0,0,0,1};
-System.out.println(maxDistToClosest(a));
+	int[] commands = {4,-1,4,-2,4}; 
+	int[][] obstacles = {{2,4},{3,5}};
+	
+	System.out.println(-5%4);
 	}
 
 }
