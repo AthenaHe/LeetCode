@@ -324,17 +324,12 @@ public ListNode middleNode(ListNode head) {
 	ListNode fast = head;
 	while (fast!=null&&fast.next!=null) {
 		slow=slow.next;
-		fast=fast.next.next;
-		
+		fast=fast.next.next;	
 	}	
 	return slow;
     
 }
 	public static void main(String[] args) {
-	int[] commands = {4,-1,4,-2,4}; 
-	int[][] obstacles = {{2,4},{3,5}};
-	
-	System.out.println(-5%4);
 	}
 
 }
