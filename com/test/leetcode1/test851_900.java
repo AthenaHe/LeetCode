@@ -1,9 +1,14 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import com.test.leetcode1.test001_050.TreeNode;
 
 public class test851_900 {
 //链表结构体定义
@@ -12,6 +17,13 @@ public class test851_900 {
       ListNode next;
       ListNode(int x) { val = x; }
   }	
+//树结点定义
+public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode(int x) { val = x; }
+  }
 	/*
 	 * 852. 山脉数组的峰顶索引 so easy
 	 */
@@ -136,8 +148,71 @@ public ListNode middleNode(ListNode head) {
 	}	
 	return slow;    
     }
+/*
+ * 884. 两句话中的不常见单词
+ */
+public static String[] uncommonFromSentences(String A, String B) {
+	//1.合并A，B放到一个字符串数组中
+	String[] AB = (A+" "+B).split(" ");	
+	//2.计算每个字符串出现的次数
+	Map<String, Integer> map = new HashMap<>();
+	for (int i = 0; i < AB.length; i++) {
+		map.put(AB[i], map.getOrDefault(AB[i], 0)+1);
+	}
+	//3.如果出现的次数为1，就是唯一的不常见单词
+	List<String> list = new ArrayList<>();		
+	for (String key:map.keySet()) {
+		if (map.get(key)==1) {
+			list.add(key);
+		}
+	}
+	String[] res  = new String[list.size()];
+	return list.toArray(res);
+}
+/*
+ * 888. 公平的糖果交换
+ */
+public static int[] fairCandySwap(int[] A, int[] B) {
+	int[] res = new int[2];
+	int sumA = 0,sumB = 0;
+	for (int i = 0; i < A.length; i++) { //1.求A的和
+		sumA+=A[i];
+	}
+	for (int i = 0; i < B.length; i++) { //2.求B的和
+		sumB+=B[i];
+	}
+	for (int i = 0; i < A.length; i++) {
+		for (int j = 0; j < B.length; j++) {
+			if ((A[i]-B[j])==(sumA-sumB)/2) { //3.A和B差值的一半是对方多出来的或者缺少的量，找出符合的
+				res[0] = A[i];
+				res[1] = B[j];
+			}
+		}
+	}
+	return res;   
+}
+/*
+ * 896. 单调数列
+ */
+public boolean isMonotonic(int[] A) {
+if (A.length<=2) {
+	return true;
+}
+boolean flag1 = false,flag2 = false;  //flag1递增标志  flag2递减标志
+for(int i = 1;i < A.length;i++){
+    if(A[i] - A[i-1] > 0){
+        if(flag2)  return false;
+        flag1 = true;
+    }
+    else if(A[i] - A[i-1] < 0){
+        if(flag1)  return false;
+        flag2 = true;
+    }
+}
+return true; 
+}
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
