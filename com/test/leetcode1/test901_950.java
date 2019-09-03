@@ -171,6 +171,56 @@ public static int numUniqueEmails(String[] emails) {
 	}	
 	return set.size();    
 }
+/*
+ * 941.有效的山脉数组
+ */
+public boolean validMountainArray(int[] A) {
+	int i=0,j=A.length-1;
+	//设置双指针，当左边递增时，指针继续后移
+	while (i<j&&A[i]<A[i+1]) {
+		i++;		
+	}
+	//当右边递减时，指针继续左移
+	while (i<j&&A[j]<A[j-1]) {
+		j--;		
+	}
+	while (i==j&&i!=0&&j!=A.length-1) {
+		return true;		
+	}	
+	return false;    
+}
+/*
+ * 976.三角形的最大周长 
+ */
+public int largestPerimeter(int[] A) {
+	if (A.length<3) {
+		return 0;
+	}
+	Arrays.sort(A);	
+	int len1,len2,len3;
+	for (int i = A.length-1; i >=2; i--) {
+		len1=A[i-2];
+		len2=A[i-1];
+		len3=A[i];
+		if (len3<len1+len2) {
+			return len1+len2+len3;
+		}
+	}
+	return 0;    
+}
+
+/*
+ * 977.有序数组的平方
+ */
+public int[] sortedSquares(int[] A) {
+    int[] res = new int[A.length];
+    for (int i = 0; i < A.length; i++) {
+		res[i] = A[i]*A[i];
+	}
+    Arrays.sort(res);    
+    return res;
+}
+
 
 	public static void main(String[] args) {
 		int[] a = {1,2,3,4,4,3,2,1};
