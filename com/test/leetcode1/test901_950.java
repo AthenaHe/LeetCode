@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -189,43 +190,11 @@ public boolean validMountainArray(int[] A) {
 	}	
 	return false;    
 }
-/*
- * 976.三角形的最大周长 
- */
-public int largestPerimeter(int[] A) {
-	if (A.length<3) {
-		return 0;
-	}
-	Arrays.sort(A);	
-	int len1,len2,len3;
-	for (int i = A.length-1; i >=2; i--) {
-		len1=A[i-2];
-		len2=A[i-1];
-		len3=A[i];
-		if (len3<len1+len2) {
-			return len1+len2+len3;
-		}
-	}
-	return 0;    
-}
-
-/*
- * 977.有序数组的平方
- */
-public int[] sortedSquares(int[] A) {
-    int[] res = new int[A.length];
-    for (int i = 0; i < A.length; i++) {
-		res[i] = A[i]*A[i];
-	}
-    Arrays.sort(res);    
-    return res;
-}
-
 
 	public static void main(String[] args) {
 		int[] a = {1,2,3,4,4,3,2,1};
-		String[] emails = {"testemail@leetcode.com","testemail1@leetcode.com","testemail+david@lee.tcode.com"};
-		System.out.println(numUniqueEmails(emails));
+		String[] aaStrings =String.valueOf(34).split("");
+		System.out.println(aaStrings[0]+","+aaStrings[1]);
 
 	}
 
