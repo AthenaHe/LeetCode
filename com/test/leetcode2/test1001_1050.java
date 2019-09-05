@@ -1,5 +1,6 @@
 package com.test.leetcode2;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,6 +79,69 @@ public static int bitwiseComplement(int N) {
 	}
 	return Integer.parseInt(res, 2);    
 }
+/*
+ * 1010. 总持续时间可被 60 整除的歌曲 
+ * 不可用双循环
+ */
+public int numPairsDivisibleBy60(int[] time) {
+	int[] record = new int[60];
+    int count = 0;
+    for(int t : time){
+        t %= 60;        //求这个时间的余数
+        if(t != 0)  
+            count += record[60 - t];    //如果时间余数不为0，找出相加为0的余数总和相加
+        else count += record[t];        //如果为0，加其他为0的数
+        record[t] ++;
+    }
+    return count;    
+}
+
+/*
+ * 1013. 将数组分成和相等的三个部分
+ */
+public static  boolean canThreePartsEqualSum(int[] A) {
+	int sum=0;
+	for (int i = 0; i < A.length; i++) {
+		sum+=A[i];		
+	}
+	if (sum%3!=0||sum==0) {
+		return false;
+	}
+	//System.out.println(sum/3+","+sum%3);
+	int sum1=0,sum2=0;
+	int i=0,j=A.length-1;
+	while (i-1<j&&j>=0&&i<A.length) {
+		if (sum1!=sum/3) {
+			sum1+=A[i];	
+			i++;
+		}	
+		
+		if (sum2!=sum/3) {
+			sum2+=A[j];
+			j--;
+		}
+		System.out.println(sum1+","+sum2);
+		if (sum1==sum/3&&sum2==sum/3&&i-1<j) {
+			return true;
+		}		
+	}	
+	return false;    
+}
+
+/*
+ * 1018. 可被 5 整除的二进制前缀
+ */
+public List<Boolean> prefixesDivBy5(int[] A) {
+	List<Boolean> res = new ArrayList<>();
+    int sum= 0;
+    for(int i = 0; i < A.length; i++){
+    	//(sum<< 1) + A[i]将二进制转换成十进制
+        sum= ((sum<< 1) + A[i]) % 5;
+        res.add(sum== 0);
+    }
+    return res;
+    
+}
 	/**
 	 * 1047. 删除字符串中的所有相邻重复项
 	 * @param args
@@ -98,10 +162,10 @@ public static int bitwiseComplement(int N) {
 	}	
 	
 	public static void main(String[] args) {
-		int[] A= {4,2,3};
+		int[] A= {3,3,6,5,-2,2,5,1,-9,4};
 		int K=1;
-		bitwiseComplement(5);
-
+		//bitwiseComplement(5);
+		System.out.println(canThreePartsEqualSum(A));
 	}
 
 }
