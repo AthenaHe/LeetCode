@@ -1,11 +1,19 @@
 package com.test.leetcode2;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class test1001_1050 {
+//树结点定义
+	public class TreeNode {
+	      int val;
+	      TreeNode left;
+	      TreeNode right;
+	      TreeNode(int x) { val = x; }
+	  }
+	
 /*
  * 1002. 查找常用字符 little difficult
  */
@@ -141,6 +149,96 @@ public List<Boolean> prefixesDivBy5(int[] A) {
     }
     return res;
     
+}
+
+/*
+ * 1021. 删除最外层的括号
+ */
+public String removeOuterParentheses(String S) {
+	String res = "";
+	Stack<Character> stack = new Stack<>();
+	//这样做，最外层的就不会加到最终结果中
+	for (int i = 0; i < S.length(); i++) {
+		if (S.charAt(i)==')') {
+			stack.pop();
+		}
+		if (!stack.isEmpty()) {
+			res+=S.charAt(i);
+		}
+		if (S.charAt(i)=='(') {
+			stack.push(S.charAt(i));			
+		}
+	}
+	return res;   
+}
+
+/*
+ * 1033. 移动石子直到连续
+ */
+public int[] numMovesStones(int a, int b, int c) {
+	int[] res = new int[2];
+	//先给abc升序排序
+	int[] abc = {a,b,c};
+	Arrays.sort(abc);
+	a=abc[0];
+	b=abc[1];
+	c=abc[2];
+	System.out.println(a+","+b+","+c);
+	//最大步数的情况就是将c和a一步一步往中间移动
+	//max = (b-a-1)+(c-b-1);
+	res[1] = c-a-2;
+	System.out.println(res[1]);
+	//最小情况分四种
+	//1.如果abc都相邻，那就不用移动了
+	if (c-b==1&&b-a==1) {
+		res[0]=0;
+	}
+	//2.如果b只和其中一个相邻，那就把另一个移到b旁边
+	if (b-a==1||c-b==1) {
+		res[0]=1;
+	}
+	//3.如果b和另外两个不相邻，但是和其中一个中间还有一个位置，那就把另一个移动它们中间
+	if (b-a==2||c-b==2) {
+		res[0]=1;
+	}
+	//4.如果b和另外两个都不相邻，那就另外两个分别移动一次到b的旁边
+	if (c-b>1&&b-a>1) {
+		res[0]=2;
+	}			
+	return res;   
+}
+
+/*
+ * 1037. 有效的回旋镖
+ */
+public boolean isBoomerang(int[][] points) {
+	 	int x1 = points[0][0] - points[1][0];
+	    int y1 = points[0][1] - points[1][1];	    
+	    int x2 = points[0][0] - points[2][0];
+	    int y2 = points[0][1] - points[2][1];
+	    return x1*y2!=x2*y1;
+}
+/*
+ * 1154. 一年中的第几天
+ */
+public int dayOfYear(String date) {
+	String[] dates = date.split("-");
+	int year = Integer.parseInt(dates[0]);
+	int month = Integer.parseInt(dates[1]);
+	int day = Integer.parseInt(dates[2]);
+	boolean leap = false;
+	int res=0;
+	//先判断年份是否是闰年
+	int[] daysArray = {31,28,31,30,31,30,31,31,30,31,30,31};
+if ((year%4==0&&year%100!=0)||year%400==0) {
+	leap=true;	
+	daysArray[1]+=1;
+}
+for (int i = 0; i < month-1; i++) {
+	res+=daysArray[i];
+}
+	res+=day;	
+	return res;   
 }
 	/**
 	 * 1047. 删除字符串中的所有相邻重复项
