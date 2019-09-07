@@ -82,12 +82,8 @@ public static int numPrimeArrangements(int n) {
 	}
 	for (int i = 1; i <= notprimecount; i++) {
 		sum=sum*i%(1000000000+7);
-	}
-	
-	return sum.intValue();
-	
-
-	
+	}	
+	return sum.intValue();	
 }
 //判断一个数是否是质数
 public static  int  isPrime(int num) {
@@ -124,7 +120,6 @@ public int dietPlanPerformance(int[] calories, int k, int lower, int upper) {
 		String[] queries = {"bbh","cc"};
 		String[] words = {"a","aa","aaa","aaaa"};
 		System.out.println(numPrimeArrangements(100));
-
 	}
 
 }

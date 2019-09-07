@@ -73,6 +73,26 @@ public class test051_100 {
 	    return digits;
 	        
 	    } 
+/*
+ * 67.二进制求和
+ */
+  public String addBinary(String a, String b) { 
+	 StringBuffer sb = new StringBuffer();
+	 int i=a.length()-1,j=b.length()-1,carry=0;
+	 while (i>=0||j>=0||carry!=0) {
+		if (i>=0) {
+			carry+=(a.charAt(i--)-'0');
+		}
+		if (j>=0) {
+			carry+=(a.charAt(j--)-'0');			
+		}
+		sb.append(carry%2);
+		carry=carry/2;
+		
+	}
+	  return sb.reverse().toString();  
+  }	
+	
 	/**
 	 * 69. x 的平方根
 	 * @param x
