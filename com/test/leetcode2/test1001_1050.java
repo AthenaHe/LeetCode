@@ -218,28 +218,7 @@ public boolean isBoomerang(int[][] points) {
 	    int y2 = points[0][1] - points[2][1];
 	    return x1*y2!=x2*y1;
 }
-/*
- * 1154. 一年中的第几天
- */
-public int dayOfYear(String date) {
-	String[] dates = date.split("-");
-	int year = Integer.parseInt(dates[0]);
-	int month = Integer.parseInt(dates[1]);
-	int day = Integer.parseInt(dates[2]);
-	boolean leap = false;
-	int res=0;
-	//先判断年份是否是闰年
-	int[] daysArray = {31,28,31,30,31,30,31,31,30,31,30,31};
-if ((year%4==0&&year%100!=0)||year%400==0) {
-	leap=true;	
-	daysArray[1]+=1;
-}
-for (int i = 0; i < month-1; i++) {
-	res+=daysArray[i];
-}
-	res+=day;	
-	return res;   
-}
+
 	/**
 	 * 1047. 删除字符串中的所有相邻重复项
 	 * @param args
