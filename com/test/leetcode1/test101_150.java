@@ -1,10 +1,10 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-
-import com.test.leetcode1.test051_100.ListNode;
-import com.test.leetcode1.test051_100.TreeNode;
+import java.util.Queue;
 
 public class test101_150 {
 	//链表结构体定义
@@ -51,47 +51,104 @@ public class test101_150 {
 			 return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
 		        
 		    }
-		 /**
-		  * 118.杨辉三角 list.get(i-2)没懂
-		  * @param args
-		  */
+/*
+ * 102. 二叉树的层次遍历
+ */ 
+ public List<List<Integer>> levelOrder(TreeNode root) {
+	List< List<Integer>> results = new ArrayList<>();    
+    if (root==null) {//如果二叉树为空，就返回空值
+		return results;
+	}   
+     Queue<TreeNode> queue = new LinkedList<>();
+     queue.add(root);//将根结点入队     
+     while (!queue.isEmpty()) {
+	 int count = queue.size();//计数队列中当前层次中的结点个数，方便加入list中进行记录
+	 List<Integer> list = new ArrayList<>();
+    	while (count>0) {	
+		TreeNode node = queue.poll();//队头元素出列
+		list.add(node.val);
+		if (node.left!=null) {
+			queue.add(node.left);			
+		}
+		if (node.right!=null) {
+			queue.add(node.right);			
+		}
+		count--;
+    }
+    results.add(list);		
+	}
+    Collections.reverse(results);
+    return results;     
+ }
+ 
+/*
+ * 	107.二叉树的层次遍历 II  
+ * (逆序输出) 
+ */
+ public List<List<Integer>> levelOrderBottom(TreeNode root) {
+	 List< List<Integer>> results = new ArrayList<>();    
+	    if (root==null) {//如果二叉树为空，就返回空值
+			return results;
+		}   
+	     Queue<TreeNode> queue = new LinkedList<>();
+	     queue.add(root);//将根结点入队     
+	     while (!queue.isEmpty()) {
+		 int count = queue.size();//计数队列中当前层次中的结点个数，方便加入list中进行记录
+		 List<Integer> list = new ArrayList<>();
+	    	while (count>0) {	
+			TreeNode node = queue.poll();//队头元素出列
+			list.add(node.val);
+			if (node.left!=null) {
+				queue.add(node.left);			
+			}
+			if (node.right!=null) {
+				queue.add(node.right);			
+			}
+			count--;
+	    }
+	    results.add(list);		
+		}
+	    return results;     
+}
+/*
+ * 118. 杨辉三角 
+ */
+ public List<List<Integer>> generate(int numRows) {
+    List<List<Integer>> list = new ArrayList<>(numRows);	
+	for (int i = 0; i < numRows; i++) {	
+		List<Integer> nums = new ArrayList<>(i+1);
+		for (int j = 0; j <= i; j++) {
+			if (j==0||j==i) {
+				nums.add(1);
+			}else {
+				nums.add((list.get(i-1).get(j-1)+list.get(i-1).get(j)));
+			}
+		}
+		list.add(nums);	
+	}
+	return list;
+  }
+ 
+ /**
+  * 119.杨辉三角|| 
+  * @param args
+  */
 
-		 public static List<List<Integer>> generate(int numRows) {
-		 	List<List<Integer>> list = new ArrayList<>(numRows);	
-		 	for (int i = 1; i <= numRows; i++) {	
-		 		List<Integer> nums = new ArrayList<>(i);
-		 		for (int j = 0; j < i; j++) {
-		 			if (j==0||j==i-1) {
-		 				nums.add(1);
-		 			}else {
-		 				nums.add((list.get(i-2).get(j-1)+list.get(i-2).get(j)));
-		 			}
-		 		}
-		 		list.add(nums);	
-		 	}
-		 	return list;
-		     
-		 }
-		 /**
-		  * 119.杨辉三角||  XXXXX
-		  * @param args
-		  */
-
-		 public List<Integer> getRow(int rowIndex) {
-		 	List<List<Integer>> list = new ArrayList<>(rowIndex);	
-		 	for (int i = 1; i <= rowIndex; i++) {	
-		 		List<Integer> nums = new ArrayList<>(i);
-		 		for (int j = 0; j < i; j++) {
-		 			if (j==0||j==i-1) {
-		 				nums.add(1);
-		 			}else {
-		 				nums.add((list.get(i-2).get(j-1)+list.get(i-2).get(j)));
-		 			}
-		 		}
-		 		list.add(nums);	
-		 	}
-		 	return list.get(rowIndex); 
-		 }	 
+ public List<Integer> getRow(int rowIndex) {
+ 	List<List<Integer>> list = new ArrayList<>(rowIndex);	
+ 	for (int i = 0; i <= rowIndex; i++) {	
+ 		List<Integer> nums = new ArrayList<>(i+1);
+ 		for (int j = 0; j < i; j++) {
+ 			if (j==0||j==i) {
+ 				nums.add(1);
+ 			}else {
+ 				nums.add((list.get(i-1).get(j-1)+list.get(i-1).get(j)));
+ 			}
+ 		}
+ 		list.add(nums);	
+ 	}
+ 	return list.get(rowIndex); 
+ }	 
 		 /**
 		  * 121. 买卖股票的最佳时机
 		  * @param prices
@@ -148,6 +205,22 @@ public class test101_150 {
 				}
 		        return res;  
 		    } 
-		 
-
+/*
+ * 	141. 环形链表 
+ */
+ public boolean hasCycle(ListNode head) {
+	 //利用快慢指针，如果有环，总有一天会相遇
+	 ListNode slow = head,fast = head;
+	 while (fast!=null&&fast.next!=null) {
+		 slow=slow.next;
+		 fast=fast.next.next;
+		 if (fast==slow) {
+			return true;
+		}
+	}	 
+	return false;       
+    }
+ 
+ 
+ 
 }

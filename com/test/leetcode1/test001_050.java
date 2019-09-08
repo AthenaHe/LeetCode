@@ -173,7 +173,33 @@ public Boolean IsPalindrome(int x) {
 		}
 		return stack.isEmpty();  
 	}
-
+/*
+ * 21.合并两个有序链表 
+ */
+public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+	ListNode node = new ListNode(0);
+	ListNode p=node;	
+	while (l1!=null&&l2!=null) {
+		//如果l1指针当前的值小，那就把l1的当前值加入合并链表
+		if (l1.val<l2.val) {
+			p.next=l1;
+			p=p.next;
+			l1=l1.next;
+		}else {
+		//如果l2指针当前的值小，那就把l2的当前值加入合并链表
+			p.next=l2;
+			p=p.next;
+			l2=l2.next;
+		}		
+	}
+	//当有一个链表遍历完，另一个还没有遍历完，那就把另一个直接加到合并链表的末尾
+	if (l1==null) {
+		p.next=l2;
+	}else {
+		p.next=l1;
+	}
+		return node.next;      
+    }
 
 	/**
 	 * 26. 删除排序数组中的重复项
