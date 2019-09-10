@@ -1,6 +1,11 @@
 package com.test.leetcode1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.test.leetcode1.test001_050.TreeNode;
 
@@ -12,6 +17,40 @@ public class TreeNode {
       TreeNode right;
       TreeNode(int x) { val = x; }
   }
+
+/*
+ * 953.验证外星语词典
+ */
+public static boolean isAlienSorted(String[] words, String order) {
+	Map<Character, Character> map = new HashMap<Character, Character>();
+	//建立外星词典和地球词典的对应关系
+	for (int i = 0; i < order.length(); i++) {
+		map.put(order.charAt(i), (char) (97+i));
+	}
+	String[] newwords=new String[words.length];
+	Arrays.fill(newwords, "");
+	//进行翻译成地球文
+	for (int i = 0; i < words.length; i++) {
+		String[] word = words[i].split("");
+		for (int j = 0; j < words[i].length(); j++) {
+			word[j] = words[i].substring(j, j+1).replace(words[i].charAt(j), map.get(words[i].charAt(j)));			
+			newwords[i]+=word[j];			
+		}		
+	}
+	
+	String[] sortwords = newwords.clone();
+	//System.out.println(newwords[0]+","+newwords[1]+","+newwords[2]);	
+	Arrays.sort(sortwords);	
+	//System.out.println(sortwords[0]+","+sortwords[1]+","+sortwords[2]);
+	for (int i = 0; i < sortwords.length; i++) {
+		System.out.println(">>>>>>"+sortwords[i]+","+newwords[i]);
+		if (!sortwords[i].equals(newwords[i])) {
+			return false;
+		}
+	}
+	return true;
+
+ }
 	/*
 	 * 961. 重复 N 次的元素
 	 */
@@ -96,7 +135,42 @@ public class TreeNode {
 			res[i]=sum;
 		}	
 		return res;    
+	}	
+/*
+ * 989. 数组形式的整数加法
+ */
+public static List<Integer> addToArrayForm(int[] A, int K) {
+	List<Integer> list = new ArrayList<>();
+	String kString = String.valueOf(K);
+	int i=A.length-1,j=kString.length()-1;
+	int bit2=0,bit1=0;
+	while (i>=0||j>=0) {
+	if (i>=0&&j>=0) {
+		bit1=(bit2+A[i]+(kString.charAt(j)-'0'))%10;
+		list.add(bit1);
+		bit2=(bit2+A[i]+(kString.charAt(j)-'0'))/10;
+	}else if (i>=0) {
+		bit1=(bit2+A[i])%10;
+		list.add(bit1);
+		bit2=(bit2+A[i])/10;
+	}else if (j>=0) {
+		bit1=(bit2+(kString.charAt(j)-'0'))%10;
+		list.add(bit1);
+		bit2=(bit2+(kString.charAt(j)-'0'))/10;
+	}		
+		i--;
+		j--;		
 	}
+	if (bit2!=0) {
+		list.add(bit2);
+	}
+	Collections.reverse(list);
+	for (int k:list) {
+		System.out.print(k+",");
+	}
+	return list;	    
+}	
+
 	/*
 	 * 997. 找到小镇的法官  
 	 * @param N
@@ -117,5 +191,9 @@ public class TreeNode {
 		}
 		return -1;
 	}
-
+public static void main(String[] args) {
+	String[] words = {"hello","leetcode"};
+	String order = "hlabcdefgijkmnopqrstuvwxyz";
+	System.out.println(isAlienSorted(words,order));
+}
 }

@@ -1,5 +1,8 @@
 package com.test.leetcode1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class test251_300 {
 	/**
 	 * 258. 各位相加
@@ -62,5 +65,42 @@ public class test251_300 {
 			}		
 		}	
 	}
+	
+/*
+ * 290.单词规律
+ */
+public static boolean wordPattern(String pattern, String str) {
+	//k,v键值对
+	Map<String, String> map = new HashMap<String, String>();
+	String[] strArray = str.split(" ");
+	if (pattern.length()!=strArray.length) {
+		return false;
+	}
+	System.out.println(pattern.length()+","+strArray.length);
+	for (int i = 0; i < pattern.length(); i++) {		
+	//如果key存在
+	if (map.containsKey(pattern.substring(i, i+1))) {
+		//但是key对应的vaule不匹配,就失败
+		if (!map.get(pattern.substring(i, i+1)).equals(strArray[i])) {
+			return false;
+		}
+	//如果key不存在
+	}else {
+		if (map.containsValue(strArray[i])) {
+			return false;			
+		}else {
+			map.put(pattern.substring(i, i+1),strArray[i]);
+		}
+	}		
+}	
+	return true;        
+}
+
+public static void main(String[] args) {
+	String pattern = "abba";
+	String str = "dog cat cat dog";
+	System.out.println(wordPattern(pattern,str));
+}
+
 
 }

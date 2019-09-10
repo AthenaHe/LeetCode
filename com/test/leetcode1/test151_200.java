@@ -1,6 +1,9 @@
 package com.test.leetcode1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class test151_200 {
 	/**
@@ -37,6 +40,22 @@ public class test151_200 {
 			return nums[len / 2];
 		}
 	}
+/*
+ * 172.阶乘后的零
+ */
+public int trailingZeroes(int n) {
+   //题目简化为查找阶乘中5的个数(分解后) 
+	
+	//不断除以 5, 是因为每间隔 5 个数有一个数可以被 5 整除, 
+	//然后在这些可被 5 整除的数中, 每间隔 5 个数又有一个可以被 25 整除, 故要再除一次,
+	//... 直到结果为 0, 表示没有能继续被 5 整除的数了.
+	int count = 0;
+	while(n/5!=0) {
+		count+=n/5;
+		n/=5;
+	}
+	return count;
+    }
 
 	/**
 	 * 189. 旋转数组
@@ -56,6 +75,28 @@ public static void rotate(int[] nums, int k) {
 		System.out.print(nums[i]+",");
 	}    
     }
+/*
+ * 190.颠倒二进制位
+ */
+public static int reverseBits(int n) {	
+	
+    return Integer.reverse(n);
+}
+/*
+ * 191. 位1的个数
+ */
+public static int hammingWeight(int n) {
+	String str =Integer.toBinaryString(n);
+	int count=0;
+	for (int i = 0; i < str.length(); i++) {
+		if (str.charAt(i)=='1') 
+			count++;
+	}
+	//Integer.bitCount(n);	
+	return count;    
+}
+
+
 
 	/**
 	 * 198. 打家劫舍
@@ -73,4 +114,10 @@ public  static int rob(int[] nums) {
     return memo[n - 1];
 }
 
+public static void main(String[] args) {
+	int[] A= {5,9,8};
+	int K=987;
+	//addToArrayForm(A,K);
+	
+}
 }

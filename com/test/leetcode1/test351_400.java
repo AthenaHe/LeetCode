@@ -18,7 +18,18 @@ public class test351_400 {
 		return false;
 	    
 	}
-	
+/*
+ * 371. 两整数之和
+ */
+public int getSum(int a, int b) {
+	while (b!=0) {
+		int sum = a^b;
+		int carry = (a&b)<<1;
+		a=sum;
+		b=carry;		
+		}
+	return a;        
+  }	
 	/**
 	 * 374. 猜数字大小
 	 * @param n
