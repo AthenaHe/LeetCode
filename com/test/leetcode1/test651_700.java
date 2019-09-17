@@ -165,6 +165,31 @@ public TreeNode trimBST(TreeNode root, int L, int R) {
 	root.right = trimBST(root.right, L, R);	
 	return root;  
  }
+/*
+ * 671. 二叉树中第二小的节点
+ */
+public int findSecondMinimumValue(TreeNode root) {
+	return mymin(root,root.val);
+}
+public int mymin(TreeNode root,int val) {
+	if (root==null) {
+		return -1;
+	}
+	//如果该节点的值大于根节点的值
+	if (root.val>val) {
+		return root.val;
+	}
+	//查看左子树上比根节点大的值
+	int l=mymin(root.left, val);
+	//查看右子树上比根节点大的值
+	int r=mymin(root.right, val);
+	//如果左右子节点的值比根节点都大，那就找左右子节点中较小的值
+	if (l>val&&r>val) {
+		return Math.min(l, r);
+	}
+	//如果左右子节点的值最多只有一个比根节点大，那就找左右子节点中较大的值，因为另一个值一定等于根节点值
+	return Math.max(l, r);
+}
 
 /*
  * 674. 最长连续递增序列

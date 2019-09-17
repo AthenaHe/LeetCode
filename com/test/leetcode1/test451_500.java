@@ -66,7 +66,13 @@ public class test451_500 {
 		}
 		return child;
 	}
-	 
+/*
+ * 459. 重复的子字符串
+ */
+ public boolean repeatedSubstringPattern(String s) {
+	 return s.length()>1&&(s+s).indexOf(s, 1)!=s.length();       
+   }
+ 
 	/*
 	 * 463. 岛屿的周长 有点繁琐，但结果正确
 	 */
