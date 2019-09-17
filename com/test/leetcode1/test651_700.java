@@ -1,5 +1,6 @@
 package com.test.leetcode1;
 
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -11,6 +12,33 @@ public class test651_700 {
 	TreeNode right;
 	TreeNode(int x) { val = x; }
 		 }
+/*
+ * 653. 两数之和 IV - 输入 BST	
+ */
+public boolean findTarget(TreeNode root, int k) {
+	List<Integer> list = new ArrayList<>();
+	traversal(root, list);
+	int l=0,r=list.size()-1;
+	while (l<r) {
+		if ((list.get(l)+list.get(r))==k) {
+			return true;
+		}else if ((list.get(l)+list.get(r))>k) {
+			r--;
+		}else if ((list.get(l)+list.get(r))<k) {
+			l++;
+		}		
+	}	
+	return false;       
+    }
+
+//二叉搜索树中序遍历，左根右，放进list。升序排列
+public void traversal(TreeNode node,List<Integer> list) {
+	if (node!=null) {
+		traversal(node.left, list);
+		list.add(node.val);
+		traversal(node.right, list);
+	}
+}
 	/*
 	 * 657. 机器人能否返回原点
 	 */
@@ -120,6 +148,24 @@ public class test651_700 {
 		}	
 		return count<=1?true:false;    
 	}
+/*
+ * 669. 修剪二叉搜索树	
+ * 递归难以理解
+ */
+public TreeNode trimBST(TreeNode root, int L, int R) {
+	if (root==null) {
+		return null;
+	}
+	root.left = trimBST(root.left, L, R);
+	if (root.val<L) {
+		return trimBST(root.right, L, R);
+	}else if (root.val>R) {
+		return trimBST(root.left, L, R);
+	}
+	root.right = trimBST(root.right, L, R);	
+	return root;  
+ }
+
 /*
  * 674. 最长连续递增序列
  */

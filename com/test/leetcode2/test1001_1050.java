@@ -171,6 +171,48 @@ public String removeOuterParentheses(String S) {
 	}
 	return res;   
 }
+/*
+ * 1022. 从根到叶的二进制数之和
+ * 递归难以理解
+ */
+int sum=0;
+public int sumRootToLeaf(TreeNode root) {
+	  help(root,"");
+	  return sum;
+}
+
+void help(TreeNode root,String s){
+  if(root==null) return;
+  s+=root.val;
+  if(root.left==null&&root.right==null){
+        sum+=Integer.parseInt(s,2);
+        return;
+    }
+  help(root.left,s);
+  help(root.right,s);
+}
+
+/*
+ * 1029.两地调度
+ */
+public int twoCitySchedCost(int[][] costs) {
+	int[] gap = new int[costs.length];
+	int res = 0;
+	//先计算全部去A市的费用
+	for (int i = 0; i < costs.length; i++) {
+		res+=costs[i][0];
+		gap[i] = costs[i][1]-costs[i][0];
+	}
+	//再根据差值进行排序
+	Arrays.sort(gap);
+	//获取差值最小的前一半的元素和A市所有费用的和就相当于
+	//A+1/2(B-A)=1/2(A+B)
+	for (int i = 0; i < costs.length/2; i++) {
+		res+=gap[i];
+	}
+	return res;
+    
+}
 
 /*
  * 1033. 移动石子直到连续

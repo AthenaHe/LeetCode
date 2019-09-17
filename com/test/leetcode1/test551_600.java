@@ -129,6 +129,20 @@ public int[][] matrixReshape(int[][] nums, int r, int c) {
 	return nums;       
     }
 /*
+ * 572. 另一个树的子树
+ */
+public boolean isSubtree(TreeNode s, TreeNode t) {
+	if (isSameTree(s,t))  return true;
+	return isSubtree(s.left, t)||isSubtree(s.right, t);
+}
+public boolean isSameTree(TreeNode s,TreeNode t) {
+	if (s==null) return t==null;
+	if (t==null) return s==null;
+	if (s.val!=t.val) return false;		
+	return isSameTree(s.left, t.left)&&isSameTree(s.right, t.right);	
+}
+
+/*
  * 575.分糖果
  */
 public static int distributeCandies(int[] candies) {
@@ -263,7 +277,7 @@ public static int  maxCount(int m, int n, int[][] ops) {
 
 	public static void main(String[] args) {
 		int[] flowerbed = {1,0,0,0,1};
-		
+		System.out.println(false||true);
 		
 
 	}

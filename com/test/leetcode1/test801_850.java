@@ -83,6 +83,30 @@ public List<String> subdomainVisits(String[] cpdomains) {
 }
 
 /*
+ * 821. 字符的最短距离
+ */
+public static int[] shortestToChar(String S, char C) {
+	List<Integer> list = new ArrayList<>();
+	for (int i = 0; i < S.length(); i++) {
+		//根据第i个字符把字符串切成两半
+		//左边的不包含此字符，右边的包含此字符
+		String left = S.substring(0, i+1);
+		String right = S.substring(i);
+		int lindex=left.length()-1-left.lastIndexOf(C);
+		int rindex=right.indexOf(C);
+		if (lindex==-1) lindex=Integer.MAX_VALUE;
+		if (rindex==-1) rindex=Integer.MAX_VALUE;
+		list.add(Math.min(lindex,rindex));
+	}
+	//转换成数组返回
+	int[] res = new int[list.size()];
+	for (int i = 0; i < res.length; i++) {
+		res[i] = list.get(i);
+	}
+	return res;	
+}
+
+/*
  * 824. 山羊拉丁文
  */
 public String toGoatLatin(String S) {
@@ -201,7 +225,9 @@ return max;
 
 	public static void main(String[] args) {
 	int[] a = {1,0,0,0,1};
-System.out.println(maxDistToClosest(a));
+	String S="loveleetcode";
+	char C='e';
+	System.out.println(shortestToChar(S,C));
 	}
 
 }
