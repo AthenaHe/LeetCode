@@ -171,7 +171,6 @@ public static List<Integer> addToArrayForm(int[] A, int K) {
 	return list;	    
 }	
 
-
 	/*
 	 * 997. 找到小镇的法官  
 	 * @param N

@@ -2,6 +2,7 @@ package com.test.leetcode1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -136,6 +137,116 @@ while (i<str.length()) {
 return max;    
 }
 /*
+ * 874.模拟行走的机器人 difficult
+ */
+public int robotSim(int[] commands, int[][] obstacles) {
+	//障碍物的横坐标
+    Map<Integer,List<Integer>> mapx = new HashMap<>();
+    //障碍物的纵坐标
+    Map<Integer,List<Integer>> mapy = new HashMap<>();
+    //如果存在障碍物
+    if(obstacles.length!=0){   	
+        for(int i=0;i<obstacles.length;i++){
+        	//把横坐标相同的障碍物放到一个list集合中
+            if(!mapx.containsKey(obstacles[i][0])){
+                List<Integer> l1 = new ArrayList<>();
+                l1.add(obstacles[i][1]);
+                mapx.put(obstacles[i][0],l1);
+            }else{
+                mapx.get(obstacles[i][0]).add(obstacles[i][1]);
+            }
+            //把纵坐标相同的障碍物放到一个list集合中
+            if(!mapy.containsKey(obstacles[i][1])){
+                List<Integer> l2 = new ArrayList<>();
+                l2.add(obstacles[i][0]);
+                mapy.put(obstacles[i][1],l2);
+            }else{
+                mapy.get(obstacles[i][1]).add(obstacles[i][0]);
+            }
+        }
+    }
+    
+    //dy=1向北，dy=-1向南，dx=1，向东，dx=-1向西，(x,y)位置
+    int x=0,y=0,dy=1,dx=0,max=0;
+    for(int i=0;i<commands.length;i++){
+    	//向右转90度
+        if(commands[i]==-1){
+            if(dy!=0){
+                dx=dy;dy=0;
+            }else{
+                dy = -dx;dx=0;
+            }
+         //向左转90度
+        }else if(commands[i]==-2){
+            if(dy!=0){
+                dx=-dy;dy=0;
+            }else{
+                dy=dx;dx=0;
+            }
+        //如果是移动的命令
+        }else{
+        	//如果x方向上没有障碍物，那就移动命令指示的长度即可
+            if(mapx.size()==0){
+                x+=dx*commands[i];
+                y+=dy*commands[i];
+            }else{
+            //如果x方向上有障碍物
+               //沿x方向走
+                if(dx!=0){
+                	//xx是本该移动到的位置
+                    int xx = x+dx*commands[i],flag=0;
+                    if(mapy.containsKey(y)){
+                        Collections.sort(mapy.get(y));
+                      //如果障碍物在移动的路径之间
+                        for(int xxx:mapy.get(y)){ 
+                        	//x--xxx--xx
+                            if(xxx>x&&xxx<=xx){
+                            	//x的位置在障碍物的前面一个位置（因为被障碍物挡住了）
+                                x = xxx-1;
+                                flag=1;
+                                break;
+                            //xx--xxx--x
+                            }else if(xxx>=xx&&xxx<x){
+                                x = xxx+1;
+                                flag=1;
+                                break;
+                            }
+                        }
+                        //如果没有障碍物，就直接到下一个地点
+                        if(flag==0)
+                            x=xx;
+                    }else{
+                        x=xx;
+                    }
+                 //如果dx=0，则dy!=0
+                }else{//沿y方向走
+                    int yy = y+dy*commands[i],flag=0;
+                    if(mapx.containsKey(x)){
+                        Collections.sort(mapx.get(x));
+                        for(int yyy:mapx.get(x)){
+                            if(yyy>y&&yyy<=yy){
+                                y = yyy-1;
+                                flag=1;
+                                break;
+                            }else if(yyy>=yy&&yyy<y){
+                                y = yyy+1;
+                                flag=1;
+                                break;
+                            }
+                        }
+                        if(flag==0)
+                            y=yy;
+                    }else
+                        y=yy;
+                }
+            }
+            max = Math.max(x*x+y*y,max);
+        }
+    }
+    return max;
+}
+
+/*
  * 876. 链表的中间结点
  */
 public ListNode middleNode(ListNode head) {
@@ -190,6 +301,27 @@ public static int[] fairCandySwap(int[] A, int[] B) {
 		}
 	}
 	return res;   
+}
+/*
+ * 892. 三维形体的表面积
+ */
+public int surfaceArea(int[][] grid) {	
+int result=0;
+for (int i = 0; i < grid.length; i++) {
+	for (int j = 0; j < grid[i].length; j++) {
+		if (grid[i][j]!=0) 
+			//假设每个v=grid[i][j]都是独立的,每个位置的方块正好是方块四个面*数量加上底面和顶面
+			result+=grid[i][j]*4+2;
+		//减去面贴在一起的情况
+		//如果这一行有方块
+		if (i>0)
+			result-=Math.min(grid[i-1][j], grid[i][j])*2;
+		//如果这一列有方块
+		if (j>0)
+			result-=Math.min(grid[i][j-1], grid[i][j])*2;
+	}
+}
+return result;
 }
 /*
  * 896. 单调数列

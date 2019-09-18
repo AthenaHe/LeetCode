@@ -89,13 +89,18 @@ public static int[] shortestToChar(String S, char C) {
 	List<Integer> list = new ArrayList<>();
 	for (int i = 0; i < S.length(); i++) {
 		//根据第i个字符把字符串切成两半
-		//左边的不包含此字符，右边的包含此字符
+		//左边的包含此字符，右边的包含此字符
 		String left = S.substring(0, i+1);
+		System.out.println(left);
 		String right = S.substring(i);
-		int lindex=left.length()-1-left.lastIndexOf(C);
-		int rindex=right.indexOf(C);
-		if (lindex==-1) lindex=Integer.MAX_VALUE;
-		if (rindex==-1) rindex=Integer.MAX_VALUE;
+		System.out.println(right);
+		int lindex=Integer.MAX_VALUE,rindex=Integer.MAX_VALUE;
+		if (left.lastIndexOf(C)!=-1) {
+			lindex=left.length()-1-left.lastIndexOf(C);
+		}		
+		if (right.lastIndexOf(C)!=-1) {
+			 rindex = right.indexOf(C);
+		}
 		list.add(Math.min(lindex,rindex));
 	}
 	//转换成数组返回
