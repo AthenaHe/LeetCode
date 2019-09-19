@@ -210,7 +210,34 @@ public int findLengthOfLCIS(int[] nums) {
 	}
 	return max;        
     }
-
+/*
+ * 686. 重复叠加字符串匹配 difficult
+ */
+public int repeatedStringMatch(String A, String B) {
+    int i=0;
+    String newA = "";
+    for (int j = 0; j < A.length(); j++) {
+		newA+=A.charAt(j);
+	}
+    //当A的长度比B大
+    if (newA.length()>B.length()) {
+		if (newA.contains(B)) {
+			return 1;
+		}else if ((newA+newA).contains(B)) {
+			return 2;
+		}	
+	}else { 
+	//当A的长度比B小
+	while(i<=B.length()/A.length()+2) {
+		newA+=A;
+		i++;
+		if (newA.contains(B)) {
+			return i;
+		}
+	}	
+}
+	return -1;
+  }
 /*
  * 690. 员工的重要性
  */

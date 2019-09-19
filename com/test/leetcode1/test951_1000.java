@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.test.leetcode1.test001_050.TreeNode;
 
 public class test951_1000 {
 //树结点定义
@@ -169,7 +168,61 @@ public static List<Integer> addToArrayForm(int[] A, int K) {
 		System.out.print(k+",");
 	}
 	return list;	    
-}	
+}
+/*
+ * 994. 腐烂的橘子
+ */
+ public int orangesRotting(int[][] grid) {
+        int key = 1;
+        int i;//i表示腐烂的时间，从2开始是为了和不腐烂橘子区分，方便判断
+    for (i = 2; key == 1; i++) {
+        key = 0;
+        for (int j = 0; j < grid.length; j++) {
+            for(int k = 0; k < grid[j].length; k++)
+            {//如果腐烂的橘子正好等于腐烂的时间
+                if(grid[j][k] == i)
+                {
+                    //就将它四周有非腐烂的橘子设置成腐烂的橘子，将其变为下次腐烂时间方便遍历
+                    if(j + 1 < grid.length && grid[j + 1][k] == 1)
+                    {
+                        grid[j + 1][k] = i + 1;
+                        key = 1;
+                    }
+
+                    if(k + 1 < grid[0].length && grid[j][k + 1] == 1)
+                    {
+                        grid[j][k + 1] = i + 1;
+                        key = 1;
+                    }
+
+                    if(k - 1 >= 0 && grid[j][k - 1] == 1)
+                    {
+                        grid[j][k -1] = i + 1;
+                        key = 1;
+                    }
+
+                    if(j - 1 >= 0 && grid[j - 1][k] == 1)
+                    {
+                        grid[j - 1][k] = i + 1;
+                        key = 1;
+                    }
+                }
+            }
+        }
+    }
+    for (int j = 0; j < grid.length; j++) {
+        for (int k = 0; k < grid[0].length; k++) {
+            //如果有新鲜橘子，就返回-1
+            if(grid[j][k] == 1)
+            {
+                return  -1;
+            }
+        }
+    }
+    //由于一开始i是从2开始的,所以最终要还原回去
+    return i - 3;
+}
+
 
 	/*
 	 * 997. 找到小镇的法官  

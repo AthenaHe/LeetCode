@@ -260,7 +260,41 @@ public boolean isBoomerang(int[][] points) {
 	    int y2 = points[0][1] - points[2][1];
 	    return x1*y2!=x2*y1;
 }
-
+/*
+ * 1041. 困于环中的机器人
+ */
+public boolean isRobotBounded(String instructions) {
+	int x=0,y=0,direction=0;//北0，东1，南2，西3
+	//四次重复命令来判断是否有环
+	for (int i = 0; i < 4; i++) {
+	for (int j = 0; j < instructions.length(); j++) {
+		char ch=instructions.charAt(j);
+		//往前面走
+		if (ch=='G') {
+			if (direction==0) {
+				y+=1;
+			}else if (direction==1) {
+				x+=1;
+			}else if (direction==2) {
+				y-=1;
+			}else if (direction==3) {
+				x-=1;
+			}
+		//向右转
+		}else if (ch=='R') {
+			direction=(direction+1)%4;
+		//向左转
+		}else if (ch=='L') {
+			direction=(direction+3)%4;
+		}				
+	}	
+	}
+	//如果四次重复命令后回到原点，则说明一定有环
+	if (x==0&&y==0) {
+		return true;
+	}
+	return false;  
+}
 	/**
 	 * 1047. 删除字符串中的所有相邻重复项
 	 * @param args
