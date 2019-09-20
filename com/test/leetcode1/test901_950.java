@@ -173,6 +173,62 @@ public static int numUniqueEmails(String[] emails) {
 	return set.size();    
 }
 /*
+ * 937. 重新排列日志文件
+ */
+public String[] reorderLogFiles(String[] logs) {
+	int len = logs.length;
+	//冒泡排序
+	for(int i = 0; i < len-1; i++){
+	    for(int j = 0; j < len-1-i; j++){
+		String leftStr = logs[j].substring(logs[j].indexOf(" ")+1);
+		String rightStr = logs[j+1].substring(logs[j+1].indexOf(" ")+1);
+		if(isSwap(leftStr, rightStr)){
+		    String tmp = logs[j];
+			logs[j] = logs[j+1];
+			logs[j+1] = tmp;
+		    }
+		}
+	 }
+	return logs;
+    }
+	
+    //是否需要交换
+    public boolean isSwap(String leftStr, String rightStr){
+    //字符串的首字母leftCh、rightCh
+	char leftCh = leftStr.charAt(0), rightCh = rightStr.charAt(0);
+	//右边是字母
+	if(rightCh >= 'a' && rightCh <= 'z'){
+		//左边是数字
+	   if(leftCh >= '0' && leftCh <= '9'){
+	       //1. 左边是数字, 右边是字母, 字母日志要排在数字日志之前, 需要交换
+		return true;
+	     }else if(leftStr.compareTo(rightStr) > 0){
+               //2. 两边都是字母, 没有按字母顺序排列, 需要交换
+	       return true;
+	    }
+	}
+	return false;
+	//Arrays.sort(logs, (log1, log2) -> 表示log1和log2进行比较排序
+//	Arrays.sort(logs, (log1, log2) -> {
+//		//split(" ", 2)表示把标志符和日志符合分开
+//        String[] split1 = log1.split(" ", 2);
+//        String[] split2 = log2.split(" ", 2);
+//        //log1中的标志符第一个字母是否是数字
+//        boolean isDigit1 = Character.isDigit(split1[1].charAt(0));
+//        boolean isDigit2 = Character.isDigit(split2[1].charAt(0));
+//        //如果不是数字
+//        if (!isDigit1 && !isDigit2) {
+//        	//比较两个字符串日志是否一样
+//            int cmp = split1[1].compareTo(split2[1]);
+//            if (cmp != 0) return cmp;
+//            return split1[0].compareTo(split2[0]);
+//        }
+//        return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
+//    });
+  //  return logs;
+}  	
+
+/*
  * 941.有效的山脉数组
  */
 public boolean validMountainArray(int[] A) {

@@ -1,5 +1,12 @@
 package com.test.leetcode2;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 public class test1101_1150 {
 
 	/**
@@ -29,6 +36,39 @@ public class test1101_1150 {
 		}
 		return nums;   
 	}
+
+/*
+ * 1122. 数组的相对排序
+ */
+public int[] relativeSortArray(int[] arr1, int[] arr2) {
+	Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	for (int i = 0; i < arr1.length; i++) {
+		map.put(arr1[i], map.getOrDefault(arr1[i], 0)+1);
+	}
+	int[] res=new int[arr1.length];
+	int j=0;
+	for (int i = 0; i < arr2.length; i++) {
+		for (int k = 0; k < map.get(arr2[i]); k++) {
+			res[j++]=arr2[i];
+		}
+		map.remove(arr2[i]);
+	}
+	List<Integer> mapkey=new ArrayList<>();
+	for(int key:map.keySet()) {
+		mapkey.add(key);		
+	}
+	//对key值排序
+	Collections.sort(mapkey);
+	
+	for (int i = 0; i < mapkey.size(); i++) {
+		for (int k = 0; k < map.get(mapkey.get(i)); k++) {
+			res[j++]=mapkey.get(i);
+		}		
+	}
+	return res;       
+   }
+	
+	
 	/**
 	 * 1137. 第 N 个泰波那契数
 	 * @param n

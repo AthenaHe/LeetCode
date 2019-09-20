@@ -11,6 +11,21 @@ public class TreeNode {
 	      TreeNode(int x) { val = x; }
 	  }
 /*
+ * 754. 到达终点数字
+ */
+public int reachNumber(int target) {
+	target=Math.abs(target);
+	int sum=0;
+	int i=1;
+	while(true) {
+		sum+=i;
+		if (sum>=target&&(sum-target)%2==0) {
+			return i;
+		}
+		i++;  
+	}
+}
+/*
  * 762. 二进制表示中质数个计算置位
  */
 public static int countPrimeSetBits(int L, int R) {
