@@ -43,6 +43,33 @@ public class test001_050 {
 		}
 		return addnum;
 	}
+/*
+ * 2. 两数相加
+ */
+public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+	//创建一个代表头结点的链表
+	ListNode headnode=new ListNode(0);
+	//创建一个指针指向头结点
+	ListNode tmp=headnode;
+	//进位
+	int carry=0;
+	int sum=0;
+	while (l1!=null||l2!=null||carry!=0) {
+		//位数相加+进位
+		int l1val=(l1!=null?l1.val:0);
+		int l2val=(l2!=null?l2.val:0);
+		sum = l1val+l2val+carry;
+		carry=sum/10;
+		
+		//将相加和的值给新结点
+		ListNode sumNode = new ListNode(sum%10);
+		tmp.next=sumNode;
+		tmp=sumNode;
+		if (l1!=null) l1=l1.next;
+		if (l2!=null) l2=l2.next;
+}
+	return headnode.next;        
+    }
 
 	/**
 	 * 7. 整数反转  
