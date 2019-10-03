@@ -6,6 +6,29 @@ import java.util.Iterator;
 import java.util.List;
 
 public class test301_350 {
+/*
+ * 303. 区域和检索 - 数组不可变
+ */
+	private int[] sums;
+	public test301_350(int[] nums) { //public NumArray(int[] nums) 
+        sums=new int[nums.length];
+        if (nums.length==0) {
+			return;
+		}
+        sums[0]=nums[0];
+        for (int i = 1; i < nums.length; i++) {
+			sums[i]=sums[i-1]+nums[i];
+		}
+    }
+    
+    public int sumRange(int i, int j) {
+    	if (i==0) {
+			return sums[j];
+		}else {
+			return sums[j]-sums[i-1];
+		}       
+    }
+	
 	/**
 	 * 326. 3的幂
 	 * @param args

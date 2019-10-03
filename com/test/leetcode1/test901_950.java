@@ -9,8 +9,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class test901_950 {
+import com.test.leetcode1.test001_050.TreeNode;
 
+public class test901_950 {
+ //树结点定义
+public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode(int x) { val = x; }
+  }
 /*
  * 905. 按奇偶排序数组
  */
@@ -226,7 +234,9 @@ public String[] reorderLogFiles(String[] logs) {
 //        return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
 //    });
   //  return logs;
-}  	
+} 
+    
+
 
 /*
  * 941.有效的山脉数组

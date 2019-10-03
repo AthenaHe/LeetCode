@@ -10,6 +10,26 @@ import java.util.Map;
 import java.util.Stack;
 
 public class test551_600 {
+	class Node1 {
+	    public boolean val;
+	    public boolean isLeaf;
+	    public Node1 topLeft;
+	    public Node1 topRight;
+	    public Node1 bottomLeft;
+	    public Node1 bottomRight;
+
+	    public Node1() {}
+
+	    public Node1(boolean _val,boolean _isLeaf,Node1 _topLeft,Node1 _topRight,Node1 _bottomLeft,Node1 _bottomRight) {
+	        val = _val;
+	        isLeaf = _isLeaf;
+	        topLeft = _topLeft;
+	        topRight = _topRight;
+	        bottomLeft = _bottomLeft;
+	        bottomRight = _bottomRight;
+	    }
+	};
+	
 public class TreeNode {
 	 int val;
 	 TreeNode left;
@@ -64,6 +84,31 @@ public String reverseWords(String s) {
 	}
 	return s.substring(0, s.length()-1);        
     }
+
+/*
+ * 558. 四叉树交集
+ */
+public Node1 intersect(Node1 quadTree1, Node1 quadTree2) {
+	if (quadTree1.isLeaf && quadTree1.val) {
+        return quadTree1;
+    } else if (quadTree2.isLeaf && quadTree2.val) {
+        return quadTree2;
+    } else if (quadTree1.isLeaf && !quadTree1.val) {
+        return quadTree2;
+    } else if (quadTree2.isLeaf && !quadTree2.val) {
+        return quadTree1;
+    } else {
+        quadTree1.topLeft = intersect(quadTree1.topLeft, quadTree2.topLeft);
+        quadTree1.topRight = intersect(quadTree1.topRight, quadTree2.topRight);
+        quadTree1.bottomLeft = intersect(quadTree1.bottomLeft, quadTree2.bottomLeft);
+        quadTree1.bottomRight = intersect(quadTree1.bottomRight, quadTree2.bottomRight);
+        if (quadTree1.topLeft.isLeaf && quadTree1.bottomRight.isLeaf && quadTree1.topLeft.isLeaf && quadTree1.topRight.isLeaf && quadTree1.bottomRight.val == quadTree1.bottomLeft.val && quadTree1.topLeft.val == quadTree1.bottomLeft.val && quadTree1.topRight.val == quadTree1.bottomLeft.val) {
+                quadTree1.val=quadTree1.topLeft.val;
+                quadTree1.isLeaf = true;
+        }
+        return quadTree1;
+    }
+}
 
 /*
  * 559. N叉树的最大深度
