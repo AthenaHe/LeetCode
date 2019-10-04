@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class test1151_1200 {
 	/*
@@ -115,6 +117,25 @@ public int dietPlanPerformance(int[] calories, int k, int lower, int upper) {
         }
     }
     return score;
+}
+
+/*
+ * 5205. 独一无二的出现次数
+ */
+public boolean uniqueOccurrences(int[] arr) {
+	Map<Integer, Integer> map = new HashMap<>();
+	for (int i = 0; i < arr.length; i++) {
+		map.put(arr[i], map.getOrDefault(arr[i], 0)+1);
+	}
+	Set<Integer> keyset=new HashSet<>();
+	for(int i:map.keySet()) {
+		keyset.add(i);
+	}
+	Set<Integer> valueset=new HashSet<>();
+	for(int j:map.values()) {
+		valueset.add(j);
+	}
+	return keyset.size()==valueset.size();    
 }
 	public static void main(String[] args) {
 		String[] queries = {"bbh","cc"};

@@ -76,7 +76,9 @@ public static boolean isAlienSorted(String[] words, String order) {
 				return false;
 		}
 		return isUnivalTree(root.left)&&isUnivalTree(root.right);
-	}		
+	}
+
+	
 	/*
 	 * 976.三角形的最大周长 
 	 */

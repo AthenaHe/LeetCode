@@ -260,6 +260,28 @@ public ListNode middleNode(ListNode head) {
 	return slow;    
     }
 /*
+ * 883. 三维形体投影面积
+ */
+public int projectionArea(int[][] grid) {
+	//顶部、前面、侧面的面积
+	int top=0,front=0,side=0;
+	//顶部 如果grid[][]!=0,top++
+	for (int i = 0; i < grid.length; i++) {
+		int maxside=0,maxfront=0;
+		for (int j = 0; j < grid[i].length; j++) {
+			if (grid[i][j]!=0) {
+				top++;
+			}
+			maxside=Math.max(grid[i][j], maxside);
+			maxfront=Math.max(maxfront, grid[j][i]);
+		}
+		side+=maxside;
+		front+=maxfront;
+	}
+	return top+side+front;  
+}
+
+/*
  * 884. 两句话中的不常见单词
  */
 public static String[] uncommonFromSentences(String A, String B) {
