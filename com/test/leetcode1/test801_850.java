@@ -83,6 +83,40 @@ public List<String> subdomainVisits(String[] cpdomains) {
 }
 
 /*
+ * 819. 最常见的单词
+ */
+public String mostCommonWord(String paragraph, String[] banned) {
+			paragraph = paragraph.replace(","," ");
+	        paragraph = paragraph.replace("."," ");
+	        paragraph = paragraph.replace("!"," ");
+	        paragraph = paragraph.replace("?"," ");
+	        paragraph = paragraph.replace(";"," ");
+	        paragraph = paragraph.replace("\""," ");
+	String[] word = paragraph.toLowerCase().split(" ");
+	Map<String, Integer> map = new HashMap<String, Integer>();
+	for (int i = 0; i < word.length; i++) {
+		map.put(word[i], map.getOrDefault(word[i], 0)+1);
+	}
+	if (map.containsKey("")) {
+		map.remove("");
+	}
+	for (int i = 0; i < banned.length; i++) {
+		if (map.containsKey(banned[i])) {
+			map.remove(banned[i]);
+		}		
+	}	
+	int max=0;String res="";
+	for (String w:map.keySet()) {
+		if (map.get(w)>max) {
+			res = w;
+			max=map.get(w);
+		}		
+	}
+	return res;
+    
+}
+
+/*
  * 821. 字符的最短距离
  */
 public static int[] shortestToChar(String S, char C) {

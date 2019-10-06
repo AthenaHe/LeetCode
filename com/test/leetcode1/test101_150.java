@@ -110,6 +110,24 @@ public class test101_150 {
 		}
 	    return results;     
 }
+
+ /*
+  * 112. 路径总和
+  */
+ public boolean hasPathSum(TreeNode root, int sum) {
+	 if (root==null) {
+		return false;
+	}
+	 sum-=root.val;
+	 //如果是叶子结点
+	 if (root.left==null&&root.right==null) {
+		 if (sum==0) {
+			return true;
+		}		
+	}
+	return hasPathSum(root.left, sum)||hasPathSum(root.right, sum);
+ }  
+ 
 /*
  * 118. 杨辉三角 
  */

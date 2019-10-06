@@ -1,7 +1,9 @@
 package com.test.leetcode1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -280,6 +282,26 @@ public class test201_250 {
 	        
 	    }
 	}
+	
+/*
+ * 234. 回文链表
+ */
+ public boolean isPalindrome(ListNode head) {
+	 List<Integer> list=new ArrayList<>();
+	 if (head==null) {
+		return true;
+	}
+	 while (head!=null) {
+		list.add(head.val);
+		head=head.next;		
+	}	 
+	 for (int i = 0,j=list.size()-1; i <=list.size()/2&&j>=list.size()/2; i++,j--) {
+		if (list.get(i).equals(list.get(j))) {
+		return false;
+		}
+	}
+	return true;      
+    }
 	/**
 	 * 237. 删除链表中的节点
 	 * @param node
@@ -306,7 +328,6 @@ public class test201_250 {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

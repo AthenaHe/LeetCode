@@ -4,14 +4,46 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class test151_200 {
-	/**
-	 * 167. 两数之和 II - 输入有序数组 xxxx
-	 * @param numbers 超时了
-	 * @param target
-	 * @return
-	 */
+/*
+ * 155. 最小栈
+ */
+class MinStack {
+ /** initialize your data structure here. */
+	private int min = Integer.MAX_VALUE;
+    private Stack<Integer> stack;
+    /** initialize your data structure here. */
+    public MinStack() {
+        stack = new Stack<>();
+    }
+    public void push(int x) {
+        if(min >= x){
+            stack.push(min);
+            min = x;
+        }
+        stack.push(x);
+    }
+    public void pop() {
+        if(stack.pop() == min){
+            min = stack.pop();
+        }
+    }
+    public int top() {
+      return stack.peek();
+    }
+    public int getMin() {
+        return min;
+    }       
+}
+
+/**
+ * 167. 两数之和 II - 输入有序数组 xxxx
+ * @param numbers 超时了
+ * @param target
+ * @return
+ */
 	public int[] twoSum2(int[] numbers, int target) {
 		int[] index = new int[2];
 		for (int i = 0; i < numbers.length; i++) {

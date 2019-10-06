@@ -202,6 +202,26 @@ for (int i = 0; i < words.length; i++) {
 }
 return count;
 }
+/*
+ * 437. 路径总和 III
+ */
+public int pathSum(TreeNode root, int sum) {
+	if (root==null) {
+		return 0;
+	}
+	return pathSum(root.left, sum)+pathSum(root.right, sum)+Sum(root,sum);
+
+}
+public int Sum(TreeNode root,int sum) {
+	if (root==null) return 0;
+	int count=0;
+	//当递归到最后一个值正好等于和，说明有一条路径
+	if (root.val==sum) {
+		count=1;
+	}
+	return count+Sum(root.left, sum-root.val)+Sum(root.right, sum-root.val);
+	
+}
 
 
 /**
