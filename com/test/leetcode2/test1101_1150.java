@@ -79,6 +79,7 @@ public int numEquivDominoPairs(int[][] dominoes) {
 		//将每个相同的dominos[i][j]放到新数组中进行计数
 		pair[dominoes[i][0]][dominoes[i][1]]++;
 	}
+	//根据对称性，将对角线以上的进行遍历相加
 	for (int i = 1; i <10; i++) {
 		for (int j = i; j <10; j++) {
 			if (i!=j) pair[i][j]+=pair[j][i];
