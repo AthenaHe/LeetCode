@@ -67,8 +67,26 @@ public int[] relativeSortArray(int[] arr1, int[] arr2) {
 	}
 	return res;       
    }
-	
-	
+
+/*
+ * 1128. 等价多米诺骨牌对的数量	
+ */
+public int numEquivDominoPairs(int[][] dominoes) {
+	//1 <= dominoes[i][j] <= 9
+	int[][] pair = new int[10][10];	
+	int count=0;
+	for (int i = 0; i < dominoes.length; i++) {
+		//将每个相同的dominos[i][j]放到新数组中进行计数
+		pair[dominoes[i][0]][dominoes[i][1]]++;
+	}
+	for (int i = 1; i <10; i++) {
+		for (int j = i; j <10; j++) {
+			if (i!=j) pair[i][j]+=pair[j][i];
+			count+=(pair[i][j]*(pair[i][j]-1))/2;
+		}
+	}
+	return count;
+}	
 	/**
 	 * 1137. 第 N 个泰波那契数
 	 * @param n

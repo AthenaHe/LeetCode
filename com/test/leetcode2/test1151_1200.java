@@ -137,6 +137,20 @@ public boolean uniqueOccurrences(int[] arr) {
 	}
 	return keyset.size()==valueset.size();    
 }
+/*
+ * 5213. 玩筹码
+ */
+public int minCostToMoveChips(int[] chips) {
+	int odd = 0, even = 0;
+	for (int i = 0; i < chips.length; i++) {
+		if (chips[i] % 2 == 0) {
+			even++;
+		} else if (chips[i] % 2 != 0) {
+			odd++;
+		}
+	}
+	return Math.min(even, odd);
+}
 	public static void main(String[] args) {
 		String[] queries = {"bbh","cc"};
 		String[] words = {"a","aa","aaa","aaaa"};
