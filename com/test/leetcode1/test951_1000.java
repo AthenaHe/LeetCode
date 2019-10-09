@@ -80,7 +80,7 @@ public static boolean isAlienSorted(String[] words, String order) {
 
 	
 	/*
-	 * 976.三角形的最大周长 
+	 * 976.三角形的最大周长  
 	 */
 	public int largestPerimeter(int[] A) {
 		if (A.length<3) {
