@@ -134,7 +134,6 @@ public int findLUSlength(String a, String b) {
 	}
    return -1;
 }
-
 /*
  * 532. 数组中的K-diff数对
  */
