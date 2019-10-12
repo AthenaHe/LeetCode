@@ -138,6 +138,27 @@ public List<Double> averageOfLevels(TreeNode root) {
 	return list;   
 }
 /*
+ * 643. 子数组最大平均数 I
+ */
+public double findMaxAverage(int[] nums, int k) {
+	double max=0;
+	for (int i = 0; i < k; i++) {
+		max+=nums[i]; 
+	}	
+	for (int i = 1; i < nums.length-k; i++) {
+		double tmp=0;
+		for (int j = i; j < i+k; j++) {
+			tmp+=nums[j];
+		}
+		max=Math.max(max, tmp/k);
+	}
+	return max;
+    
+}
+
+
+
+/*
  * 645. 错误的集合
  */
 public int[] findErrorNums(int[] nums) {

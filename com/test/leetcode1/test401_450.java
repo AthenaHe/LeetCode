@@ -47,9 +47,24 @@ public class test401_450 {
 	        if(root.left != null && root.left.left == null && root.left.right == null){
 	            res += root.left.val;
 	        }
-	        return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right) + res;
-	        
+	        return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right) + res;	        
 	    }
+	 
+/*
+ * 405. 数字转换为十六进制数
+ */
+ public String toHex(int num) {
+	 char [] array = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+     if (num == 0) {
+         return "0";
+     }
+     StringBuilder sb = new StringBuilder();
+     while (num != 0) {
+         sb.append(array[num & 15]);//使用位与,每四位数为一个16进制数
+         num = num >>> 4;	//无符号右移，左边填0
+     }
+     return sb.reverse().toString();
+ }
 /**
  * 409. 最长回文串	 	 
  * @param s

@@ -110,7 +110,23 @@ public class test101_150 {
 		}
 	    return results;     
 }
-
+ 
+ /*
+  * 110. 平衡二叉树
+  */
+ boolean flag=true;
+ public boolean isBalanced(TreeNode root) {
+	 postSearch(root);
+     return flag;
+ }
+ public int postSearch(TreeNode root){
+     if(root==null||!flag) return 0;
+     int left=postSearch(root.left);
+     int right=postSearch(root.right);
+     if(Math.abs(left-right)>1) flag=false;
+     return Math.max(left,right)+1;
+}
+ 
  /*
   * 111. 二叉树的最小深度
   */

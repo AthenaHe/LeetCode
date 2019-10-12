@@ -210,6 +210,7 @@ public int findLengthOfLCIS(int[] nums) {
 	}
 	return max;        
     }
+
 /*
  * 686. 重复叠加字符串匹配 difficult
  */
