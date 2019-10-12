@@ -341,9 +341,6 @@ public TreeNode searchBST(TreeNode root, int val) {
     
 }
 	public static void main(String[] args) {
-	
-		String[] ops={"15","2","C","D","+"};
-		System.out.println(hasAlternatingBits(10));
 
 	}
 
