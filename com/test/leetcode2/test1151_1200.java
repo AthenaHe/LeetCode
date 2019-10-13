@@ -120,6 +120,55 @@ public int dietPlanPerformance(int[] calories, int k, int lower, int upper) {
 }
 
 /*
+ * 1189. “气球” 的最大数量
+ */
+public int maxNumberOfBalloons(String text) {
+	Map<Character, Integer> map = new HashMap<>();
+	for (int i = 0; i < text.length(); i++) {
+		map.put(text.charAt(i), map.getOrDefault(text.charAt(i), 0)+1);
+	}
+	String word = "balloon";
+	int count = Integer.MAX_VALUE;
+	for (int i = 0; i < word.length(); i++) {
+		if (map.containsKey(word.charAt(i))) {
+			int tmp =map.get(word.charAt(i));
+			if (word.charAt(i)=='l'||word.charAt(i)=='o') {
+				tmp/=2; 
+			}
+		   count = Math.min(tmp,count);
+		}else {
+			return 0;
+		}	
+	}	
+	return count;    
+}
+/*
+ * 1200. 最小绝对差
+ */
+public List<List<Integer>> minimumAbsDifference(int[] arr) {	
+	//给数组按升序排序
+	Arrays.sort(arr);
+	int min = Integer.MAX_VALUE;
+	//找到绝对差最小的值
+	for (int i = 0; i < arr.length-1; i++) {
+		min = Math.min(min, Math.abs(arr[i+1]-arr[i]));
+	}
+	List<List<Integer>> res = new ArrayList<>();
+	//如果元素对绝对差值等于最小值，就加入集合中
+	for (int i = 0; i < arr.length-1; i++) {
+		List<Integer> list = new ArrayList<>();
+		if (Math.abs(arr[i+1]-arr[i])==min) {
+			list.add(arr[i]);
+			list.add(arr[i+1]);
+		}
+		if (list.size()!=0) {
+			res.add(list);
+		}		
+	}
+	return res;   
+}
+
+/*
  * 5205. 独一无二的出现次数
  */
 public boolean uniqueOccurrences(int[] arr) {

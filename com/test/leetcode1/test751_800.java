@@ -97,6 +97,26 @@ public static int numJewelsInStones(String J, String S) {
 	}
 	return count;   
 }
+
+/*
+ * 783. 二叉搜索树结点最小距离
+ */
+private TreeNode pre = null;   //pre记录前一节点
+private int res = Integer.MAX_VALUE;
+public int minDiffInBST(TreeNode root) {
+        dfs(root);
+        return res;
+  }
+//中序遍历
+private void dfs(TreeNode root){
+    if(root == null) return;
+    dfs(root.left);
+    if(pre != null){
+        res = Math.min(root.val-pre.val,res);   //记录最小
+    }
+    pre = root;
+    dfs(root.right);
+}
 /*
  * 788. 旋转数字
  *每位都在(2, 5, 6, 9, 0, 1, 8)内，至少一位在(2, 5, 6, 9)内
