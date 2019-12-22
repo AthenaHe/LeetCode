@@ -200,10 +200,10 @@ public int minCostToMoveChips(int[] chips) {
 	}
 	return Math.min(even, odd);
 }
+
+
 	public static void main(String[] args) {
-		String[] queries = {"bbh","cc"};
-		String[] words = {"a","aa","aaa","aaaa"};
-		System.out.println(numPrimeArrangements(100));
+
 	}
 
 }

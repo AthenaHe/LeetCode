@@ -102,12 +102,43 @@ public static boolean wordPattern(String pattern, String str) {
 public boolean canWinNim(int n) {	
 	return n%4!=0;   
 }
-
+/*
+ * 299. 猜数字游戏
+ */
+public static String getHint(String secret, String guess) {
+	Map<Character, Integer> secretMap = new HashMap<>();
+	Map<Character, Integer> guessMap = new HashMap<>();
+	int Acount=0,Bcount=0;
+	for (int i = 0; i < secret.length(); i++) {
+		if (secret.charAt(i)==guess.charAt(i)) {
+			Acount++;
+		}else {
+			secretMap.put(secret.charAt(i), secretMap.getOrDefault(secret.charAt(i), 0)+1);
+			guessMap.put(guess.charAt(i), guessMap.getOrDefault(guess.charAt(i), 0)+1);			
+		}		
+	}
+//	System.out.println("secret");
+//	for (Character key:secretMap.keySet()) {
+//		System.out.println(key+","+secretMap.get(key));
+//	}
+//	System.out.println("guess");
+//	for (Character key:guessMap.keySet()) {
+//		System.out.println(key+","+guessMap.get(key));
+//	}	
+	for (Character key:secretMap.keySet()) {
+		if (guessMap.containsKey(key)) {
+			
+			//System.out.println(key+":"+guessMap.get(key)+","+secretMap.get(key)+","+Math.abs(guessMap.get(key)-secretMap.get(key)));
+		Bcount+=Math.min(guessMap.get(key),secretMap.get(key));
+		}
+	}	
+	return Acount+"A"+Bcount+"B";    
+}
 
 public static void main(String[] args) {
-	String pattern = "abba";
-	String str = "dog cat cat dog";
-	System.out.println(wordPattern(pattern,str));
+	String secret="1123";
+	String guess="0111";
+	System.out.println(getHint(secret, guess));
 }
 
 

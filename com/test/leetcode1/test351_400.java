@@ -114,7 +114,19 @@ public char findTheDifference(String s, String t) {
 	}	
 	return 0;   
 }
-
+/**
+ * 392. 判断子序列
+ */
+public boolean isSubsequence(String s, String t) {
+	int index=-1;
+	for (char c: s.toCharArray()) {
+		//从上次检索到的下一个位置进行检索
+		index=t.indexOf(c, index+1);
+		//检索不到会返回-1，说明t中没有这个字符，就不是子序列了。
+		if (index==-1) return false;
+	}
+	return true;   
+}
 /**
  * 400. 第N个数字 暴力破解导致超时了
  * @param n
