@@ -82,6 +82,32 @@ public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 		return index;
 	    
 	}
+/*
+ * 168. Excel表列名称
+ */
+public static String convertToTitle(int n) {
+	if (n <= 0) {
+        return "";
+    }
+    StringBuilder sb = new StringBuilder();
+    while (n > 0) {
+        n--;
+        sb.append((char) (n % 26 + 'A'));
+        n =n / 26;
+    }
+    return sb.reverse().toString();       
+}
+/*
+ * 171. Excel表列序号
+ */
+public int titleToNumber(String s) {
+	int number = 0;
+	for (int i = 0; i < s.length(); i++) {
+		int tmp= s.charAt(i)-64;
+		number=number*26+tmp;
+	}
+	return number;   
+}
 	/**
 	 * 	169. 求众数->出现次数大于数组元素长度的一半的数
 	 */
@@ -171,9 +197,7 @@ public  static int rob(int[] nums) {
 }
 
 public static void main(String[] args) {
-	int[] A= {5,9,8};
-	int K=987;
-	//addToArrayForm(A,K);
+	convertToTitle(128);
 	
 }
 }
