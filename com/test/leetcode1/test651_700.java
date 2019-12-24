@@ -210,6 +210,30 @@ public int findLengthOfLCIS(int[] nums) {
 	}
 	return max;        
     }
+/*
+ * 680.验证回文字符串 Ⅱ
+ */
+public boolean validPalindrome(String s) {
+	int i=0,j=s.length()-1;
+	while(i<j) {
+		if (s.charAt(i)!=s.charAt(j)) {
+			return isValid(s,i+1,j)||isValid(s,i,j+1);
+		}
+		i++;
+		j--;
+	}
+	return true;   
+}
+//验证子串是否是回文串
+public boolean isValid(String s,int i,int j) {
+	while (i<j) {
+		if (s.charAt(i)!=s.charAt(j)) {
+			return false;
+		}
+		i++;j--;		
+	}
+	return true;
+}
 
 /*
  * 686. 重复叠加字符串匹配 difficult

@@ -63,24 +63,27 @@ public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
     return pA;   
 }
 /**
- * 167. 两数之和 II - 输入有序数组 xxxx
- * @param numbers 超时了
+ * 167. 两数之和 II - 输入有序数组 
+ * @param numbers 
  * @param target
  * @return
  */
 	public int[] twoSum2(int[] numbers, int target) {
+		//二分法
 		int[] index = new int[2];
-		for (int i = 0; i < numbers.length; i++) {
-			for (int j = i+1; j < numbers.length; j++) {
-				if ((numbers[i]+numbers[j])==target) {
-					index[0]=i+1;
-					index[1]=j+1;
-				}
-			}
-		}
-		
-		return index;
-	    
+		int i=0,j=numbers.length-1;
+		while (i<j) {
+			if (numbers[i]+numbers[j]>target) {
+				j--;
+			}else if (numbers[i]+numbers[j]<target) {
+				i++;
+			}else {
+				index[0]=i+1;
+				index[1]=j+1;
+				break;
+			}			
+		}		
+		return index;	    
 	}
 /*
  * 168. Excel表列名称
@@ -97,17 +100,7 @@ public static String convertToTitle(int n) {
     }
     return sb.reverse().toString();       
 }
-/*
- * 171. Excel表列序号
- */
-public int titleToNumber(String s) {
-	int number = 0;
-	for (int i = 0; i < s.length(); i++) {
-		int tmp= s.charAt(i)-64;
-		number=number*26+tmp;
-	}
-	return number;   
-}
+
 	/**
 	 * 	169. 求众数->出现次数大于数组元素长度的一半的数
 	 */
@@ -122,6 +115,17 @@ public int titleToNumber(String s) {
 			return nums[len / 2];
 		}
 	}
+/*
+ * 171. Excel表列序号
+ */
+public int titleToNumber(String s) {
+	int number = 0;
+	for (int i = 0; i < s.length(); i++) {
+		int tmp= s.charAt(i)-64;
+		number=number*26+tmp;
+	}
+	return number;   
+}
 /*
  * 172.阶乘后的零
  */

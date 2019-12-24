@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 public class test101_150 {
 	//链表结构体定义
@@ -213,35 +214,25 @@ public class test101_150 {
 		 	return max;   
 		 }
 
-		 /**
-		  * 125. 验证回文串
-		  * @param s
-		  * @return
-		  */
-		 public static boolean isPalindrome(String s) {	
-		 	String str = "";
-		 	if (s==null||s.length()==0) {
-		 		return true;
-		 	}	
-		 	s=s.toLowerCase();	
-		 	for (int k = 0; k < s.length(); k++) {
-		 		if (s.charAt(k)>='0'&&s.charAt(k)<='9'||s.charAt(k)>='a'&&s.charAt(k)<='z') {
-		 		str+=s.charAt(k);
-		 		}
-		 	}
-		 	int i=0,j=str.length()-1;
-		 	while (i<j) {
-		 		if (str.charAt(i)!=str.charAt(j)) {
-		 			return false;
-		 		}
-		 		i++;
-		 		j--;
-		 		
-		 	}	
-		 	return true;
-		     
-		 }
-		
+ /**
+  * 125. 验证回文串
+  * @param s
+  * @return
+  */
+ public static boolean isPalindrome(String s) {	
+	String aString = "";
+ 	if (s==null||s.length()==0) {
+ 		return true;
+ 	}	
+ 	s=s.toLowerCase();
+ 	for (int i = 0; i < s.length(); i++) {
+ 		if ((s.charAt(i)<='z'&&s.charAt(i)>='a')||s.charAt(i)<='9'&&s.charAt(i)>='0') {
+ 			aString+=s.charAt(i);
+		}		
+	} 	
+ 	String bString = new StringBuffer(aString).reverse().toString();
+	return aString.equals(bString);	    
+ }
 	/**
 	 * 	 136. 只出现一次的数字	 
 	 */ 
