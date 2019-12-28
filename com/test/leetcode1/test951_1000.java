@@ -77,8 +77,22 @@ public static boolean isAlienSorted(String[] words, String order) {
 		}
 		return isUnivalTree(root.left)&&isUnivalTree(root.right);
 	}
-
-	
+/*
+ * 970. 强整数
+ */
+public List<Integer> powerfulIntegers(int x, int y, int bound) {
+	List<Integer> res = new ArrayList<>();   
+    for(int i = 1; i < bound; i=i*x) {
+        for(int j = 1; i+j <= bound ; j=j*y) {
+        	if (!res.contains(i+j)) {
+        		res.add(i+j);
+        		if (y==1) break;
+        }
+        	if (x==1) break;
+        }
+    }
+    return res;        
+  }	
 	/*
 	 * 976.三角形的最大周长  
 	 */

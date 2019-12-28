@@ -139,10 +139,38 @@ public int dominantIndex(int[] nums) {
 	return -1;   
 }
 
+/*
+ * 748. 最短完整词
+ */
+public static String shortestCompletingWord(String licensePlate, String[] words) {
+	List<Character> list = new ArrayList<>();
+	licensePlate=licensePlate.toLowerCase();//将牌照中的大写字母转换成小写
+    //将牌照中的字母放到list集合中
+	for (int i = 0; i < licensePlate.length(); i++) {
+		if (licensePlate.charAt(i)>='a'&& licensePlate.charAt(i)<='z') {
+			list.add(licensePlate.charAt(i));
+		}
+	}
+	int wordlength=Integer.MAX_VALUE;
+	String result="";
+	for (int i = 0; i < words.length; i++) {
+		List<Character> list2=new ArrayList<>(list);
+        //牌照中包含word字母，就把牌照中对应字母删除
+		for (int j = 0; j < words[i].length(); j++) {
+			list2.remove((Character)words[i].charAt(j));
+		}
+        //最终牌照中的字母全部被删除，说明words中的该单词包含牌照中的所有字母，并记录短长度的单词
+		if (list2.size()==0&&words[i].length()<wordlength) {
+			result=words[i];
+			wordlength=words[i].length();
+		}		
+	}	
+	return result;   
+}
 	public static void main(String[] args) {	
 		String licensePlate = "Ah71752";
 		String[] words= {"suggest","letter","of","husband","easy","education","drug","prevent","writer","old"};
-		
+		System.out.println(shortestCompletingWord(licensePlate,words));
 	}
 
 }

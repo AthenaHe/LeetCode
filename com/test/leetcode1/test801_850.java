@@ -203,6 +203,27 @@ public String toGoatLatin(String S) {
 		return A;
 }
 /*
+ * 830. 较大分组的位置	
+ */
+public static List<List<Integer>> largeGroupPositions(String S) {
+	List<List<Integer>> lists = new ArrayList<>();
+	int i=0;
+	while (i<S.length()) {		
+		int j=i;
+		while (j<S.length()&&S.charAt(i)==S.charAt(j)) {
+			j++;
+		}
+			if (j-i>=3) {
+			List<Integer> list = new ArrayList<>();	
+			list.add(i);
+			list.add(j);
+			lists.add(list);
+			}				
+	i=j;
+}	
+	return lists;        
+ }
+/*
  * 836. 矩形重叠 不懂不懂	
  */
 public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
@@ -263,10 +284,8 @@ return max;
 }
 
 	public static void main(String[] args) {
-	int[] a = {1,0,0,0,1};
-	String S="loveleetcode";
-	char C='e';
-	System.out.println(shortestToChar(S,C));
-	}
+		String S="abbxxxxzzy";
+		System.out.println(largeGroupPositions(S));
 
+}
 }
