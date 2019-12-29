@@ -85,35 +85,47 @@ public List<String> subdomainVisits(String[] cpdomains) {
 /*
  * 819. 最常见的单词
  */
-public String mostCommonWord(String paragraph, String[] banned) {
-			paragraph = paragraph.replace(","," ");
-	        paragraph = paragraph.replace("."," ");
-	        paragraph = paragraph.replace("!"," ");
-	        paragraph = paragraph.replace("?"," ");
-	        paragraph = paragraph.replace(";"," ");
-	        paragraph = paragraph.replace("\""," ");
-	String[] word = paragraph.toLowerCase().split(" ");
-	Map<String, Integer> map = new HashMap<String, Integer>();
-	for (int i = 0; i < word.length; i++) {
-		map.put(word[i], map.getOrDefault(word[i], 0)+1);
-	}
-	if (map.containsKey("")) {
-		map.remove("");
-	}
+public static String mostCommonWord(String paragraph, String[] banned) {
+	// 将禁用单词放到list集合中
+	List<String> list = new ArrayList<>();
 	for (int i = 0; i < banned.length; i++) {
-		if (map.containsKey(banned[i])) {
-			map.remove(banned[i]);
-		}		
-	}	
-	int max=0;String res="";
-	for (String w:map.keySet()) {
-		if (map.get(w)>max) {
-			res = w;
-			max=map.get(w);
-		}		
+		list.add(banned[i]);
+	}
+	// paragraph单词们先转换为小写字母，按空格分割放到数组中
+	String[] words = paragraph.toLowerCase().split(" ");
+	// 把paragraph中的纯净单词放到map键值对中，键是单词，值是单词出现的次数
+	Map<String, Integer> map = new HashMap<>();
+	// 过滤掉单词中不是字母的符号,变成纯净的单词数组
+	for (int i = 0; i < words.length; i++) {
+		// System.out.println(":"+words[i]);
+		String tmp = "";
+		for (int j = 0; j < words[i].length(); j++) {
+			if (words[i].charAt(j) >= 'a' && words[i].charAt(j) <= 'z') {
+				tmp += words[i].charAt(j);
+				// 如果最后一个是字母，要判断是否把tmp单词放到map中
+				if (j == words[i].length() - 1) {
+					if (!list.contains(tmp)) {
+						map.put(tmp, map.getOrDefault(tmp, 0) + 1);
+					}
+				}
+			} else {
+				if (!list.contains(tmp)) {
+					map.put(tmp, map.getOrDefault(tmp, 0) + 1);
+				}
+				tmp = "";
+			}
+		}
+	}
+	// 找到出现次数最多的单词
+	int max = Integer.MIN_VALUE;
+	String res = "";
+	for (String word : map.keySet()) {
+		if (max < map.get(word)) {
+			max = map.get(word);
+			res = word;
+		}
 	}
 	return res;
-    
 }
 
 /*
@@ -284,8 +296,6 @@ return max;
 }
 
 	public static void main(String[] args) {
-		String S="abbxxxxzzy";
-		System.out.println(largeGroupPositions(S));
 
 }
 }

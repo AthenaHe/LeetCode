@@ -13,7 +13,26 @@ public class ListNode {
     ListNode next;
     ListNode(int x) { val = x; }
 }
-
+/*
+ * 1221. 分割平衡字符串
+ */
+public int balancedStringSplit(String s) {
+	int balance=0,count=0;
+	//思路：遇到R加1，遇到L减1，当计数为0说明有一个平衡字符串
+	for (int i = 0; i < s.length(); i++) {
+		if (s.charAt(i)=='L') {
+			count++;
+		}
+		if (s.charAt(i)=='R') {
+			count--;
+		}
+		if (count==0) {
+			balance++;
+		}
+	}
+	return balance;
+    
+}
 /*
  * 1232. 缀点成线
  */
@@ -88,6 +107,57 @@ for (int i = 0; i < n; i++) {
 }
 	return res;       
 }
+
+/*
+ * 1260. 二维网格迁移
+ * 将二维数组转换为一维数组，再将所有元素迁移k步，最后再转换二维数组
+ * 题目意思相当于每一次操作是循环右移一维数组
+ */
+public List<List<Integer>> shiftGrid(int[][] grid, int k) {
+	List<List<Integer>> lists = new ArrayList<>();
+	if (grid.length==1) {
+		List<Integer> list = new ArrayList<>();
+		list.add(grid[0][0]);
+		lists.add(list);
+		return lists;
+	}
+		//移动9次是一次循环，数组恢复原样
+		for (int co = 0; co < k % 9; co++) {
+			List<Integer> tmpList = new ArrayList<>();
+			for (int i = grid.length - 1; i >= 0; i--) {
+				for (int j = grid[i].length - 1; j >= 0; j--) {
+					// 保存最后一列的元素
+					if (j == grid[i].length - 1) {
+						tmpList.add(grid[i][j]);
+					}
+					// 位于 grid[i][j] 的元素将会移动到 grid[i][j + 1]
+					if (j-1>=0) {
+						grid[i][j] = grid[i][j - 1];
+					}
+					
+				}
+			}
+			//位于 grid[i][m - 1] 的元素将会移动到 grid[i + 1][0]。
+			//位于 grid[n - 1][m - 1] 的元素将会移动到 grid[0][0]。
+			for (int i = 0; i < grid.length; i++) {
+				if (i == 0) {
+					grid[i][0] = tmpList.get(0);
+				} else {
+					grid[i][0] = tmpList.get(grid.length - i);
+				}
+			}
+		}		
+		// 将新数组放入list集合中并返回
+		for (int i = 0; i < grid.length; i++) {
+			List<Integer> list = new ArrayList<>();
+			for (int j = 0; j < grid[i].length; j++) {
+				list.add(grid[i][j]);
+			}
+			lists.add(list);
+		}
+		return lists;
+}
+
 /*
  * 1266. 访问所有点的最小时间
  */
@@ -156,6 +226,19 @@ public int minTimeToVisitAllPoints(int[][] points) {
         }
         return "Draw";
     }
+/*
+ * 1281. 整数的各位积和之差
+ */
+public int subtractProductAndSum(int n) {
+	String num = String.valueOf(n);
+	int ji = 1,sum=0;
+	for (int i = 0; i < num.length(); i++) {
+		ji*=Integer.parseInt(num.substring(i, i+1));
+		sum+=Integer.parseInt(num.substring(i, i+1));
+	}	
+	return ji-sum;
+        
+}  
 
 /*
  * 1287. 有序数组中出现次数超过25%的元素

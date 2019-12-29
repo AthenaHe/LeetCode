@@ -1,6 +1,7 @@
 package com.test.leetcode2;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,7 +37,19 @@ public class test1101_1150 {
 		}
 		return nums;   
 	}
-
+	
+/*
+ * 1185. 一周中的第几天
+ */
+public String dayOfTheWeek(int day, int month, int year) {
+	String[] week = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	Calendar calendar = Calendar.getInstance();
+	calendar.set(calendar.YEAR, year);
+	calendar.set(calendar.MONTH, month-1);
+	calendar.set(calendar.DAY_OF_MONTH, day);
+	return week[calendar.get(Calendar.DAY_OF_WEEK)-1];      
+}
+	
 /*
  * 1122. 数组的相对排序
  */

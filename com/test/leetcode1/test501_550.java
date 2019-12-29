@@ -134,6 +134,26 @@ public int findLUSlength(String a, String b) {
 	}
    return -1;
 }
+
+/*
+ * 530. 二叉搜索树的最小绝对差
+ */
+private TreeNode pre= null;
+private Integer min = Integer.MAX_VALUE;
+public int getMinimumDifference(TreeNode root) {
+    middleOrderTraverse(root);
+    return min;
+    }   
+public void middleOrderTraverse(TreeNode root){
+    if(root==null) return;
+    middleOrderTraverse(root.left);
+    if(pre != null){
+        if(Math.abs(root.val -pre.val)<min)
+            min=Math.abs(root.val -pre.val);
+    }
+    pre =root;
+    middleOrderTraverse(root.right);
+}
 /*
  * 532. 数组中的K-diff数对
  */
