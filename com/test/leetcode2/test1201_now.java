@@ -1,6 +1,7 @@
 package com.test.leetcode2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -284,6 +285,39 @@ public int findNumbers(int[] nums) {
 	return count; 
 }
 /*
+ * 5134. 将每个元素替换为右侧最大元素
+ */
+public static int[] replaceElements(int[] arr) {
+	List<Integer> list = new ArrayList<>();
+	int max=Integer.MIN_VALUE;
+	for (int i=arr.length-1; i>=0; i--) {
+		if(i==arr.length-1) {
+			list.add(-1);	
+		}else {
+			max = Math.max(max, arr[i+1]);
+			list.add(max);
+		}		
+	}
+	for (int i = 0; i < arr.length; i++) {
+		arr[i] = list.get(arr.length-1-i);
+	}
+	return arr;
+    
+}
+/*
+ * 5295. 和为零的N个唯一整数
+ */
+public int[] sumZero(int n) {
+	int[] res = new int[n];
+	for (int i = 0; i < n/2; i++) {
+		res[i] = i+1;
+		res[n-1-i] = -(i+1);
+	}
+	return res;
+    
+}
+
+/*
  * LCP 1. 猜数字
  */
 public int game(int[] guess, int[] answer) {
@@ -324,7 +358,8 @@ public int game(int[] guess, int[] answer) {
 		return b;	
 	}
 	public static void main(String[] args) {
-	int coordinates[][]= {{1,1},{2,2},{3,4},{5,6},{7,7}};
-	System.out.println(checkStraightLine(coordinates));
+		int[] arr = {17,18,5,4,6,1};
+		replaceElements(arr);
+		
 	}
 }

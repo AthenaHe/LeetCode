@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -345,6 +346,32 @@ for (int i = 0; i < grid.length; i++) {
 }
 return result;
 }
+
+/*
+ * 893. 特殊等价字符串组
+ */
+public int numSpecialEquivGroups(String[] A) {	
+	Set<List<List<Character>>> sets = new HashSet<>();	
+	for (int i = 0; i < A.length; i++) {
+		List<List<Character>> list = new ArrayList<>();
+		List<Character> oddlist = new ArrayList();
+		List<Character> evenlist = new ArrayList();
+		for (int j = 0; j < A[i].length(); j=j+2) {			
+			oddlist.add(A[i].charAt(j));
+			if (j+1<A[i].length()) {
+				oddlist.add(A[i].charAt(j+1));
+			}			
+		}
+		Collections.sort(oddlist);
+		Collections.sort(evenlist);
+		list.add(oddlist);
+		list.add(evenlist);	
+		sets.add(list);
+	}
+	
+	return sets.size();   
+}
+
 /*
  * 896. 单调数列
  */
@@ -365,7 +392,6 @@ for(int i = 1;i < A.length;i++){
 }
 return true; 
 }
-
 	public static void main(String[] args) {
 
 	}
