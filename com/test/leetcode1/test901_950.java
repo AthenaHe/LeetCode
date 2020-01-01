@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import com.test.leetcode1.test001_050.TreeNode;
@@ -181,6 +182,20 @@ public static int numUniqueEmails(String[] emails) {
 	return set.size();    
 }
 /*
+ * 933. 最近的请求次数
+ */
+Queue<Integer> q;
+public test901_950() {
+    q = new LinkedList();
+}
+public int ping(int t) {
+    q.add(t);
+    while (q.peek() < t - 3000)
+        q.poll();
+    return q.size();
+}
+
+/*
  * 937. 重新排列日志文件
  */
 public String[] reorderLogFiles(String[] logs) {
@@ -254,6 +269,43 @@ public boolean validMountainArray(int[] A) {
 		return true;		
 	}	
 	return false;    
+}
+/*
+ *942. 增减字符串匹配 
+ */
+public int[] diStringMatch(String S) {
+	int[] res = new int[S.length()+1];
+	int left=0,right=S.length();
+    int i=0;
+	while(i<S.length()) {
+	if (S.charAt(i)=='I') {
+		res[i]=left;
+		left++;
+	}else {
+		res[i]=right;
+		right--;
+	}
+	i++;
+	}
+    res[S.length()]=left;
+	return res;  
+}
+/*
+ * 944. 删列造序
+ */
+public int minDeletionSize(String[] A) {
+	int res=0;
+	//数组转置
+	for (int i = 0; i < A[0].length(); i++) {
+		for (int j = 1; j < A.length; j++) {
+			if (A[j-1].charAt(i)>A[j].charAt(i)) {
+				res++;
+				break;
+			}
+		}
+	}
+	return res;
+    
 }
 
 	public static void main(String[] args) {

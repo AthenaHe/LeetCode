@@ -191,7 +191,12 @@ void help(TreeNode root,String s){
   help(root.left,s);
   help(root.right,s);
 }
-
+/*
+ * 1025. 除数博弈
+ */
+public boolean divisorGame(int N) {
+	return ((N & 1) == 0);    
+}
 /*
  * 1029.两地调度
  */

@@ -2,9 +2,12 @@ package com.test.leetcode1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class test701_750 {
 /*
@@ -52,6 +55,25 @@ public boolean isOneBitCharacter(int[] bits) {
 	        }
 	        return start == bits.length-1;  
 }
+/*
+ * 720. 词典中最长的单词
+ */
+public String longestWord(String[] words) {
+	//对数组排序，再利用Set对字母存储，小的单词一定包含在后面大的单词里面。后面只需要取前缀相同的
+    //对字母排序后，第一个单词一定是共有的，后面只需在此基础上添加
+    Arrays.sort(words);
+    Set<String> set = new HashSet<>();
+    String res = "";
+    for (String s : words) {
+        //如果单词只有一个字母，那一定是共有的
+        if (s.length() == 1 || set.contains(s.substring(0, s.length() - 1))) {
+            res = s.length() > res.length() ? s : res;
+            set.add(s);
+        }
+    }
+    return res;
+}
+
 
 /*
  * 724. 寻找数组的中心索引

@@ -73,6 +73,18 @@ public class test451_500 {
 	 return s.length()>1&&(s+s).indexOf(s, 1)!=s.length();       
    }
  
+/*
+ * 461. 汉明距离
+ */
+ public int hammingDistance(int x, int y) {
+	    int z = x ^ y;
+		int sum = 0;
+		while (z!=0){
+			sum += z & 1;
+			z = z>>1;
+		}
+		return sum;   
+	    }
 	/*
 	 * 463. 岛屿的周长 有点繁琐，但结果正确
 	 */
@@ -211,6 +223,28 @@ public int[] nextGreaterElement(int[] nums1, int[] nums2) {
 	return result;    
 }
 
+/*
+ * 500. 键盘行
+ */
+public String[] findWords(String[] words) {
+	if(words==null||words.length==0) return new String[0];
+    //用长度为26的数组标识每个字母所在的行号
+    int[] map = {2,3,3,2,1,2,2,2,1,2,2,2,3,3,1,1,1,1,2,1,1,3,1,3,1,3};
+    List<String> list = new ArrayList<String>();
+    for(String word:words){
+        int temp = map[word.toUpperCase().charAt(0)-65];
+        boolean flag = true;
+        //通过与首字母比较行号确定是否在同一行
+        for(int i=1;i<word.length();i++){
+            if(temp != map[word.toUpperCase().charAt(i)-65]){
+                flag = false;
+                break;
+            }
+        }
+        if(flag) list.add(word);
+    }
+    return list.toArray(new String[list.size()]);    
+}
 	
 	public static void main(String[] args) {
 		int nums = 100;
