@@ -2,6 +2,7 @@ package com.test.leetcode1;
 
 import java.awt.image.RescaleOp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -129,6 +130,28 @@ public class test451_500 {
 
 		return perimeter;
 	}
+/*
+ * 475. 供暖器
+ */
+ public int findRadius(int[] houses, int[] heaters) {
+	Arrays.sort(houses);
+	Arrays.sort(heaters);
+	int radius = 0,i=0;
+	for (int house:houses) {
+	//找到房子右边第一个供暖器
+	while(i<heaters.length&&heaters[i]<house) {
+		i++;
+	}
+	if (i==0) {
+		radius = Math.max(radius,heaters[i]-house);
+	}else if(i==heaters.length){
+		radius = Math.max(radius, houses[houses.length-1] - heaters[i-1]);
+	}else {
+		radius = Math.max(radius, Math.min(house-heaters[i-1],heaters[i]-house));
+	}
+}
+	return radius;        
+    }
 /*
  * 476. 数字的补数
  */

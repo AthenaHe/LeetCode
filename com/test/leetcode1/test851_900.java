@@ -138,6 +138,27 @@ while (i<str.length()) {
 return max;    
 }
 /*
+ * 872. 叶子相似的树
+ */
+
+public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+	List<Integer> list1 = new ArrayList<>();
+	List<Integer> list2 = new ArrayList<>(); 
+	isLeaf(root1, list1);
+	isLeaf(root2, list2);
+	return list1.equals(list2);    
+}
+public void isLeaf(TreeNode root,List<Integer> list) {
+	if (root==null) {
+		return;
+	}
+	isLeaf(root.left, list);
+	if (root.left==null&&root.right==null) {
+		list.add(root.val);
+	}
+	isLeaf(root.right, list);	
+}
+/*
  * 874.模拟行走的机器人 difficult
  */
 public int robotSim(int[] commands, int[][] obstacles) {
@@ -392,6 +413,32 @@ for(int i = 1;i < A.length;i++){
 }
 return true; 
 }
+
+/*
+ * 897. 递增顺序查找树 
+ * 难
+ */
+TreeNode headNode;
+public TreeNode increasingBST(TreeNode root) {
+	if (root==null) {
+		return null;
+	}
+	root.right=increasingBST(root.right);
+	if (root.left!=null) {
+		TreeNode node = root.left;
+		root.left=null;
+		headNode = node;
+		while(node.right!=null) {
+			node=node.right;
+		}
+		node.right=root;
+		return increasingBST(headNode);
+	}else {
+		return root;
+	}   
+}
+
+
 	public static void main(String[] args) {
 
 	}

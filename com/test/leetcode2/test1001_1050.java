@@ -300,6 +300,21 @@ public boolean isRobotBounded(String instructions) {
 	}
 	return false;  
 }
+/*
+ * 1046. 最后一块石头的重量
+ */
+public int lastStoneWeight(int[] stones) {
+	if (stones.length==1) {
+		return stones[0];
+	}
+	Arrays.sort(stones);
+	for (int j = 0; j < stones.length; j++) {
+	stones[stones.length-1]=stones[stones.length-1]-stones[stones.length-2];
+	stones[stones.length-2]=0;
+	Arrays.sort(stones);		
+	}
+	return stones[stones.length-1];   
+}
 	/**
 	 * 1047. 删除字符串中的所有相邻重复项
 	 * @param args

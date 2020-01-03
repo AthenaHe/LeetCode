@@ -231,7 +231,46 @@ public TreeNode DFS(int[] nums, int left, int right){
 		 	}	
 		 	return max;   
 		 }
-
+/*
+ *122. 买卖股票的最佳时机 II 
+ */
+ public static int maxProfit1(int[] prices) {
+	 if (prices.length<2) {
+			return 0;
+	}	 
+	 int buy=prices[0],sell=prices[prices.length-1];
+	 int profit=0;
+	if (prices[0]>prices[1]) {
+		buy=0;
+	}else{
+        buy=prices[0];
+    }
+	 //数组就像一条折线，每次在最低点买入，最高点卖出
+	 int i=1;
+	 while(i<prices.length-1) {		 
+		if (prices[i-1]>prices[i]&&prices[i]<=prices[i+1]) {
+			buy=prices[i];
+            System.out.println("buy:"+buy);
+		}else if (prices[i-1]<=prices[i]&&prices[i]>prices[i+1]) {
+			sell = prices[i];
+             System.out.println("sell:"+sell);
+			profit+=(sell-buy);
+            System.out.println("profit:"+profit);
+            buy=0;
+		}
+        i++;
+	}
+	 System.out.println("lastbuy:"+buy);
+ 	if (prices[prices.length-1]<prices[prices.length-2]) {
+ 		sell=0;
+ 	}else{
+         sell=prices[prices.length-1];
+     }
+ 	System.out.println("lastsell:"+sell);
+	 	profit+=(sell-buy);
+		return profit>0?profit:0;   
+}   
+		 
  /**
   * 125. 验证回文串
   * @param s
@@ -277,6 +316,9 @@ public TreeNode DFS(int[] nums, int left, int right){
 	return false;       
     }
  
- 
+ public static void main(String[] args) {
+	int[] prices = {2,9,2,3,8,1,5,8,4,3,6,4,4};
+	maxProfit1(prices);
+ }
  
 }

@@ -2,8 +2,12 @@ package com.test.leetcode1;
 
 import java.awt.image.RescaleOp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+
 
 public class test651_700 {
 	public class TreeNode {
@@ -372,7 +376,52 @@ public int countBinarySubstrings1(String s) {
     }
     return res;   
 }
-
+/*
+ *697. 数组的度 
+ */
+public static int findShortestSubArray(int[] nums) {
+	Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	//统计数组中每个元素出现的次数
+	for (int i = 0; i < nums.length; i++) {
+		map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
+	}
+	int max = 0;
+	List<Integer> list = new ArrayList<>();
+	//找到最大的度
+	for(int key:map.keySet()) {
+		System.out.println("key:"+key+",value:"+map.get(key));
+		max = Math.max(max, map.get(key));
+	}
+	System.out.println(max);
+	//找到最大的度对应的元素
+	for (int key:map.keySet()) {
+	if (map.get(key)==max) {
+		list.add(key);
+	}
+}
+	int len=Integer.MAX_VALUE;
+	//找到最大度元素中最短的子数组长度
+	for (int li:list) {
+		System.out.println("li:"+li);
+		
+		int i=0,j=nums.length-1;
+		while(i<=j) {
+		if (nums[i]!=li) {
+			i++;
+		}
+		if (nums[j]!=li) {
+			j--;
+		}
+		if (nums[i]==li&&nums[j]==li) {
+			System.out.println("i:"+i+",j:"+j);
+			len = Math.min(len, j-i+1);
+			break;
+	}	
+		}		
+	}	
+	System.out.println("len:"+len);
+	return len;    
+}
 /*
  * 700. 二叉搜索树中的搜索
  */
@@ -391,7 +440,8 @@ public TreeNode searchBST(TreeNode root, int val) {
     
 }
 	public static void main(String[] args) {
-
+		int[] nums = {1,3,2,2,3,1};
+		findShortestSubArray(nums);
 	}
 
 }

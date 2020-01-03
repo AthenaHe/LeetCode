@@ -2,7 +2,9 @@ package com.test.leetcode1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -108,7 +110,28 @@ public class test201_250 {
 	      }
 	      return count;
 	  }
-	
+/*
+ * 205. 同构字符串	
+ */
+  public boolean isIsomorphic(String s, String t) {
+	if (s.length()!=t.length()) {
+		return false;
+	}
+	 HashMap<Character, Character> map = new HashMap<>();
+	 for (int i = 0; i < s.length(); i++) {
+		if (map.containsKey(s.charAt(i))) {
+			if (map.get(s.charAt(i))!=t.charAt(i)) {
+				return false;
+			}
+		}else {
+			if (map.containsValue(t.charAt(i))) {
+				return false;
+			}
+			map.put(s.charAt(i), t.charAt(i));
+		}
+	}
+	 return true;
+    }
 	/**
 	 * 206. 反转链表
 	 * @param head

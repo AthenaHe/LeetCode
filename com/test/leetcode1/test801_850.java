@@ -244,6 +244,51 @@ public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
             rec1[0] >= rec2[2] ||   // right
             rec1[1] >= rec2[3]);    // top
     }
+/*
+ * 840. 矩阵中的幻方
+ */
+public int numMagicSquaresInside(int[][] grid) {
+	if (grid.length<3||grid[0].length<3) {
+		return 0;
+	}
+	int count=0;
+		for (int i = 1; i < grid.length-1; i++) {
+			for (int j = 1; j < grid[0].length-1; j++) {
+				if (grid[i][j]!=5) continue;
+				if (isMagicSquare(grid, i, j)) {
+					count++;
+				}
+			}
+		}
+	return count;	
+}
+public boolean isMagicSquare(int[][] grid,int i,int j) {
+	Set<Integer> set = new HashSet<>();
+	for (int p = i-1; p < i+2; p++) {
+		for (int q = j-1; q < j+2; q++) {
+			set.add(grid[p][q]);
+		}
+	}	
+	if (set.size()!=9) {
+		return false;
+	}
+	for (int k = 1; k <=9; k++) {
+		if (!set.contains(k)) {
+			return false;
+		}
+	}
+	//行
+	if (grid[i-1][j-1]+grid[i-1][j]+grid[i-1][j+1]==15&&
+		grid[i][j-1]+grid[i][j]+grid[i][j+1]==15&&
+		grid[i+1][j-1]+grid[i+1][j]+grid[i+1][j+1]==15&&
+		grid[i-1][j-1]+grid[i][j-1]+grid[i+1][j-1]==15&&
+		grid[i-1][j]+grid[i][j]+grid[i+1][j]==15&&
+		grid[i-1][j+1]+grid[i][j+1]+grid[i+1][j+1]==15&&
+		grid[i-1][j-1]+grid[i][j]+grid[i+1][j+1]==15&&
+		grid[i+1][j-1]+grid[i][j]+grid[i-1][j+1]==15
+		) return true;
+	return false;	
+}
 
 /*
  * 844. 比较含退格的字符串 

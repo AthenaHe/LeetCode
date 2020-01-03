@@ -68,6 +68,18 @@ public static int countCharacters(String[] words, String chars) {
     return sum;
     }
 /*
+ * 1071. 字符串的最大公因子
+ */
+public String gcdOfStrings(String str1, String str2) {
+	if ((str1+str2).equals(str2+str1)) {
+		return str1.substring(0, gcdstrlen(str1.length(), str2.length()));
+	}
+	return "";
+}
+public int gcdstrlen(int a,int b) {
+	return a==0?b:gcdstrlen(b%a, a);
+}
+/*
  * 1175. 质数排列
  */
 public static int numPrimeArrangements(int n) {
