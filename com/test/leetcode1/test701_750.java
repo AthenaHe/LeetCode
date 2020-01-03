@@ -31,6 +31,43 @@ public static int search(int[] nums, int target) {
 	return -1;        
     }
 /*
+ * 706. 设计哈希映射
+ */
+List<int []> list;
+/** Initialize your data structure here. */
+public test701_750() {
+	list= new ArrayList<>();
+}
+
+/** value will always be non-negative. */
+public void put(int key, int value) {
+	remove(key);
+	int s[] = new int[2];
+	s[0] = key;
+	s[1] = value;
+	list.add(s);	
+}
+
+/** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+public int get(int key) {
+	for (int[] s:list) {
+		if (s[0]==key) {
+			return s[1];
+		}
+	}
+	return -1;   
+}
+
+/** Removes the mapping of the specified value key if this map contains a mapping for the key */
+public void remove(int key) {
+	for (int[] s:list) {
+		if (s[0]==key) {
+			list.remove(s);
+			break;
+		}
+	} 
+}
+/*
  * 709. 转换成小写字母
  */
 public static  String toLowerCase(String str) {

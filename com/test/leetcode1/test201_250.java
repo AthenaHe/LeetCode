@@ -2,9 +2,11 @@ package com.test.leetcode1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 public class test201_250 {
@@ -21,7 +23,26 @@ public class test201_250 {
 		      TreeNode right;
 		      TreeNode(int x) { val = x; }
 		  }
-	  
+/*
+ * 202. 快乐数	  
+ */
+	public boolean isHappy(int n) {
+		Set<Integer> set = new HashSet<>();
+		set.add(n);
+		while (n!=1) { 
+	    String numString=String.valueOf(n);
+	    n=0;
+	    for (int i = 0; i < numString.length(); i++) {
+	        n+=Math.pow(Integer.parseInt(numString.substring(i, i+1)),2);
+	    }
+	    if (set.contains(n)) {
+	        return false;
+	    }else {
+	        set.add(n);
+	    }						
+	}
+	return true;      
+    }
 	  /**
 	   * 	203. 移除链表元素
 	   * @param head 指向首结点

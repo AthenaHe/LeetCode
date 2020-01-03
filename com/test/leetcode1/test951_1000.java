@@ -260,6 +260,71 @@ public static List<Integer> addToArrayForm(int[] A, int K) {
 		}
 		return -1;
 	}
+/*
+ * 999. 车的可用捕获量
+ */
+public int numRookCaptures(char[][] board) {
+	int pigi=0,pigj=0,count=0;
+	//先定位车的位置
+	for (int i = 0; i < board.length; i++) {
+		for (int j = 0; j < board[i].length; j++) {
+		if (board[i][j]=='R') {
+			pigi=i;
+			pigj=j;
+			break;
+			}	
+		}	
+	}
+	//向左移动
+	for (int i=pigi-1;i>=0;i--) {
+		//遇到白象,跳出循环
+		if (board[i][pigj]=='B') {
+			break;
+		}
+		//遇到黑卒，计数加1，跳出循环
+		if (board[i][pigj]=='p') {
+			count++;
+			break;
+		}
+	}
+	//向右移动
+		for (int i=pigi+1;i<8;i++) {
+			//遇到白象,跳出循环
+			if (board[i][pigj]=='B') {
+				break;
+			}
+			//遇到黑卒，计数加1，跳出循环
+			if (board[i][pigj]=='p') {
+				count++;
+				break;
+			}
+		}
+		//向下移动
+		for (int j=pigj+1;j<8;j++) {
+			//遇到白象,跳出循环
+			if (board[pigi][j]=='B') {
+				break;
+			}
+			//遇到黑卒，计数加1，跳出循环
+			if (board[pigi][j]=='p') {
+				count++;
+				break;
+			}
+		}
+		//向下移动
+		for (int j=pigj-1;j>=0;j--) {
+			//遇到白象,跳出循环
+			if (board[pigi][j]=='B') {
+				break;
+			}
+			//遇到黑卒，计数加1，跳出循环
+			if (board[pigi][j]=='p') {
+				count++;
+				break;
+			}
+		}		
+	return count;        
+    }
 public static void main(String[] args) {
 	String[] words = {"hello","leetcode"};
 	String order = "hlabcdefgijkmnopqrstuvwxyz";

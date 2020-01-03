@@ -118,6 +118,37 @@ private void dfs(TreeNode root){
     dfs(root.right);
 }
 /*
+ * 784. 字母大小写全排列
+ */
+public List<String> letterCasePermutation(String S) {
+	List<String> res = new ArrayList<>();
+	S=S.toLowerCase();
+	List<StringBuilder> tmpList = new ArrayList<>();
+	tmpList.add(new StringBuilder());
+	System.out.println(tmpList.size());
+	for (int i = 0; i < S.length(); i++) {
+		int size = tmpList.size();
+		if (S.charAt(i)>='a'&&S.charAt(i)<='z') {
+			for (int j = 0; j < size; j++) {
+				tmpList.add(new StringBuilder(tmpList.get(j)));
+				tmpList.get(j).append(S.charAt(i));
+				tmpList.get(j+size).append(Character.toUpperCase(S.charAt(i)));
+			}
+			
+		}else {
+			for (int j = 0; j < size; j++) {
+				tmpList.get(j).append(S.charAt(i));
+			}
+			
+		}
+	}
+	for (StringBuilder sb:tmpList) {
+		res.add(sb.toString());
+	}	
+	return res;	
+}
+
+/*
  * 788. 旋转数字
  *每位都在(2, 5, 6, 9, 0, 1, 8)内，至少一位在(2, 5, 6, 9)内
 */

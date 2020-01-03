@@ -234,7 +234,33 @@ public boolean isValid(String s,int i,int j) {
 	}
 	return true;
 }
-
+/*
+ * 682. 棒球比赛
+ */
+public int calPoints(String[] ops) {
+	List<Integer> list = new ArrayList<>();
+	for (int i = 0; i < ops.length; i++) {
+	switch (ops[i]) {
+	case "+":
+		list.add(list.get(list.size()-1)+list.get(list.size()-2));
+		break;
+	case "D":
+		list.add(list.get(list.size()-1)*2);
+		break;
+	case "C":
+		list.remove(list.size()-1);
+		break;
+	default:
+		list.add(Integer.parseInt(ops[i]));
+		break;
+	}
+	}
+	int sum=0;
+	for (int i = 0; i < list.size(); i++) {
+		sum+=list.get(i);
+	}
+	return sum;   
+}
 /*
  * 686. 重复叠加字符串匹配 difficult
  */
