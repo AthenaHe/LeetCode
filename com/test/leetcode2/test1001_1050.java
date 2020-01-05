@@ -218,6 +218,24 @@ public int twoCitySchedCost(int[][] costs) {
 	return res;
     
 }
+/*
+ * 1030. 距离顺序排列矩阵单元格
+ */
+public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
+	int[][] res = new int[R*C][2];
+	res[0][0]=r0;res[0][1]=c0;
+	int i=r0,j=c0;
+	int k=1,p=1;
+	while(j-p>=0||i-p>=0||j+p<C||i+p<R) {
+	if(j-p>=0) {res[k][1]=i;res[k++][1]=j-p;}
+	if(i-p>=0) {res[k][0]=i-p;res[k++][1]=j;}
+	if(j+p<C) {res[k][0]=i;res[k++][1]=j+p;}
+	if(i+p<R) {res[k][0]=i+p;res[k++][1]=j;}
+	p++;
+	}	
+	return res;
+    
+}
 
 /*
  * 1033. 移动石子直到连续

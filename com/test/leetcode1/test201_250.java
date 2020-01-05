@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -346,6 +347,24 @@ public class test201_250 {
 	}
 	return true;      
     }
+ /*
+  * 235. 二叉搜索树的最近公共祖先
+  */
+ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+	 if (p.val==root.val){
+         return p;
+     } 
+     if (q.val==root.val){
+         return q;
+     }
+     if (p.val > root.val && q.val > root.val) {
+         return lowestCommonAncestor(root.right,p,q);
+     }else if (p.val < root.val && q.val < root.val) {
+         return lowestCommonAncestor(root.left,p,q);
+     }else{
+         return root;
+     }   
+ }
 	/**
 	 * 237. 删除链表中的节点
 	 * @param node

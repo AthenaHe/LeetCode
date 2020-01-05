@@ -3,6 +3,7 @@ package com.test.leetcode2;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -67,6 +68,50 @@ public static int countCharacters(String[] words, String chars) {
 	}
     return sum;
     }
+/*
+ * 1170. 比较字符串最小字母出现频次
+ */
+public int[] numSmallerByFrequency(String[] queries, String[] words) {
+	//把词汇表中每个单词的最小字母频次计算出来放到list中并排序
+    List<Integer> list = new ArrayList<>();
+	for (int i = 0; i < words.length; i++) {
+		list.add(countFrequency(words[i]));
+	}
+	Collections.sort(list);
+    //寻找f(queries[i]) < f(W) 的词的数目
+    List<Integer> resList = new ArrayList<>();
+	for (int i = 0; i < queries.length; i++) {
+		int count=0;
+		for(int j=list.size()-1;j>=0;j--) {
+			if (countFrequency(queries[i])<list.get(j)) {
+				count++;
+			}else {
+				break;
+			}			
+		}
+			resList.add(count);		
+	}
+    //list转换成数组返回
+	int[] res=new int[resList.size()];
+	for (int i=0;i<resList.size();i++) {
+		res[i] = resList.get(i);
+	}
+	return res;    
+}
+//计算一个字符串中最小字母出现频次
+public int countFrequency(String str) {
+	char[] a = str.toCharArray();
+	Arrays.sort(a);
+	int count=1;
+	for (int i = 1; i < a.length; i++) {
+		if (a[i]==a[0]) {
+			count++;
+		}else {
+			break;
+		}
+	}
+	return count;
+}
 /*
  * 1071. 字符串的最大公因子
  */

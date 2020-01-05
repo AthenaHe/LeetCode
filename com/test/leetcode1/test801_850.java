@@ -1,5 +1,6 @@
 package com.test.leetcode1;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -80,6 +81,27 @@ public List<String> subdomainVisits(String[] cpdomains) {
 		list.add(map.get(res) + " " + res);
 	}
 	return list;
+}
+/*
+ * 812. 最大三角形面积
+ */
+public  double largestTriangleArea(int[][] points) {
+	int N = points.length;
+    double ans = 0;
+    for (int i = 0; i < N; ++i)
+        for (int j = i+1; j < N; ++j)
+            for (int k = j+1; k < N; ++k)
+                ans = Math.max(ans, area(points[i], points[j], points[k]));
+    return ans;
+}
+
+public double area(int[] P, int[] Q, int[] R) {
+    return 0.5 * Math.abs(P[0]*Q[1] + Q[0]*R[1] + R[0]*P[1]
+                         -P[1]*Q[0] - Q[1]*R[0] - R[1]*P[0]);
+}
+//求两点之间的边长
+public static  double getLength(int[] point1,int[] point2) {
+	return Math.sqrt(Math.pow(point1[0]-point2[0],2)+Math.pow(point1[1]-point2[1],2));
 }
 
 /*
@@ -341,6 +363,5 @@ return max;
 }
 
 	public static void main(String[] args) {
-
 }
 }

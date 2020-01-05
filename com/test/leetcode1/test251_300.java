@@ -1,9 +1,42 @@
 package com.test.leetcode1;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class test251_300 {
+//树结点定义
+		public class TreeNode {
+		      int val;
+		      TreeNode left;
+		      TreeNode right;
+		      TreeNode(int x) { val = x; }
+		  }
+/*
+ * 257. 二叉树的所有路径
+ */
+public List<String> binaryTreePaths(TreeNode root) {
+	List<String> list = new ArrayList<>();
+	if (root==null) {
+		return list;
+	} 
+	solve(root, "", list);
+	return list;
+ }
+public void solve(TreeNode root,String cur,List<String> res) {
+	if (root==null) {
+		return;
+	}
+	cur+=root.val;
+	if (root.left==null&&root.right==null) {
+		res.add(cur);
+	}else {
+		solve(root.left, cur+"->", res);
+		solve(root.right, cur+"->", res);
+	}
+}
+
 	/**
 	 * 258. 各位相加
 	 * @param num

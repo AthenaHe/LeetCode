@@ -264,7 +264,7 @@ public TreeNode DFS(int[] nums, int left, int right){
  	if (prices[prices.length-1]<prices[prices.length-2]) {
  		sell=0;
  	}else{
-         sell=prices[prices.length-1];
+        sell=prices[prices.length-1];
      }
  	System.out.println("lastsell:"+sell);
 	 	profit+=(sell-buy);
