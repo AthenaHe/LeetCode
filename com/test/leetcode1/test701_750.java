@@ -10,6 +10,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class test701_750 {
+
+/*
+ *703. 数据流中的第K大元素 
+ */
+	List<Integer> relist = new ArrayList<>();
+	int k;
+	public test701_750(int k, int[] nums) {
+		this.k = k;
+		for (int i = 0; i < nums.length; i++) {
+			relist.add(nums[i]);
+		}
+		Collections.sort(relist);	
+    }
+    public int add(int val) {
+    	relist.add(val);
+    	Collections.sort(relist);  	
+		return relist.get(relist.size()-k);    
+    }
 /*
  * 704. 二分查找
  */
@@ -130,7 +148,6 @@ public int pivotIndex(int[] nums) {
 	return -1;
     
 }
-
 /*
  * 728. 自除数
  */
@@ -154,6 +171,32 @@ public static List<Integer> selfDividingNumbers(int left, int right) {
 	return list;   
 }
 
+/*
+ * 733. 图像渲染
+ */
+public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+	int orign_color = image[sr][sc];
+	fillNewColor(image, sr, sc, orign_color, newColor);
+	return image;      
+}
+public void fillNewColor(int[][] image, int sr, int sc,int orign_color, int newColor) {
+	if (image[sr][sc]==newColor||image[sr][sc]!=orign_color) {
+		return;
+	}
+	image[sr][sc] = newColor;	
+	if (sr>0) {
+		fillNewColor(image, sr-1, sc, orign_color, newColor);
+	}
+	if(sr<image.length-1) {
+		fillNewColor(image, sr+1, sc, orign_color, newColor);
+	}
+	if (sc>0) {
+		fillNewColor(image, sr, sc-1, orign_color, newColor);
+	}
+	if (sc<image[0].length-1) {
+		fillNewColor(image, sr, sc+1, orign_color, newColor);
+	}	
+}
 /*
  * 744. 寻找比目标字母大的最小字母
  */

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 public class test1101_1150 {
 
@@ -38,6 +39,32 @@ public class test1101_1150 {
 		return nums;   
 	}
 	
+/*
+ * 1114. 按序打印	
+ */
+public Semaphore two = new Semaphore(0);
+public Semaphore three = new Semaphore(0);
+public test1101_1150() {
+    
+}
+public void first(Runnable printFirst) throws InterruptedException {
+    // printFirst.run() outputs "first". Do not change or remove this line.
+    printFirst.run();
+    two.release();
+}
+
+public void second(Runnable printSecond) throws InterruptedException {
+    two.acquire();
+    // printSecond.run() outputs "second". Do not change or remove this line.
+    printSecond.run();
+    three.release();
+}
+
+public void third(Runnable printThird) throws InterruptedException {
+    three.acquire();
+    // printThird.run() outputs "third". Do not change or remove this line.
+    printThird.run();
+}
 /*
  * 1185. 一周中的第几天
  */

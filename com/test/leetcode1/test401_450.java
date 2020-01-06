@@ -35,11 +35,38 @@ public class test401_450 {
 		        children = _children;
 		    }
 		};
-	/**
-	 * 404. 左叶子之和
-	 * @param root
-	 * @return
-	 */
+/*
+ * 401. 二进制手表
+ */
+ public List<String> readBinaryWatch(int num) {
+	 List<String> list = new ArrayList<>();
+	 //暴力破解，直接循环遍历
+	 for (int i = 0; i < 12; i++) {
+		for (int j = 0; j < 60; j++) {
+			if(count_1(i)+count_1(j)==num)
+				list.add(i+":"+(j<10?"0"+j:j));
+		}
+	}
+	return null;        
+    }
+ //计算二进制中1的个数
+ int count_1(int n) {
+	 int res = 0;
+	 while (n!=0) {
+		 if ((n & 1) == 1) {
+			 res++;
+         }
+         n = n >> 1;
+		
+	}
+	return res;
+ }
+ 
+/**
+ * 404. 左叶子之和
+ * @param root
+ * @return
+ */
 	 public int sumOfLeftLeaves(TreeNode root) {
 		 if(root == null) return 0;
 	        int res = 0;

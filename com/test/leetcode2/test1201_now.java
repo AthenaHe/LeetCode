@@ -316,7 +316,34 @@ public int[] sumZero(int n) {
 	return res;
     
 }
-
+/*
+ * 5303. 解码字母到整数映射
+ */
+public String freqAlphabets(String s) {
+	Map<String, Character> map = new HashMap<>();
+	String res = "";
+	for (int i = 1; i <= 26; i++) {
+		if(i<10) {
+		map.put(i+"", (char) ('a'+i-1));
+		}else {
+		map.put(i+"#", (char) ('a'+i-1));	
+		}
+	}
+	for (String key:map.keySet()) {
+		System.out.println("key:"+key+" value:"+map.get(key));
+	}
+	for (int i = s.length()-1; i >=0; i--) {
+		if (s.charAt(i)=='#') {
+			i=i-2;
+			if (map.containsKey(s.substring(i, i+3))) {
+				res=map.get(s.substring(i, i+3))+res;
+			}
+		}else {
+			res = map.get(s.substring(i, i+1))+res;
+		}
+	}
+	return res;    
+}
 /*
  * LCP 1. 猜数字
  */

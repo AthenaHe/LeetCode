@@ -1,11 +1,14 @@
 package com.test.leetcode1;
 
+import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.sun.javadoc.RootDoc;
 
 
 public class test951_1000 {
@@ -185,6 +188,28 @@ public static List<Integer> addToArrayForm(int[] A, int K) {
 	}
 	return list;	    
 }
+/*
+ * 993. 二叉树的堂兄弟节点
+ */
+Map<Integer, Integer> depth;
+Map<Integer, TreeNode> parent;
+
+public boolean isCousins(TreeNode root, int x, int y) {
+    depth = new HashMap();
+    parent = new HashMap();
+    dfs(root, null);
+    return (depth.get(x) == depth.get(y) && parent.get(x) != parent.get(y));
+}
+
+public void dfs(TreeNode node, TreeNode par) {
+    if (node != null) {
+        depth.put(node.val, par != null ? 1 + depth.get(par.val) : 0);
+        parent.put(node.val, par);
+        dfs(node.left, node);
+        dfs(node.right, node);
+    }
+}
+
 /*
  * 994. 腐烂的橘子
  */

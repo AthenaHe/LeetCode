@@ -318,7 +318,30 @@ public static int  maxCount(int m, int n, int[][] ops) {
     }
     return num1 * num2;   
 }
-
+/*
+ * 599. 两个列表的最小索引总和
+ */
+public String[] findRestaurant(String[] list1, String[] list2) {
+	List<String> reslist = new ArrayList<>();
+	Map<String, Integer> map1 = new HashMap<>();
+	for (int i = 0; i < list1.length; i++) {
+		map1.put(list1[i], i);
+	}
+	int res = Integer.MAX_VALUE,sum;
+	for (int j = 0; j < list2.length; j++) {
+		if (map1.containsKey(list2[j])) {
+			sum=map1.get(list2[j])+j;
+			if (sum<res) {
+				reslist.clear();
+				reslist.add(list2[j]);
+				res=sum;
+			}else if (sum==res) {
+				reslist.add(list2[j]);
+			}
+		}
+	}
+	return reslist.toArray(reslist.toArray(new String[reslist.size()]));   
+}
 
 	public static void main(String[] args) {
 		int[] flowerbed = {1,0,0,0,1};

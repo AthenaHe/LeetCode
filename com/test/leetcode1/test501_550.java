@@ -180,6 +180,25 @@ public static int findPairs(int[] nums, int k) {
 	//最后输出map集合的大小就是符合条件的个数
 	return map.size();
 	}
+
+/*
+ *538. 把二叉搜索树转换为累加树 
+ */
+public int preNum = 0;
+//递归写法
+public TreeNode convertBST(TreeNode root) {
+	unPreOrder(root);
+    return root;        
+}
+ public void unPreOrder(TreeNode root){
+    if(root == null)
+        return;
+    unPreOrder(root.right);
+    root.val += preNum;
+    preNum = root.val;
+    unPreOrder(root.left);  
+}
+
 /*
  * 541. 反转字符串 II
  */
@@ -215,7 +234,29 @@ public static String reverseStr(String s, int k) {
 	return result;    
 }
 
-
+/*
+ * 543. 二叉树的直径
+ */
+int max = 0;
+public int diameterOfBinaryTree(TreeNode root) {
+//求二叉树的每个节点的左右子树的高度和的最大值。
+	if (root==null) {
+		return 0;
+	}
+	depthlen(root);
+	return max;    
+}
+public int depthlen(TreeNode Node) {
+	if (Node==null) {
+		return 0;
+	}
+	int left = depthlen(Node.left);
+	int right = depthlen(Node.right);
+	if (left+right>max) {
+		max = left+right;
+	}
+	return 1+Math.max(left, right);
+}
 	public static void main(String[] args) {		
 		String ss = "sfsfsdgvcedfw";
 		String ssr ="fssfdsgvecdfw";
