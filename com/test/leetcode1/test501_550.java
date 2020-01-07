@@ -1,7 +1,10 @@
 package com.test.leetcode1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class test501_550 {
@@ -12,6 +15,37 @@ public class test501_550 {
 	      TreeNode right;
 	      TreeNode(int x) { val = x; }
 	  }
+/*
+ * 501. 二叉搜索树中的众数
+ */
+Map<Integer, Integer> map = new HashMap<>();
+public int[] findMode(TreeNode root) {	
+	countMode(root);
+	List<Integer> list = new ArrayList<>();
+	int max = Integer.MIN_VALUE;
+	for(int key:map.keySet()) {
+		max = Math.max(max, map.get(key));
+	}
+	for(int key:map.keySet()) {
+		if (max==map.get(key)) {
+			list.add(key);
+		}
+	}
+	int[] res = new int[list.size()];
+	for (int i = 0; i < list.size(); i++) {
+		res[i] = list.get(i);
+	}	
+	return 	res;       
+}
+//给不同节点数出现的次数计数
+public void countMode(TreeNode node) {
+	if (node==null) {
+		return;
+	}
+	map.put(node.val, map.getOrDefault(node.val, 0)+1);
+	countMode(node.left);
+	countMode(node.right);
+}
 	/*
 	 * 504. 七进制数
 	 */

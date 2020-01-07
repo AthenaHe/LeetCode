@@ -322,8 +322,38 @@ public boolean isRobotBounded(String instructions) {
 	}
 	return false;  
 }
-
-
+/*
+ * 1042. 不邻接植花 难，不懂
+ */
+public int[] gardenNoAdj(int N, int[][] paths) {
+    Map<Integer, Set<Integer>> map = new HashMap<Integer, Set<Integer>>(); 
+    /**建立邻接HashMap*/
+     for(int i = 0; i < N; i++) {
+         map.put(i, new HashSet<Integer>());
+     }
+     for(int[] path : paths) {
+         map.get(path[0]-1).add(path[1]-1);
+         map.get(path[1]-1).add(path[0]-1);
+     }
+     int[] res = new int[N];
+     for (int i = 0; i < N; i++) {
+         boolean[] used = new boolean[4];  
+          for(int setv:map.get(i)){
+                 used[res[setv]]=true;
+             }          
+         for(int color=0;color <4;color++){
+             if(!used[color])
+             res[i]=color; 
+             break;
+                          
+         }
+         
+     }
+     for(int i=0;i<res.length;i++){
+         res[i]=res[i]+1;
+     }
+     return res;
+ }
 /*
  * 1046. 最后一块石头的重量
  */
