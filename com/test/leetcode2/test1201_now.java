@@ -1,12 +1,17 @@
 package com.test.leetcode2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
+
+import com.test.leetcode1.test001_050.TreeNode;
 
 public class test1201_now {
 public class ListNode {
@@ -14,6 +19,13 @@ public class ListNode {
     ListNode next;
     ListNode(int x) { val = x; }
 }
+//树结点定义
+	public class TreeNode {
+	      int val;
+	      TreeNode left;
+	      TreeNode right;
+	      TreeNode(int x) { val = x; }
+	  }
 /*
  * 1221. 分割平衡字符串
  */
@@ -239,8 +251,25 @@ public int subtractProductAndSum(int n) {
 	}	
 	return ji-sum;
         
-}  
-
+} 
+/*
+ * 1282. 用户分组
+ */
+public List<List<Integer>> groupThePeople(int[] groupSizes) {
+	List<List<Integer>> res = new ArrayList<List<Integer>>();
+	List<Integer>[] list = new ArrayList[groupSizes.length+1];
+    for (int i = 0; i < groupSizes.length; i++) {
+		if (list[groupSizes[i]]==null) {
+			list[groupSizes[i]] = new ArrayList<>();
+		}
+		list[groupSizes[i]].add(i);
+		if (list[groupSizes[i]].size()==groupSizes[i]) {
+			res.add(new ArrayList(list[groupSizes[i]]));
+			list[groupSizes[i]].clear();
+		}
+	}
+   return res;
+}
 /*
  * 1287. 有序数组中出现次数超过25%的元素
  */
@@ -283,6 +312,57 @@ public int findNumbers(int[] nums) {
 		}
 	}
 	return count; 
+}
+
+/*
+ * 1302. 层数最深叶子节点的和
+ */
+public int deepestLeavesSum(TreeNode root) {
+	if (root==null) return 0;
+	int sum = 0;
+	Queue<TreeNode> queue = new LinkedList<>();
+	queue.offer(root);
+	while (!queue.isEmpty()) {
+	sum=0;
+	int size = queue.size();
+	for (int i = 0; i < size; i++) {
+		TreeNode node=queue.poll();
+		sum+=node.val;
+		if (node.left!=null) queue.offer(node.left);
+		if (node.right!=null) queue.offer(node.right);
+	}		
+}
+	return sum;
+}
+/*
+ *1313. 解压缩编码列表 
+ */
+public int[] decompressRLElist(int[] nums) {
+	int len=0;
+	for (int i = 0; i < nums.length; i=i+2) {
+		len+=nums[i];
+	}
+	int [] res=new int[len];
+	int k=0;
+	for (int i = 0; i < nums.length; i=i+2) {
+		for (int j = 0; j < nums[i]; j++) {
+			res[k++]=nums[i+1];
+		}
+	}
+	return res;   
+}
+/*
+ * 1323. 6 和 9 组成的最大数字
+ */
+public int maximum69Number (int num) {
+	String str=String.valueOf(num);
+	for (int i = 0; i < str.length(); i++) {
+		if (str.charAt(i)=='6') {
+			str=str.replaceFirst(str.substring(i, i+1), "9");
+			break;
+		}
+	}
+	return Integer.parseInt(str);    
 }
 /*
  * 5134. 将每个元素替换为右侧最大元素
@@ -384,9 +464,12 @@ public int game(int[] guess, int[] answer) {
 		}
 		return b;	
 	}
-	public static void main(String[] args) {
-		int[] arr = {17,18,5,4,6,1};
-		replaceElements(arr);
-		
+	public static void main(final String[] args) {
+		int i=1;
+		while (i>0) {
+			i++;
+		}
+		System.out.println(Math.abs(i));
+		System.out.print(Math.abs(i+2020));
 	}
 }

@@ -1,4 +1,8 @@
 package com.test.leetcode1;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class test051_100 {
 	//链表结构体定义
 	  public class ListNode {
@@ -54,7 +58,29 @@ public class test051_100 {
 			return words[words.length-1].length();
 		}
 	}
-
+/*
+ *59. 螺旋矩阵 II 
+ */
+public int[][] generateMatrix(int n) {
+	int step=1;
+	int left=0,right=n-1,top=0,bottom=n-1;
+	int[][] res=new int[n][n];
+	while (step<=n*n) {
+	//→
+	for (int i = left; i < right; i++) res[top][i]=step++;
+	top++;
+	//↓
+	for (int i = top; i < bottom; i++) res[i][right]=step++;
+	right--;
+	//←
+	for (int i = right; i >=left; i--) res[bottom][i]=step++;
+	bottom--;
+	//↑
+	for (int i = bottom; i >=top; i--) res[i][left]=step++;
+	left++;
+	}
+	return res;       
+    }
 	/**
 	 * 66.加一
 	 * @param args
@@ -144,6 +170,23 @@ public class test051_100 {
 	    return f2;
 	}
 
+/*
+ *78. 子集 
+ */
+public List<List<Integer>> subsets(int[] nums) {
+	//可以直接从后遍历，遇到一个数就把所有子集加上该数组成新的子集，遍历完毕即是所有子集
+	List<List<Integer>> lists = new ArrayList<>();
+	lists.add(new ArrayList<>());
+	for (int i = 0; i < nums.length; i++) {
+		int len=lists.size();
+		for (int j = 0; j < len; j++) {
+			List<Integer> list = new ArrayList<>(lists.get(j));
+			list.add(nums[i]);
+			lists.add(list);
+		}
+	}
+	return lists;       
+    }
 	/**
 	 * 83. 删除排序链表中的重复元素
 	 * @author hehuan

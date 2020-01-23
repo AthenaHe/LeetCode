@@ -101,6 +101,23 @@ public static int makeArrayIncreasing(int[] arr1, int[] arr2) {
 	return count>=0?count+1:count;
     
 }
+/**
+ * leetcode周赛 第 171 场周赛 2020.01.12
+ */
+/*
+ * 5307. 将整数转换为两个无零整数的和
+ */
+public int[] getNoZeroIntegers(int n) {
+	int res[] =new int[2];
+	for (int i = 1; i <n ; i++) {
+		int j=n-i;
+		if (!String.valueOf(i).contains("0")&&!String.valueOf(j).contains("0")) {
+			res[0]=i;
+			res[1]=j;
+		}
+	}
+	return res;  
+}
 
 	public static void main(String[] args) {
 		int[] distance = {1,2,3,4};

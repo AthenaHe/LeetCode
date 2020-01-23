@@ -49,7 +49,27 @@ public int[] numberOfLines(int[] widths, String S) {
 	}		
 	return res;   
 }
-
+/*
+ * 807. 保持城市天际线
+ */
+public int maxIncreaseKeepingSkyline(int[][] grid) {
+	int res = 0;
+	int len = grid.length; //grid.length=grid[0].length:是个正方形
+    int[] row = new int[len];
+    int[] col = new int[len];
+    for (int i = 0; i < len; i++) {
+		for (int j = 0; j < len; j++) {
+			row[i]=Math.max(row[i], grid[i][j]);
+			col[i]=Math.max(col[i], grid[j][i]);
+		}
+	}
+   for (int i = 0; i < len; i++) {
+	for (int j = 0; j < len; j++) {
+		res+=(Math.min(row[i], col[j])-grid[i][j]);
+	}
+} 
+    return res;   
+}
 /*
  * 811. 子域名访问计数
  */
