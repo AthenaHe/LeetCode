@@ -1,6 +1,9 @@
 package com.test.leetcode1;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -115,6 +118,26 @@ public Boolean IsPalindrome(int x) {
 		x/=10;		
 	}
 	return x==n || x==n/10;
+}
+/*
+ * 12. 整数转罗马数字 difficult
+ */
+public String intToRoman(int num) {
+	//用数组定义字典
+    int[] values={1000,900,500,400,100,90,50,40,10,9,5,4,1}; 
+    String[] strs={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};    
+    //定义一个字符串
+    StringBuilder res = new StringBuilder();    
+    for(int i = 0; i <values.length; i++){
+        int a = num / values[i];
+        if(a==0)continue;
+        for(int j = a; j > 0;j --)
+            res.append(strs[i]);
+        num -= (a*values[i]);
+        if(num ==0)break;
+    }
+    return res.toString(); 
+    
 }
 
 	/**
@@ -326,5 +349,18 @@ public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		return result;
 	}
 	
-	
+/*
+ * 49. 字母异位词分组	
+ */
+ public List<List<String>> groupAnagrams(String[] strs) {
+	 Map<String,ArrayList<String>> map=new HashMap<>();
+     for(String s:strs){
+         char[] ch=s.toCharArray();
+         Arrays.sort(ch);
+         String key=String.valueOf(ch);
+         if(!map.containsKey(key))    map.put(key,new ArrayList<>());
+         map.get(key).add(s);
+     }
+     return new ArrayList<List<String>>(map.values());
+   }
 }

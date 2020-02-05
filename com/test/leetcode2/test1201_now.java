@@ -101,6 +101,24 @@ public List<List<Integer>> findSolution(CustomFunction customfunction, int z) {
 	return lists;
 }
 /*
+ * 1247. 交换字符使得字符串相同
+ */
+public int minimumSwap(String s1, String s2) {
+	int count1=0,count2=0;
+	for (int i = 0; i < s1.length(); i++) {
+		if ((s1.substring(i, i+1)+s2.substring(i,i+1)).equals("xy")) {			
+			count1++;
+		}
+		if ((s1.substring(i, i+1)+s2.substring(i,i+1)).equals("yx")) {
+			count2++;
+		}
+	}
+	if ((count1+count2)%2!=0) {
+		return -1;
+	}
+	return count1/2+count2/2+((count1%2!=0?0:2));    
+}
+/*
  * 1252. 奇数值单元格的数目
  */
 public int oddCells(int n, int m, int[][] indices) {
@@ -184,6 +202,29 @@ public int minTimeToVisitAllPoints(int[][] points) {
 	nowpoints[1]=points[i][1];
 		}		
 	return step;  
+}
+/*
+ * 1268. 搜索推荐系统
+ */
+public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+	List<List<String>> lists = new ArrayList<>();
+	Arrays.sort(products);
+	for (int i = 1; i <= searchWord.length(); i++) {
+		List<String> list = new ArrayList<>();
+		for (int j = 0; j < products.length; j++) {
+			if (products[j].length()<searchWord.substring(0, i).length()) {
+				continue;
+			}
+			if (products[j].substring(0,i).equals(searchWord.substring(0, i))) {
+				list.add(products[j]);
+				if (list.size()>3) {
+					break;
+				}
+			}
+		}
+			lists.add(list);	
+	}
+	return lists;    
 }
 /*
  * 1275. 找出井字棋的获胜者
@@ -365,6 +406,43 @@ public int maximum69Number (int num) {
 	return Integer.parseInt(str);    
 }
 /*
+ * 1324. 竖直打印单词
+ */
+public static List<String> printVertically(String s) {
+	List<String> list = new ArrayList<>();
+	String[] ss = s.split(" ");
+	int len=0;
+	for (int i = 0; i < ss.length; i++) {
+		len=Math.max(len, ss[i].length());
+	}	
+	for (int j = 0; j < len; j++) {
+		String res = "";
+		for (int i = 0; i < ss.length; i++) {
+			if (j<ss[i].length()) {
+				res+=ss[i].charAt(j);
+			}else {
+				res+=" ";
+			}
+			
+		}
+		for (int k = res.length()-1; k >=0; k++) {
+			if (res.charAt(k)==' ') {
+				continue;
+			}else {
+				res=res.substring(0,k+1);
+				break;
+			}
+		}		
+		list.add(res);
+	}
+	for (String str:list) {
+		
+	}
+	
+	
+	return list;   
+}
+/*
  * 5134. 将每个元素替换为右侧最大元素
  */
 public static int[] replaceElements(int[] arr) {
@@ -465,11 +543,11 @@ public int game(int[] guess, int[] answer) {
 		return b;	
 	}
 	public static void main(final String[] args) {
-		int i=1;
-		while (i>0) {
-			i++;
+		String s="HOW ARE YOU";
+		List<String> list = new ArrayList<>();
+		list=printVertically(s);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
 		}
-		System.out.println(Math.abs(i));
-		System.out.print(Math.abs(i+2020));
 	}
 }

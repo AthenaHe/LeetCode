@@ -2,8 +2,10 @@ package com.test.leetcode1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import org.junit.Test;
@@ -57,6 +59,30 @@ public class test601_650 {
 		}
 		return ss;
 	}
+/*
+ * 609. 在系统中查找重复文件
+ */
+public List<List<String>> findDuplicate(String[] paths) {
+	List<List<String>> list = new ArrayList<List<String>>();
+	Map<String, Integer> map = new HashMap<String, Integer>();
+	int index = 0;
+	for (String str : paths) {
+		String[] strs = str.split(" ");
+		for (int i = 1; i < strs.length; i++) {
+			String key = strs[i].substring(strs[i].indexOf("(") + 1, strs[i].indexOf(")"));
+			if (!map.containsKey(key)) {
+				map.put(key, index++);
+				list.add(new ArrayList<String>());
+			}
+			list.get(map.get(key)).add(strs[0] + "/" + strs[i].substring(0, strs[i].indexOf("(")));
+		}
+	}
+	for (int i = list.size() - 1; i >= 0; i--) {
+		if (list.get(i).size() < 2) 
+			list.remove(i);
+	}
+	return list;      
+  }
 /*
  * 617. 合并二叉树
  */
@@ -175,8 +201,29 @@ public int[] findErrorNums(int[] nums) {
 	res[1]=res[0]-(newsum-((1+nums.length)*nums.length)/2);	
 	return nums;   
 }
-
-
+/*
+ * 647. 回文子串
+ */
+public int countSubstrings(String s) {
+	int count=0;
+	for (int i = 1; i <= s.length(); i++) {		
+		for (int j = 0; j < s.length()+1-i; j=j+1) {
+			if (ishuiwenchuan(s.substring(j, j+i))) {
+				count+=1;
+			}
+		}
+	}
+	return count;    
+}
+//判断是否回文串
+public boolean ishuiwenchuan(String t) {
+	for (int i = 0; i < t.length()/2; i++) {
+		if (t.charAt(i)!=t.charAt(t.length()-1-i)) {
+			return false;
+		}
+	}
+	return true;
+}
 
 	public static void main(String[] args) {
 		int[][] nums = {{2,3,4},{5,6,7},{8,9,10},{11,12,13},{14,15,16}};

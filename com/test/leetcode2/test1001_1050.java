@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +47,15 @@ public List<String> commonChars(String[] A) {
     }
 	return list;           
     }
+/*
+ * 1003. 检查替换后的词是否有效
+ */
+public boolean isValid(String S) {
+	while(S.contains("abc")) {
+		S=S.replace("abc", "");
+	}
+	return S.equals("");
+}
 /*
  * 1005. K 次取反后最大化的数组和
  */
@@ -139,7 +149,17 @@ public static  boolean canThreePartsEqualSum(int[] A) {
 	}	
 	return false;    
 }
-
+/*
+ * 1016. 子串能表示从 1 到 N 数字的二进制串
+ */
+public boolean queryString(String S, int N) {
+	for (int i = 1; i <= N; i++) {
+		if (!S.contains(Integer.toBinaryString(i))) {
+			return false;
+		}
+	}
+	return true;    
+}
 /*
  * 1018. 可被 5 整除的二进制前缀
  */
@@ -195,6 +215,30 @@ void help(TreeNode root,String s){
   help(root.left,s);
   help(root.right,s);
 }
+
+/*
+ * 1023. 驼峰式匹配
+ */
+public  List<Boolean> camelMatch(String[] queries, String pattern) {
+	List<Boolean> res = new LinkedList<>();
+    int len = pattern.length();
+    for (String query: queries) {
+        boolean isValid = true;
+        int currIndex = 0;
+        for (int j = 0; j < query.length(); j++) {
+            
+            if (currIndex < len && pattern.charAt(currIndex) == query.charAt(j)) 
+                currIndex++;
+            else if (Character.isUpperCase(query.charAt(j))) {
+                isValid = false;
+                break;                    
+            }
+        }
+        res.add(isValid && len == currIndex ? true : false);
+    }
+    return res;    
+}
+
 /*
  * 1025. 除数博弈
  */
@@ -389,10 +433,9 @@ public int lastStoneWeight(int[] stones) {
 	}	
 	
 	public static void main(String[] args) {
-		int[] A= {3,3,6,5,-2,2,5,1,-9,4};
-		int K=1;
-		//bitwiseComplement(5);
-		System.out.println(canThreePartsEqualSum(A));
+		String[] queries= {"FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"};
+		String pattern="FoBaT";
+		
 	}
 
 }

@@ -229,6 +229,7 @@ for (int i = 0; i < nums.length; i++) {
 	
 	return count;
 }
+
 /*
  * 589. N叉树的前序遍历
  */

@@ -123,7 +123,14 @@ public double area(int[] P, int[] Q, int[] R) {
 public static  double getLength(int[] point1,int[] point2) {
 	return Math.sqrt(Math.pow(point1[0]-point2[0],2)+Math.pow(point1[1]-point2[1],2));
 }
-
+/*
+ * 816. 模糊坐标
+ */
+public List<String> ambiguousCoordinates(String S) {
+	
+	return null;
+    
+}
 /*
  * 819. 最常见的单词
  */

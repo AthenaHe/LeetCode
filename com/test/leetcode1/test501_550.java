@@ -214,7 +214,36 @@ public static int findPairs(int[] nums, int k) {
 	//最后输出map集合的大小就是符合条件的个数
 	return map.size();
 	}
-
+/*
+ * 537. 复数乘法
+ */
+public String complexNumberMultiply(String a, String b) {
+	String[] anum = a.split("\\+");
+	String[] bnum = b.split("\\+");
+	int flag11=1,flag12=1,flag21=1,flag22=1;;
+	if (anum[0].substring(0,1)=="-") {
+		flag11=-1;
+		anum[0]=anum[0].substring(0);
+	}
+	if (bnum[0].substring(0,1)=="-") {
+		flag12=-1;
+		bnum[0]=bnum[0].substring(0);
+	}
+	if (anum[1].substring(0,1)=="-") {
+		flag21=-1;
+		anum[1]=anum[1].substring(1);
+	}
+	if (bnum[1].substring(0, 1)=="-") {
+		flag22=-1;
+		bnum[1]=bnum[1].substring(1);
+		
+	}
+	int num1=flag11*flag21*Integer.valueOf(anum[0])*Integer.valueOf(bnum[0])
+			-flag12*flag22*Integer.valueOf(anum[1].substring(0, anum[1].length()-1))*Integer.valueOf(bnum[1].substring(0, bnum[1].length()-1));
+	int num2=flag12*flag21*Integer.valueOf(anum[1].substring(0, anum[1].length()-1))*Integer.valueOf(bnum[0])
+			+flag11*flag22*Integer.valueOf(anum[0])*Integer.valueOf(bnum[1].substring(0, bnum[1].length()-1));	
+	return num1+"+"+num2+"i";   
+}
 /*
  *538. 把二叉搜索树转换为累加树 
  */
@@ -232,7 +261,26 @@ public TreeNode convertBST(TreeNode root) {
     preNum = root.val;
     unPreOrder(root.left);  
 }
-
+ /*
+  * 539. 最小时间差
+  */
+ public int findMinDifference(List<String> timePoints) {
+	int[] arraytime = new int[timePoints.size()];
+	 //将时间都转换为分钟，并排序，如果存在最后一个值比第一个值的差比第一个和第二的差还小，就选最小的。
+	int i=0;
+	for(String timepoint:timePoints) {
+		 String[] time = timepoint.split(":");
+		 int minute =Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
+		 arraytime[i++]=minute;
+	 }
+	Arrays.sort(arraytime);
+	int min1=arraytime[0]+24*60- arraytime[arraytime.length-1];
+	int min2 = Integer.MAX_VALUE;
+	for (int j = 1; j < arraytime.length; j++) {
+		min2 = Math.min(min, arraytime[j]-arraytime[j-1]);
+	}	
+	 return Math.min(min1, min2);   
+ }
 /*
  * 541. 反转字符串 II
  */
@@ -292,9 +340,13 @@ public int depthlen(TreeNode Node) {
 	return 1+Math.max(left, right);
 }
 	public static void main(String[] args) {		
-		String ss = "sfsfsdgvcedfw";
+		String ss = "sfsf+sdgvcedfw";
 		String ssr ="fssfdsgvecdfw";
-		reverseStr(ss, 2) ;
+		String[] aStrings=ss.split("\\+");
+		for (int i = 0; i < aStrings.length; i++) {
+			System.out.println(aStrings[i]);
+		}
+		
 
 	}
 

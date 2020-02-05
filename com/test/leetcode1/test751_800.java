@@ -1,7 +1,9 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class test751_800 {
 public class TreeNode {
@@ -165,6 +167,32 @@ public int rotatedDigits(int N) {
         }
     }
     return count;  
+}
+
+/*
+ * 791. 自定义字符串排序
+ */
+public String customSortString(String S, String T) {
+	Map<Character, Integer> map = new HashMap();
+	for (int i = 0; i < T.length(); i++) {
+		map.put(T.charAt(i), map.getOrDefault(T.charAt(i), 0)+1);
+	}
+	String res = "";
+	for (int i = 0; i < S.length(); i++) {
+		if (map.containsKey(S.charAt(i))) {
+			for (int j = 0; j < map.get(S.charAt(i)); j++) {
+				res+=S.charAt(i);
+			}
+			map.remove(S.charAt(i));
+		}
+	}
+	//剩下的往后面添
+	for (char ch:map.keySet()) {
+		for (int i = 0; i < map.get(ch); i++) {
+			res+=ch;
+		}
+	}
+	return res;  
 }
 
 /*
