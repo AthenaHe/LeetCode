@@ -467,10 +467,82 @@ public static List<String> printVertically(String s) {
 	}
 	for (String str:list) {
 		
-	}
-	
-	
+	}	
 	return list;   
+}
+/*
+ * 1331. 数组序号转换
+ */
+public int[] arrayRankTransform(int[] arr) {
+	int[] newarr = new int[arr.length];
+	Map<Integer, Integer> map = new HashMap<>();
+	for (int i = 0; i < newarr.length; i++) {
+		newarr[i]=arr[i];		
+	}
+	Arrays.sort(newarr);
+	int value=1;
+for (int i = 0; i < newarr.length; i++) {
+	if (!map.containsKey(newarr[i])) {
+		map.put(newarr[i], value);
+		value++;
+	}
+}	
+for (int i = 0; i < arr.length; i++) {
+	arr[i]=map.get(newarr[i]);
+}
+	return arr;    
+}
+/*
+ * 1332. 删除回文子序列
+ */
+public int removePalindromeSub(String s) {
+	if (s.equals("")) return 0;
+	for (int i = 0; i < s.length()/2; i++) {
+		if (s.charAt(i)!=s.charAt(s.length()-1-i)) return 2;
+	}
+	return 1;   
+}
+/*
+ * 1341. 方阵中战斗力最弱的 K 行
+ */
+public int[] kWeakestRows(int[][] mat, int k) {
+	int[] arr=new int[mat.length];
+	Map<Integer, Integer> map = new HashMap<>();
+	//找到每行中军人的数目
+	for (int i = 0; i < mat.length; i++) {
+		int count=0;
+		for (int j = 0; j < mat[i].length; j++) {
+			if (mat[i][j]==1) {
+				count++;
+			}else if(mat[i][j]==0) {
+				arr[i]=count;
+				map.put(i, arr[i]);
+				break;
+			}
+	        if(mat[i][mat[i].length-1]==1){
+	            arr[i]=count;
+	            map.put(i, arr[i]);
+	        }
+		}
+	}
+int[] res = new int[k];
+for (int i = 0; i < k; i++) {
+	res[i]=minvalueMap(map);
+}
+	return res;    
+}
+//找最小值
+public int minvalueMap(Map<Integer, Integer> map) {
+	int min = Integer.MAX_VALUE;
+	int res=0;
+	for (int key:map.keySet()) {
+		if (map.get(key)<min) {
+			min = map.get(key);
+			res=key;
+		}	
+	}
+	map.remove(res);
+	return res;	
 }
 /*
  * 5134. 将每个元素替换为右侧最大元素
