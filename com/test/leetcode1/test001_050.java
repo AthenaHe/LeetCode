@@ -73,7 +73,28 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 }
 	return headnode.next;        
     }
-
+/*
+ * 5. 最长回文子串
+ */
+public String longestPalindrome(String s) {
+	for (int len = s.length(); len>=0; len--) {
+		for (int i = 0; i < s.length()-len+1; i++) {
+			if(ishuiwen(s.substring(i, i+len))) {
+				return s.substring(i, i+len);
+			}
+		}
+	}
+	return "";    
+}
+//判断是否是回文
+public boolean ishuiwen(String t) {
+	for (int i = 0; i < t.length()/2; i++) {
+		if (t.charAt(i)!=t.charAt(t.length()-i-1)) {
+			return false;
+		}
+	}
+	return true;
+}
 	/**
 	 * 7. 整数反转  
 	 * @param x
@@ -348,7 +369,75 @@ public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		}
 		return result;
 	}
-	
+/*
+ * 43. 字符串相乘
+ */
+public static String multiply(String num1, String num2) {
+	if (num1.length()<num2.length()) {
+		String tmp = num1;
+		num1=num2;
+		num2=tmp;	
+	}
+	String res = "",str="",str1="0";
+	int num=0;
+	int jinwei=0,benwei=0; int ji=0;
+	for (int i = num2.length()-1; i >=0; i--) {
+		str =  multiplysimple(num1, num2.substring(i,i+1));		
+		res=str1.substring(str1.length()-1, str1.length())+res;//最后一位放入结果中
+		str1=multiadd(str1.substring(0, str1.length()-1), str);		
+	}
+	if(!str.equals("0")) {
+	res=str+res;
+	}
+	return res;        
+    }
+public static String multiplysimple(String num1,String num) {
+	String res = "";
+	if (num.equals("0")) {
+		return num;
+	}
+	int jinwei=0,benwei=0,ji=0;
+	for (int i = num1.length()-1; i>=0; i--) {
+		ji=Integer.parseInt(num1.substring(i, i+1))*Integer.parseInt(num)+jinwei;
+		benwei = ji%10;
+		jinwei = ji/10;
+		res=benwei+res;
+	}
+	if (jinwei!=0) {
+		res=jinwei+res;
+	}	
+	return res;
+}
+
+public static String multiadd(String num1,String num2) {
+	String res="";
+	int len=Math.min(num1.length(),num2.length());
+	int he=0,benwei=0,jinwei=0;
+	int i=0,j=0;
+	for (i = num1.length()-1,j = num2.length()-1;i>=num1.length()-len&&j>=num2.length()-len; i--,j--) {
+			he=Integer.parseInt(num1.substring(i, i+1))+Integer.parseInt(num2.substring(j, j+1))+jinwei;
+			benwei=he%10;
+			jinwei = he/10;
+			res=benwei+res;
+		}
+		for (i=num1.length()-len-1;i>=0;i--) {
+			he=jinwei+Integer.parseInt(num1.substring(i, i+1));
+			benwei=he%10;
+			jinwei = he/10;
+			res=benwei+res;
+		}
+		for (j=num2.length()-len-1;j>=0;j--) {
+			he=jinwei+Integer.parseInt(num2.substring(j, j+1));
+			benwei=he%10;
+			jinwei = he/10;
+			res=benwei+res;
+		}
+		if (jinwei!=0) {
+			res=jinwei+res;
+		}		
+	return res;	
+}
+
 /*
  * 49. 字母异位词分组	
  */
@@ -363,4 +452,10 @@ public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
      }
      return new ArrayList<List<String>>(map.values());
    }
+ 
+ public static void main(String[] args) {
+	 String num1 = "5674",num="234";
+	System.out.println( multiadd(num1,num));
+}
+ 
 }

@@ -1,6 +1,7 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,51 @@ public static boolean isPrime(int num) {
 	}
 	return true;	
 }
+
+/*
+ * 763. 划分字母区间
+ */
+public List<Integer> partitionLabels(String S) {
+	 //把字母分隔开，找出这个字母第一次出现的位置和最后一次的位置。
+		//map的格式：[a,[0,8]][b,[1,5]]
+		Map<Character, int[]> map  =new HashMap<>();
+		List<Character> charlist = new ArrayList<>();//由于map是无序的，所以使用list记录字母序
+		for (int i = 0; i < S.length(); i++) {		
+			if (!map.containsKey(S.charAt(i))) {
+				int[] location = new int[2];
+				location[0]=S.indexOf(S.charAt(i));
+				location[1]=S.lastIndexOf(S.charAt(i));
+				map.put(S.charAt(i), location);
+	            System.out.println(S.charAt(i)+":"+map.get(S.charAt(i))[0]+","+map.get(S.charAt(i))[1]);
+	            charlist.add(S.charAt(i));
+			}
+			
+		}
+		List<Integer> list=new ArrayList<>();
+		//first=0
+		int len = map.size(),first=map.get(S.charAt(0))[0],last=map.get(S.charAt(0))[1];
+		for (int i = 1; i < charlist.size(); i++) {
+			char key = charlist.get(i);
+			if (map.get(key)[0]>first&&map.get(key)[0]<last) {
+				if (map.get(key)[1]>last) {
+					last=map.get(key)[1];
+				}
+			}
+			if (map.get(key)[0]>last) {
+				list.add(last-first+1);
+				first=map.get(key)[0];
+				last=map.get(key)[1];
+			}
+	        if (map.get(key)[1]==S.length()-1) {
+				list.add(map.get(key)[1]-first+1);
+	            break;
+			}
+	        System.out.println(first+","+last);
+		}
+		return list;   
+}
+
+
 /*
  * 766. 托普利茨矩阵
  */

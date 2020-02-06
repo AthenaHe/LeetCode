@@ -71,6 +71,59 @@ public int maxIncreaseKeepingSkyline(int[][] grid) {
     return res;   
 }
 /*
+ * 809. 情感丰富的文字
+ */
+public int expressiveWords(String S, String[] words) {
+	List<Character> chlist = new ArrayList<>();
+	List<Integer> numlist = new ArrayList<>();
+	int num=0;
+	S=S+",";
+	for (int i = 0; i < S.length()-1; i++) {
+		num++;
+		if (S.charAt(i)!=S.charAt(i+1)) {
+			chlist.add(S.charAt(i));
+			numlist.add(num);
+			num=0;
+		}
+	}
+// for(int i=0;i<chlist.size();i++){
+//     System.out.println(chlist.get(i)+","+numlist.get(i));
+// }
+// System.out.println("-------------");
+
+	int res=0;
+	for (int i = 0; i < words.length; i++) {
+		List<Character> chlist1 = new ArrayList<>();
+		List<Integer> numlist1 = new ArrayList<>();
+		int num1=0;
+		words[i]=words[i]+",";
+		for (int j = 0; j < words[i].length()-1; j++) {
+			num1++;
+			if (words[i].charAt(j)!=words[i].charAt(j+1)) {
+				chlist1.add(words[i].charAt(j));
+				numlist1.add(num1);
+				num1=0;
+			}
+		}
+//     for(int k=0;k<chlist1.size();k++){
+//     System.out.println(chlist1.get(k)+","+numlist1.get(k));
+// }    
+	boolean flag=true;
+    if (chlist.equals(chlist1)) {
+        for (int j = 0; j < chlist.size(); j++) {
+            if ((numlist.get(j)<3&&numlist.get(j)!=numlist1.get(j))||(numlist.get(j)>=3&&numlist.get(j)<numlist1.get(j))) {
+                flag=false;
+                break;
+            }
+        }				
+    }else{
+        flag=false;
+    }
+    res+=(flag==true?1:0);
+}
+		return res;
+    }	
+/*
  * 811. 子域名访问计数
  */
 public List<String> subdomainVisits(String[] cpdomains) {

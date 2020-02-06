@@ -62,6 +62,30 @@ public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
     }
     return pA;   
 }
+/*
+ *165. 比较版本号 
+ */
+public int compareVersion(String version1, String version2) {
+	int res=0,i=0;
+	String[] v1 = version1.split(".");
+	String[] v2 = version2.split(".");
+	int len=Math.min(v1.length, v2.length);
+	for ( i = 0; i < len; i++) {
+		
+		if (Integer.parseInt(v1[i])>Integer.parseInt(v2[i])) {
+			res=1;
+		}else {
+			res=-1;
+		}
+	}
+	if (i<=v1.length&&v1[i].equals("0")) {
+		res=1;
+	}else if(i<=v2.length){
+		res=-1;
+	}	
+	return res;    
+}
+
 /**
  * 167. 两数之和 II - 输入有序数组 
  * @param numbers 

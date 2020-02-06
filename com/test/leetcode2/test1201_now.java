@@ -43,9 +43,39 @@ public int balancedStringSplit(String s) {
 			balance++;
 		}
 	}
-	return balance;
-    
+	return balance;   
 }
+
+
+/*
+ * 1297. 子串的最大出现次数
+ */
+public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
+	Map<String, Integer> counter = new HashMap<>();
+    int res = 0;
+    //单层循环只考虑minSize。原因是maxSize中肯定包含minSize子串，那么只需要考虑minSize长度的子串最大出现次数即可
+    for (int i = 0; i < s.length() - minSize + 1; i++) {
+    	//子串
+        String substr = s.substring(i, i + minSize);
+       //如果子串长度大于maxLetters，说明不符合条件，如果子串长度小于等于maxLetters，说明符合条件，继续判断出现最大次数。
+        if (checkNum(substr, maxLetters)) {
+            int newVal = counter.getOrDefault(substr, 0) + 1;
+            counter.put(substr, newVal);
+            res = Math.max(res, newVal);
+        }
+    }
+
+    return res;
+}
+public boolean checkNum(String substr, int maxLetters) {
+
+    Set<Character> set = new HashSet<>();
+    for (int i = 0; i < substr.length(); i++)
+        set.add(substr.charAt(i));
+
+    return set.size() <= maxLetters;
+}
+
 /*
  * 1232. 缀点成线
  */
