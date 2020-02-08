@@ -128,7 +128,40 @@ public String longestWord(String[] words) {
     }
     return res;
 }
-
+/*
+ * 722. 删除注释
+ */
+public List<String> removeComments(String[] source) {
+	List<String> list = new ArrayList<>();
+	String ss = "";
+	int flag=0;
+	for (int i = 0; i < source.length; i++) {
+		if (flag!=1) ss=source[i];
+		for (int j = 0; j < source[i].length()-1; j++) {
+			String chs =source[i].substring(j, j+2);			
+			if (chs.equals("//")&&flag!=1) { // 如果出现//并且前面没有块注释/*，那就只保留//前面的部分
+				ss=ss.substring(0, ss.indexOf("//"));
+				break;				
+			}else if (source[i].substring(j, j+2).equals("/*")&&flag!=1) { //如果出现块注释/*，并且前面没有块注释/*
+				ss=ss.substring(0, ss.indexOf("/*"));
+				System.out.println("head:"+source[i].substring(0, j)+"---");
+				flag=1;	
+				j++;				
+				continue;
+			}else if (source[i].substring(j, j+2).equals("*/")&&flag==1) { //如果出现块注释，并且前面有/*
+                ss+=source[i].substring(j+2);
+				//System.out.println("tail:"+source[i].substring(j+2)+"----");				
+				flag=0;
+				j++;	
+				continue;
+			}
+		}
+		if (!ss.equals("")&&flag==0) {
+			list.add(ss);
+		}
+	}
+	return list;       
+}
 
 /*
  * 724. 寻找数组的中心索引

@@ -373,7 +373,27 @@ public class test201_250 {
 		node.val = node.next.val; 
 		node.next = node.next.next; 
 	}
-
+/*
+ * 238. 除自身以外数组的乘积
+ */
+public int[] productExceptSelf(int[] nums) {
+    int length = nums.length;
+    int[] L = new int[length];
+    int[] R = new int[length];
+    int[] answer = new int[length];
+    L[0] = 1;  //第一个数的左边没有数，所以左边积为1
+    for (int i = 1; i < length; i++) { //	把数的左边积存在一个数组中
+        L[i] = nums[i - 1] * L[i - 1];
+    }
+    R[length - 1] = 1; //最后一个数的右边没有数，所以右边积为1
+    for (int i = length - 2; i >= 0; i--) { //把数的右边积存在一个数组中
+        R[i] = nums[i + 1] * R[i + 1];
+    }
+    for (int i = 0; i < length; i++) { //除自身以外数组的乘积就是该数的左边积*右边积
+        answer[i] = L[i] * R[i];
+    }
+    return answer;
+}
 	/**
 	 * 242. 有效的字母异位词
 	 * @param s
