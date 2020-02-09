@@ -81,6 +81,42 @@ public static boolean isAlienSorted(String[] words, String order) {
 		return isUnivalTree(root.left)&&isUnivalTree(root.right);
 	}
 /*
+ * 969. 煎饼排序	
+ */
+public static List<Integer> pancakeSort(int[] A) {
+	List<Integer> list = new ArrayList<>();
+	int size=A.length-1;
+	while(size>0) {
+		if (findnum(A, size)<size) {
+			list.add(findnum(A, size)+1);
+			list.add(size+1);
+		}
+	reverse(A, findnum(A, size));
+	reverse(A, size--);
+	}
+	return list;
+}
+//翻转索引为k之前的数
+public static void reverse(int[] A,int k) {
+	for (int i = 0; i < k; i++) {
+		int tmp = A[i];
+		A[i] = A[k-1-i];
+		A[k-1-i]=tmp;
+	}
+}
+//找到索引内的最大值的位置
+public static int findnum(int[] A,int size) {
+	int max = 0,k=0;
+	for (int i = 0; i < size; i++) {
+		if (max<A[i]) {
+			max = A[i];
+			k=i;
+		}
+	}
+	return k;
+}
+	
+/*
  * 970. 强整数
  */
 public List<Integer> powerfulIntegers(int x, int y, int bound) {
@@ -351,8 +387,7 @@ public int numRookCaptures(char[][] board) {
 	return count;        
     }
 public static void main(String[] args) {
-	String[] words = {"hello","leetcode"};
-	String order = "hlabcdefgijkmnopqrstuvwxyz";
-	System.out.println(isAlienSorted(words,order));
+	int[] A= {3,2,4,1};
+	pancakeSort(A);
 }
 }
