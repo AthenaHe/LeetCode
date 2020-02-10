@@ -3,16 +3,35 @@ package com.test.leetcode1;
 import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.IntToDoubleFunction;
-
-
-
 public class test451_500 {
+
+/*
+ * 451. 根据字符出现频率排序
+ */
+public String frequencySort(String s) {
+	Map<Character, Integer> map  = new HashMap<>();
+	for (int i = 0; i < s.length(); i++) {
+		map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
+	}
+	StringBuilder res = new StringBuilder();
+    for (int i = s.length(); i >= 0 ; i--) {
+        for (Map.Entry<Character, Integer> item : map.entrySet())
+            if(item.getValue() == i){
+                for(int j = 0;j < item.getValue() ;j++){
+                    res.append(item.getKey());
+                }
+            }
+    }
+    return res.toString();
+ }
+
 	/**
 	 * 453. 最小移动次数使数组元素相等
 	 * @param nums

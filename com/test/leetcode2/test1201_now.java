@@ -471,6 +471,41 @@ public static List<String> printVertically(String s) {
 	return list;   
 }
 /*
+ * 1329. 将矩阵按对角线排序
+ */
+public int[][] diagonalSort(int[][] mat) {
+	Map<Integer, List<Integer>> map=new HashMap<>();
+	//同一对角线元素的j-i值相等，所以把这些按j-i值进行分类集中
+	for (int i = 0; i < mat.length; i++) {
+		for (int j = 0; j < mat[i].length; j++) {
+			if (!map.containsKey(j-i)) map.put(j-i, new ArrayList<>());			
+			map.get(j-i).add(mat[i][j]);						
+		}
+	}
+	//对分类的值分别进行排序，从小到大
+	for(int key:map.keySet()) {
+		Collections.sort(map.get(key));
+	}
+	for (int key:map.keySet()) {
+		for (int li:map.get(key)) {
+			System.out.print(li+",");
+		}
+		System.out.println();
+	}
+	//对矩阵元素按对角线排序后重新赋值。
+	for (int i = 0; i < mat.length; i++) {
+		for (int j = 0; j < mat.length; j++) {
+			mat[i][j]=map.get(j-i).get(0);
+			if (j-i==1) {
+				System.out.println(mat[i][j]);
+			}
+			map.get(j-i).remove(0);
+		}
+	}	
+	return mat;   
+}
+
+/*
  * 1331. 数组序号转换
  */
 public int[] arrayRankTransform(int[] arr) {

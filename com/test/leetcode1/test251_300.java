@@ -114,6 +114,44 @@ public int findDuplicate(int[] nums) {
 	return 0;      
     }	
 /*
+ * 289. 生命游戏
+ */
+public void gameOfLife(int[][] board) {
+    int[][] res = new int[board.length][board[0].length];
+    for (int i = 0; i < board.length; i++) {
+		for (int j = 0; j < board[i].length; j++) {
+			int count=0;
+			if (i-1>=0&&j-1>=0) count+=board[i-1][j-1];	//左上				
+			if(i-1>=0) count+=board[i-1][j];	//上	
+			if(i-1>=0&&j+1<board[i].length) count+=board[i-1][j+1];	//右上
+			if(j+1<board[i].length) count+=board[i][j+1];//右
+			if(i+1<board.length&&j+1<board[i].length) count+=board[i+1][j+1];//右下
+			if (i+1<board.length) count+=board[i+1][j];//下			
+			if(i+1<board.length&&j-1>=0) count+=board[i+1][j-1];//左下
+			if(j-1>=0) count+=board[i][j-1];//左
+			if (board[i][j]==1) {//如果是活细胞
+				if (count<2||count>3) { //并且周围活细胞数不是2个或者3个
+					res[i][j]=0; //则该细胞死亡
+				}else {
+					res[i][j]=board[i][j];
+				}
+			}
+			if (board[i][j]==0) {//如果是死细胞
+				if (count==3) {//并且周围正好三个活细胞
+					res[i][j]=1;//该位置活细胞复活
+				}else {
+					res[i][j]=board[i][j];
+				}				
+			}
+		}
+	}
+    for (int i = 0; i < res.length; i++) {
+		for (int j = 0; j < res[i].length; j++) {
+			board[i][j]=res[i][j];
+		}
+	}  
+}
+/*
  * 290.单词规律
  */
 public static boolean wordPattern(String pattern, String str) {

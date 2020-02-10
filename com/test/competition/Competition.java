@@ -118,19 +118,98 @@ public int[] getNoZeroIntegers(int n) {
 	}
 	return res;  
 }
-
-	public static void main(String[] args) {
-		int[] distance = {1,2,3,4};
-		int start = 0;
-		int destination = 1;
-		//System.out.println(distanceBetweenBusStops(distance,start,destination));
-		int day=15;
-		int month=8;
-		int year=1993;
-		//System.out.println(dayOfTheWeek(day,month,year));
-		int[] arr1= {1,5,3,6,7};
-		int[] arr2 = {1,6,3,3};
-		System.out.println(makeArrayIncreasing(arr1,arr2));
+/*
+ * 5311. 将数字变成 0 的操作次数
+ */
+public int numberOfSteps (int num) {
+	int step = 0;
+	while (num!=0) {
+		if (num%2==0) {
+			num/=2;
+			
+		}else {
+			num-=1;
+		}
+		step++;
 	}
+	return step;  
+}
+/*
+ * 5312. 大小为 K 且平均值大于等于阈值的子数组数目 
+ */
+public static int numOfSubarrays(int[] arr, int k, int threshold) {
+	int count=0;
+	for (int i = 0; i < arr.length-k+1; i++) {
+		int sum=0;
+		for (int j = i; j < i+k; j++) {
+			sum+=arr[j];			
+		}
+		System.out.println(sum+":"+sum/k);
+		if ((sum/k)>=threshold) {
+			count++;
+		}		
+	}
+	System.out.println(count);
+	return count;   
+}
+/*
+ * 5313. 时钟指针的夹角
+ */
+public static double angleClock(int hour, int minutes) {
+	double dumin=minutes*6;
+	double duhour=hour*30+minutes*6.0/12;
+	double res = Math.abs(duhour-dumin);	
+	return res<180?res:360-res;  
+}
 
+/*
+ * 5332. 检查整数及其两倍数是否存在
+ */
+public static boolean checkIfExist(int[] arr) {
+	Arrays.sort(arr);
+	for (int i = arr.length-1; i >=0; i--) {
+		for (int j = 0; j < arr.length; j++) {
+			if (arr[i]==(2*arr[j])&&i!=j) {
+				//System.out.println(arr[i]+":"+arr[j]);
+				return true;
+			}
+		}
+	}
+	return false;   
+}
+
+/*
+ * 5333. 制造字母异位词的最小步骤数
+ */
+public static int minSteps(String s, String t) {
+	Map<Character, Integer> map = new HashMap<>();
+	Map<Character, Integer> map2 = new HashMap<>();
+	for (int i = 0; i < s.length(); i++) {
+		map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
+		map2.put(t.charAt(i), map2.getOrDefault(t.charAt(i), 0)+1);		
+	}
+	if (map.equals(map2)) {
+		return 0;
+	}
+	int sum=0;
+	for (char key:map.keySet()) {
+		if (!map2.containsKey(key)) {
+			sum+=map.get(key);
+		}else {
+		sum+=Math.abs(map.get(key)-map2.get(key));
+		}
+	}
+	for (char key:map2.keySet()) {
+		if (!map.containsKey(key)) {
+			sum+=map2.get(key);
+		}	
+	}	
+	return sum/2;   
+}
+	public static void main(String[] args) {
+		String s= "leetcode";
+		String t="practice";
+		System.out.println(minSteps(s,t));
+
+}
 }

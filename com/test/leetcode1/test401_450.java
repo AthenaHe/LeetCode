@@ -2,6 +2,7 @@ package com.test.leetcode1;
 
 import java.security.spec.ECField;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -313,6 +314,19 @@ public static int arrangeCoins(int n) {
 	}
 	return 0;
     
+}
+/*
+ * 442. 数组中重复的数据
+ */
+public List<Integer> findDuplicates(int[] nums) {
+	List<Integer> res = new ArrayList<>();
+	Arrays.sort(nums);
+	for (int i = 1; i < nums.length; i++) {
+		if (nums[i-1]==nums[i]) {
+			res.add(nums[i]);
+		}
+	}
+	return res; 
 }
 /*
  * 443. 压缩字符串
