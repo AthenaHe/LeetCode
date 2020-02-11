@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.sun.javadoc.RootDoc;
 
@@ -132,6 +133,34 @@ public List<Integer> powerfulIntegers(int x, int y, int bound) {
     }
     return res;        
   }	
+/*
+ * 973. 最接近原点的 K 个点
+ */
+public int[][] kClosest(int[][] points, int K) {
+	int[] len = new int[points.length];
+	Map<Integer, Integer> map = new HashMap<>();
+	for (int i = 0; i < len.length; i++) {
+		len[i]= points[i][0]*points[i][0]+points[i][1]*points[i][1];
+		map.put(i, len[i]);
+	}
+	List<Integer> list = new ArrayList<>();
+	for (int key:map.keySet()) {
+		list.add(map.get(key));
+	}
+	Collections.sort(list);
+	int[][] res = new int[K][2];
+	for (int i = 0; i <K; i++) {
+		for (Entry<Integer, Integer> item:map.entrySet()) {
+			if (item.getValue()==list.get(i)) {
+				res[i][0]=points[item.getKey()][0];
+				res[i][1]=points[item.getKey()][1];
+				map.remove(item.getKey());
+				break;
+			}
+		}
+	}	
+	return res;   
+}
 	/*
 	 * 976.三角形的最大周长  
 	 */

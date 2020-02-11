@@ -1,9 +1,13 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class test301_350 {
 /*
@@ -112,7 +116,31 @@ public class test301_350 {
 	    return s;
 			
 		}
-
+/*
+ * 347. 前 K 个高频元素
+ */
+public List<Integer> topKFrequent(int[] nums, int k) {
+	Map<Integer, Integer> map = new HashMap<>();
+	for (int i = 0; i < nums.length; i++) {
+		map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
+	}
+	List<Integer> list = new ArrayList<>();
+	for(int key:map.keySet()) {
+		list.add(map.get(key));
+	}
+	Collections.sort(list);
+	List<Integer> res = new ArrayList<>();
+	for(int i=list.size()-1;i>=list.size()-k;i--) {
+	for(Entry<Integer, Integer> item:map.entrySet()) {
+		if (list.get(i)==item.getValue()) {
+			res.add(item.getKey());
+			map.remove(item.getKey());
+			break;
+		}
+	}
+}
+	return res;
+  }
 	/**
 	 * 349. 两个数组的交集
 	 * @param nums1

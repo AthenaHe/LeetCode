@@ -3,9 +3,11 @@ package com.test.leetcode1;
 import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 
@@ -341,13 +343,40 @@ public int getImportance(List<Employee> employees, int id) {
 				
 			}
 		}
-		
 	}
-
-	return imp;
-    
+	return imp;   
 }
-
+/*
+ * 692. 前K个高频单词
+ */
+public List<String> topKFrequent(String[] words, int k) {
+	List<String> res = new ArrayList<>();
+	Map<String, Integer>  map  = new HashMap<>();
+	for (int i = 0; i < words.length; i++) {
+		map.put(words[i], map.getOrDefault(words[i], 0)+1);
+	}
+	List<Integer> list = new ArrayList<>();
+	for(String key:map.keySet()) {
+		list.add(map.get(key));
+	}
+	Collections.sort(list);
+	for (int i = list.size()-1; i >= list.size()-k; i--) {
+		List<String> list2 = new ArrayList<>();
+		for(Entry<String, Integer> item:map.entrySet()) {
+			if (list.get(i)==item.getValue()) {
+				list2.add(item.getKey());
+			}			
+		}
+		Collections.sort(list2);
+		int j=0;
+		while(j < list2.size()&&i >= list.size()-k) {
+			res.add(list2.get(j));
+			map.remove(list2.get(j));
+			j++;i--;
+		}
+	}	
+	return res;  
+}
 /*
  * 693. 交替位二进制数
  */
