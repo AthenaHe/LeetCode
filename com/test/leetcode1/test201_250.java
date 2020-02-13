@@ -153,8 +153,13 @@ public class test201_250 {
 		return header.next;
 	    
 	}
-	
-	
+/*
+ * 215. 数组中的第K个最大元素
+ */
+public int findKthLargest(int[] nums, int k) {
+	Arrays.sort(nums);
+	return nums[nums.length-k];       
+}		
 	/**
 	 * 217. 存在重复元素
 	 */

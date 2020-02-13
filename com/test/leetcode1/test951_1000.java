@@ -1,6 +1,5 @@
 package com.test.leetcode1;
 
-import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.sun.javadoc.RootDoc;
 
 
 public class test951_1000 {

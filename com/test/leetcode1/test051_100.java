@@ -1,6 +1,7 @@
 package com.test.leetcode1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class test051_100 {
@@ -44,7 +45,45 @@ public class test051_100 {
 	    
 	    return max;
 	}
-	
+/*
+ * 56. 合并区间
+ */
+public int[][] merge(int[][] intervals) {
+	if (intervals.length<=1) {
+		return intervals;
+	}
+	//冒泡排序
+	for (int i = 0; i < intervals.length-1; i++) {
+		for (int j = 0; j < intervals.length-i-1; j++) {
+			if (intervals[j][0]>intervals[j+1][0]) {
+				int[] tmp=intervals[j];
+				intervals[j]=intervals[j+1];
+				intervals[j+1]=tmp;
+			}else if (intervals[j][0]==intervals[j+1][0]) {
+				if (intervals[j][1]>intervals[j+1][1]) {
+					int[] tmp=intervals[j];
+					intervals[j]=intervals[j+1];
+					intervals[j+1]=tmp;
+				}
+			}		
+		}
+	}
+	for (int i = 0; i < intervals.length; i++) {
+			System.out.print(intervals[i][0]+","+intervals[i][1]+" ");
+	}
+	List<int[]> res = new ArrayList<>();
+	int i=0;
+	while (i<intervals.length) {
+	 int l=intervals[i][0],r=intervals[i][1];
+	 while(i<intervals.length-1&&r>=intervals[i+1][0]) {
+		 r=Math.max(r,intervals[i+1][1]);
+		 i++;
+	 }
+	res.add(new int[] {l,r});
+	i++;		
+	}
+	return res.toArray(new int[res.size()][2]);
+    }	
 	/**
 	 * 58. 最后一个单词的长度
 	 * @param args
@@ -169,7 +208,25 @@ public int[][] generateMatrix(int n) {
 	    }
 	    return f2;
 	}
-
+/*
+ * 75. 颜色分类
+ */
+public void sortColors(int[] nums) {
+int i=0,j=nums.length-1,now=0;
+while(now<=j) {
+	if (nums[now]==0) {
+		int tmp=nums[i];
+		nums[i++]=nums[now];
+		nums[now++]=tmp;
+	}else if (nums[now]==2) {
+		int tmp=nums[j];
+		nums[j--]=nums[now];
+		nums[now]=tmp;
+	}else {
+		now++;
+	}
+}
+}
 /*
  *78. 子集 
  */

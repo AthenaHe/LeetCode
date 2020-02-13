@@ -74,6 +74,32 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 	return headnode.next;        
     }
 /*
+ * 3. 无重复字符的最长子串
+ */
+public static int lengthOfLongestSubstring(String s) {
+	int max=Integer.MIN_VALUE;
+	String tmp = "";
+	int count=0;
+	for (int i = 0; i < s.length(); i++) {	
+	if (!tmp.contains(s.substring(i, i+1))) {
+		tmp+=s.substring(i, i+1);
+		count++;
+	}else {
+		if (max<count) {
+			max=count;
+		}		
+		i=s.indexOf(tmp)+tmp.indexOf(s.substring(i, i+1));
+		tmp = "";
+		count=0;
+		break;
+	}
+	if (max<count) {
+		max=count;
+	}	
+}
+return max;    
+}
+/*
  * 5. 最长回文子串
  */
 public String longestPalindrome(String s) {
@@ -95,6 +121,7 @@ public boolean ishuiwen(String t) {
 	}
 	return true;
 }
+
 	/**
 	 * 7. 整数反转  
 	 * @param x
@@ -139,6 +166,19 @@ public Boolean IsPalindrome(int x) {
 		x/=10;		
 	}
 	return x==n || x==n/10;
+}
+/*
+ * 11. 盛最多水的容器
+ */
+public int maxArea(int[] height) {
+	int maxArea = 0;
+	for (int i = 0; i < height.length-1; i++) {
+		for (int j = i+1; j < height.length; j++) {
+				maxArea=Math.max(maxArea,Math.min(height[i], height[j])*(j-i));
+		}
+	}
+	return maxArea;
+    
 }
 /*
  * 12. 整数转罗马数字 difficult
@@ -215,6 +255,36 @@ public String intToRoman(int num) {
 	        i++;
 	    return s1.substring(0,i);
 	}
+/*
+ * 15. 三数之和
+ */
+public List<List<Integer>> threeSum(int[] nums) {
+	Arrays.sort(nums);
+    List<List<Integer>> list = new ArrayList<>();
+    for (int i = 0; i < nums.length - 2; i++) {
+        if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) {  // 跳过可能重复的答案
+            int l = i + 1, r = nums.length - 1, sum = 0 - nums[i];
+            while (l < r) {
+                if (nums[l] + nums[r] == sum) {
+                    list.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    while (l < r && nums[l] == nums[l + 1]) l++;
+                    while (l < r && nums[r] == nums[r - 1]) r--;
+                    l++;
+                    r--;
+                } else if (nums[l] + nums[r] < sum) {
+                    while (l < r && nums[l] == nums[l + 1]) l++;   // 跳过重复值
+                    l++;
+                } else {
+                    while (l < r && nums[r] == nums[r - 1]) r--;
+                    r--;
+                }
+            }
+        }
+    }
+    return list; 
+}
+	
+	
 	/**
 	 * 20. 有效的括号 
 	 * 可以利用栈的特点进行求解   
@@ -453,8 +523,8 @@ public static String multiadd(String num1,String num2) {
    }
  
  public static void main(String[] args) {
-	 String num1 = "5674",num="234";
-	System.out.println( multiadd(num1,num));
+	 String s = "A";
+	// convert(s, 1);
 }
  
 }
