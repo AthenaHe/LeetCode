@@ -6,11 +6,26 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
 import java.util.Stack;
 
+class Node {
+    int val;
+    Node next;
+    Node random;
 
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
 public class SwordToOffer {
+//链表结构体定义
+  public class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int x) { val = x; }
+  }	
 //树结点定义
 public class TreeNode {
       int val;
@@ -18,7 +33,66 @@ public class TreeNode {
       TreeNode right;
       TreeNode(int x) { val = x; }
   }
-
+/*
+ * 面试题18. 删除链表的节点
+ */
+public ListNode deleteNode(ListNode head, int val) {	
+	if(head==null) {
+		return null;
+	}
+	if(head.val == val) { //如果是删除第一个结点
+		head = head.next;
+		return head;
+	}
+	ListNode p = head;
+	while (p.next!=null) {
+		if (p.next.val==val) {
+			p.next = p.next.next;
+		}else {
+			p = p.next;
+		}		
+	}
+	return head;   
+}
+//面试题22. 链表中倒数第k个节点 LCOF
+public ListNode getKthFromEnd(ListNode head, int k) {
+	ListNode p = head;
+	ListNode q = head;
+	while(k>0) {
+		q=q.next;
+		k--;
+	}
+	while (q!=null) {
+		p = p.next;
+		q=q.next;		
+	}
+	return p;    
+}
+/*
+ * 面试题24. 反转链表 LCOF
+ */
+public ListNode reverseList(ListNode head) {
+	while(head==null||head.next==null) {
+		return head;
+	}
+	Stack<ListNode> stack = new Stack<>();
+	
+	ListNode p = head;
+	while(p!=null) {
+		stack.push(p);
+		p=p.next;
+	}
+	ListNode node = stack.pop();
+	ListNode q = node;
+	while(!stack.isEmpty()) {
+		ListNode tmpnode = stack.pop();
+		q.next = tmpnode;
+		q = q.next;
+	}
+	q.next = null;
+	return node;
+    
+}
 /*
  * 面试题27. 二叉树的镜像
  */
@@ -118,6 +192,7 @@ public List<List<Integer>> levelOrder2(TreeNode root) {
 	}
 	return lists;  
 }
+
 /*
  * 面试题49. 丑数
  */
@@ -134,6 +209,55 @@ public int nthUglyNumber(int n) {
 	}
 	return ugly[n-1];      
     }
+/*
+ * 面试题52. 两个链表的第一个公共节点  LCOF
+ */
+public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+//    //求两个链表的长度lenA,lenB
+//	ListNode p = headA,q = headB;
+//	int lenA=0,lenB=0;
+//	while(p!=null) {
+//		lenA++;
+//		p=p.next;		
+//	}
+//	while (q!=null) {
+//		lenB++;
+//		q=q.next;		
+//	}	
+//	int len = lenA-lenB;
+//	p = null;q=null;
+//	 p = headA;q = headB;
+//	//长的链表结点的指针先走|lenA-lenB|步
+//	 while(len>0) {
+//		p = p.next;
+//		len--;
+//	 }
+//	while (len<0) {
+//		q=q.next;
+//		len++;
+//	}
+//	//两个指针所指结点进行比较，不相同就走到下一个，反之，返回该结点
+//	while (p!=null&&q!=null) {
+//		if (p==q) {
+//			return p;
+//		}
+//		p = p.next;
+//		q = q.next;
+//	}
+//	return null;
+	
+//设交集链表长c,链表1除交集的长度为a，链表2除交集的长度为b，有a + c + b = b + c + a,若无交集，则a + b = b + a
+	if (headA == null || headB == null)
+        return null;
+    
+    ListNode h1 = headA, h2 = headB;
+    while (h1 != h2) {
+
+        h1 = h1 == null ? headB : h1.next;
+        h2 = h2 == null ? headA : h2.next;
+    }
+    return h1;  
+}
 /*
  * 面试题54. 二叉搜索树的第k大节点
  */
@@ -304,9 +428,12 @@ public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
 }
 
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-	}
+public static void main(String[] args){
+    int i=0;
+    i++;
+    System.out.println(i);
+}
+
+
 
 }
