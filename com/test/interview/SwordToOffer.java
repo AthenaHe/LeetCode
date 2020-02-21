@@ -1,10 +1,14 @@
 package com.test.interview;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -33,6 +37,48 @@ public class TreeNode {
       TreeNode right;
       TreeNode(int x) { val = x; }
   }
+/*
+ * 面试题06. 从尾到头打印链表
+ */
+public int[] reversePrint(ListNode head) {
+	List<Integer> list = new LinkedList<>();
+	ListNode p = head;
+	while(p!=null) {
+		list.add(p.val);
+		p=p.next;
+	}
+	Collections.reverse(list);
+	int[] res=new int[list.size()];
+	for (int i = 0; i < list.size(); i++) {
+		res[i]=list.get(i);
+	}
+	return res;   
+}
+/*
+ * 面试题09. 用两个栈实现队列
+ */
+Stack<Integer> stack1;
+Stack<Integer> stack2;
+public SwordToOffer(int no) {
+	stack1 = new Stack<>();
+	stack2 = new Stack<>();
+}
+
+public void appendTail(int value) {
+    stack1.push(value);
+}
+
+public int deleteHead() {
+	while(stack1.isEmpty()&&stack2.isEmpty()) {
+		return -1; 
+	}
+	if(stack2.isEmpty()) {
+		while(!stack1.isEmpty()) {
+			stack2.push(stack1.pop());
+		}
+	}
+	return stack2.pop();
+}
 /*
  * 面试题18. 删除链表的节点
  */
@@ -94,6 +140,31 @@ public ListNode reverseList(ListNode head) {
     
 }
 /*
+ * 面试题25. 合并两个排序的链表
+ */
+public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+	//创建一个新链表，把两个链表结点按序放到新链表上
+	ListNode head =new ListNode(0);//创建头结点，初始化一个结点值为0的空结点
+	ListNode result = head;
+	while (l1!=null&&l2!=null) {
+		if (l1.val<l2.val) {
+			head.next=l1;
+			l1=l1.next;
+		}else {
+			head.next=l2;
+			l2=l2.next;
+		}
+		head=head.next;		
+	}
+	if(l1!=null) {
+		head.next=l1;
+	}
+	if(l2!=null) {
+		head.next=l2;
+	}	
+	return result.next;   
+}
+/*
  * 面试题27. 二叉树的镜像
  */
 public TreeNode mirrorTree(TreeNode root) {
@@ -123,6 +194,33 @@ public boolean isMirror(TreeNode tleft, TreeNode tright) {
 		return false;
 	}
 	return isMirror(tleft.left, tright.right)&&isMirror(tleft.right, tright.left);
+}
+/*
+ * 面试题30. 包含min函数的栈
+ */
+List<Integer> list;
+public SwordToOffer(int a,int b) {
+	list = new LinkedList<>();
+}
+
+public void push(int x) {
+	list.add(x);	
+}
+
+public void pop() {
+	list.remove(list.size()-1);
+}
+
+public int top() {	
+	return list.get(list.size()-1);
+}
+
+public int min() {
+	int min = Integer.MAX_VALUE;
+	for(int i:list) {
+		min = Math.min(min, i);
+	}
+	return min;
 }
 
 /*
@@ -192,7 +290,25 @@ public List<List<Integer>> levelOrder2(TreeNode root) {
 	}
 	return lists;  
 }
-
+/*
+ * 面试题35. 复杂链表的复制
+ */
+public Node copyRandomList(Node head) {
+	//map<Node,Node>
+	Map<Node, Node> map = new HashMap<>();
+	Node p = head;
+	while(p!=null) {
+		map.put(p, new Node(p.val));
+		p=p.next;
+	}
+	p=head;
+	while(p!=null) {
+		map.get(p).next = map.get(p.next);
+		map.get(p).random = map.get(p.random);
+		p=p.next;
+	}
+	return map.get(head);    
+}
 /*
  * 面试题49. 丑数
  */
@@ -338,11 +454,62 @@ public int singleNumber(int[] nums) {
 			i++;		
 	}
 	return nums[nums.length-1];       
-    }	
+    }
+
+/*
+ * 面试题59 - I. 滑动窗口的最大值
+ */
+public int[] maxSlidingWindow(int[] nums, int k) {
+	if(nums==null||nums.length==0)
+		return new int[0];
+	int[] res = new int[nums.length-k+1];
+	Deque<Integer> dqeque = new ArrayDeque<>(); //创建双端队列
+	int j=0;
+	for (int i = 0; i < nums.length; i++) {
+		if (!dqeque.isEmpty()&&i-dqeque.peekFirst()>=k) {
+			dqeque.removeFirst(); //窗口向右滑动一格
+		}
+		while(!dqeque.isEmpty()&&nums[i]>nums[dqeque.peekLast()]) {//如果当前元素大于队列最右端的值，那就替换掉
+			dqeque.removeLast();
+		}
+		dqeque.offer(i);//如果当前元素不大于队列最右端下标对应元素，就把当前元素加进去
+		if (i>=k-1) {
+			res[j++]=nums[dqeque.peekFirst()]; //输入此队列最左端下标对应元素
+		}
+	}
+	return res;
+}
+/*
+ * 面试题59 - II. 队列的最大值
+ */
+List<Integer> list_to_Queue;
+public SwordToOffer() {
+list_to_Queue=new LinkedList<>();
+}
+
+public int max_value() {
+	if(list_to_Queue.isEmpty()) return -1;
+	int max = Integer.MIN_VALUE;
+	for(int i:list_to_Queue) {
+		max=Math.max(max, i);
+	}
+	return max;
+}
+
+public void push_back(int value) {
+	list_to_Queue.add(value);
+}
+
+public int pop_front() {
+	if (!list_to_Queue.isEmpty()) {
+		list_to_Queue.remove(0);
+	}	
+	return -1;
+}
+
 /*
  * 面试题64. 求1+2+…+n
  */
-
 public int sumNums(int n) {
 	return (1+n)*n/2;        
   }
@@ -429,9 +596,9 @@ public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
 
 
 public static void main(String[] args){
-    int i=0;
-    i++;
-    System.out.println(i);
+	int[] nums=new int[]{1,-1};
+	int k=1;
+	//maxSlidingWindow(nums,k);
 }
 
 
