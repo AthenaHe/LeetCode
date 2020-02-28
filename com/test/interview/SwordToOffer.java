@@ -38,6 +38,29 @@ public class TreeNode {
       TreeNode(int x) { val = x; }
   }
 /*
+ * 面试题04. 二维数组的查找
+ */
+public boolean findNumberIn2DArray(int[][] matrix, int target) {
+    if (matrix.length==0||matrix==null) {
+		return false;
+	}
+	int row = matrix.length,col = matrix[0].length;
+    if (target<matrix[0][0]||target>matrix[row-1][col-1]) {
+		return false;
+	}
+    int i=0,j=col-1;
+    while(i<row&&j>=0) {
+    	if (matrix[i][j]>target) {
+			j--;
+		}else if (matrix[i][j]<target) {
+			i++;
+		}else {
+			return true;
+		}
+    }
+    return false;    
+}
+/*
  * 面试题06. 从尾到头打印链表
  */
 public int[] reversePrint(ListNode head) {
@@ -54,6 +77,27 @@ public int[] reversePrint(ListNode head) {
 	}
 	return res;   
 }
+/*
+ * 07. 重建二叉树
+ */
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+	if (preorder.length==0||preorder==null) {
+		return null;
+	}
+	int root = preorder[0],index = 0;
+	for (int i = 0; i < inorder.length; i++) {
+		if (inorder[i]==root) {
+			index=i; //找到中序遍历中的根节点
+			break;
+		}
+	}
+	TreeNode node = new TreeNode(root);//	创建一个树节点为根节点
+	node.left = buildTree(Arrays.copyOfRange(preorder, 1, index+1), Arrays.copyOfRange(inorder, 0, index));
+	node.right = buildTree(Arrays.copyOfRange(preorder, 1+index, preorder.length), Arrays.copyOfRange(inorder, index+1, inorder.length));
+	return node;   
+}
+
+
 /*
  * 面试题09. 用两个栈实现队列
  */
@@ -309,6 +353,22 @@ public Node copyRandomList(Node head) {
 	}
 	return map.get(head);    
 }
+/*
+ * 面试题45. 把数组排成最小的数
+ */
+public String minNumber(int[] nums) {
+	List<String> list = new LinkedList<>();
+	for(int num:nums) {
+		list.add(String.valueOf(num));
+	}
+	list.sort((s1,s2)->(s1+s2).compareTo(s2+s1));
+	StringBuilder sb = new StringBuilder();
+	for(String li:list) {
+		sb.append(li);
+	}
+	return sb.toString();
+}
+
 /*
  * 面试题49. 丑数
  */
@@ -598,7 +658,9 @@ public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
 public static void main(String[] args){
 	int[] nums=new int[]{1,-1};
 	int k=1;
-	//maxSlidingWindow(nums,k);
+	String message = String.join("-", "Java", "is", null,"cool");
+    // message returned is: "Java-is-cool"
+	System.out.println(message);
 }
 
 
