@@ -354,6 +354,20 @@ public Node copyRandomList(Node head) {
 	return map.get(head);    
 }
 /*
+ * 面试题42. 连续子数组的最大和
+ */
+public int maxSubArray(int[] nums) {
+	int[] dp = new int[nums.length];
+	int max=Integer.MIN_VALUE;
+	dp[0]=nums[0];
+	for (int i = 1; i < nums.length; i++) {
+		dp[i]=Math.max(nums[i], dp[i-1]+nums[i]);
+		max=Math.max(max, dp[i]);
+	}
+	return max;
+}
+
+/*
  * 面试题45. 把数组排成最小的数
  */
 public String minNumber(int[] nums) {
@@ -368,7 +382,29 @@ public String minNumber(int[] nums) {
 	}
 	return sb.toString();
 }
-
+/*
+ * 面试题47. 礼物的最大价值
+ */
+public int maxValue(int[][] grid) {
+    if (grid==null||grid.length==0) {
+		return 0;
+	}
+    int[][] dp = new int[grid.length][grid[0].length];
+    for (int i = 0; i < grid.length; i++) {
+		for (int j = 0; j < grid[i].length; j++) {
+			if (i==0&&j==0) {
+				dp[i][j]=grid[i][j];
+			}else if (i==0) {
+				dp[i][j]=dp[i][j-1]+grid[i][j];
+			}else if (j==0) {
+				dp[i][j]=dp[i-1][j]+grid[i][j];
+			}else {
+				dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1])+grid[i][j];
+			}
+		}
+	}
+    return dp[grid.length-1][grid[0].length-1];	    
+	}     
 /*
  * 面试题49. 丑数
  */
@@ -566,7 +602,20 @@ public int pop_front() {
 	}	
 	return -1;
 }
-
+/*
+ * 面试题63. 股票的最大利润
+ */
+public int maxProfit(int[] prices) {
+	if (prices.length<=1) {
+		return 0;
+	}
+	int res=0,min = prices[0];
+	for (int i = 1; i < prices.length; i++) {
+		min=Math.min(min, prices[i]);
+		res=Math.max(res, prices[i]-min);	
+	}
+	return res;
+}
 /*
  * 面试题64. 求1+2+…+n
  */
