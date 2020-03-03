@@ -3,6 +3,8 @@ package com.test.interview;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -146,6 +148,30 @@ public boolean isFlipedString(String s1, String s2) {
 	String ss = s2+s2;
 	return ss.contains(s1);
 }
+/*
+ * 面试题 10.01. 合并排序的数组
+ */
+public void merge(int[] A, int m, int[] B, int n) {
+	int k = m-1,i=m-n-1,j=n-1;
+	while(i>=0&&j>=0) {
+		if (A[i]<B[j]) {
+			A[k--]=B[j];
+			j--;
+		}else {
+			A[k--]=A[i];
+			i--;
+		}
+	}
+	while(i>=0) {
+		A[k--]=A[i];
+		i--;
+	}
+	while(j>=0) {
+		A[j--]=B[j];
+		j--;
+	}
+}
+
 /*
  * 面试题 16.07. 最大数值
  */
