@@ -219,6 +219,28 @@ public static String getHint(String secret, String guess) {
 	}	
 	return Acount+"A"+Bcount+"B";    
 }
+/*
+ * 300. 最长上升子序列
+ */
+public int lengthOfLIS(int[] nums) {
+	if (nums.length==0) {
+		return 0;
+	}
+	int[] dp = new int[nums.length];
+	dp[0]=1;
+	int max = 1;
+	for(int i=1;i<nums.length;i++) {
+		int count=0;
+		for (int j = 0; j < i; j++) {
+			if (nums[i]>nums[j]) { //如果是上升态
+				count=Math.max(count, dp[j]);
+			}			
+		}
+		dp[i] = count+1;
+		max = Math.max(max, dp[i]);		
+	}
+	return max;
+}
 
 public static void main(String[] args) {
 	String secret="1123";

@@ -4,6 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class test351_400 {
+/*
+ * 365. 水壶问题
+ * 分析：求x，y最大公约数，判断能否被z整除
+ */
+public boolean canMeasureWater(int x, int y, int z) {
+	if (x+y<z) return false;
+	if (x==z||y==z||x+y==z) return true;
+	return z%gcd(x, y)==0;
+}
+//求x，y最大公约数
+int gcd(int x,int y) {
+	return y==0?x:gcd(x, x%y);
+}
+
 	/**
 	 * 367. 有效的完全平方数
 	 * @param num
