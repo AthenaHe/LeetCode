@@ -6,10 +6,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 class Node {
@@ -354,6 +356,47 @@ public Node copyRandomList(Node head) {
 	return map.get(head);    
 }
 /*
+ * 面试题38. 字符串的排列
+ */
+/*public String[] permutation(String s) {
+	List<String> list = new LinkedList<String>();
+	if (s.length()==0||s==null) {
+		return (String[]) list.toArray(); //如果字符串为空，就返回空
+	}
+	char[] chars = s.toCharArray(); //将字符串转化为字符数组
+	findsublist(chars,list,0); //递归
+	//Collections.sort(list);	
+	System.out.println(list);
+	return list.toArray(new String[list.size()]);
+}
+public  void findsublist(char[] a,List<String> list,int i) {
+	//递归终止条件
+	if (i==a.length-1) {
+		if (!list.contains(new String(a)))  //new String(a)
+			list.add(new String(a)); //
+		System.out.println(new String(a));
+			return;
+		}else {
+			//递归
+			for (int j = i; j < a.length; j++) {
+				System.out.println("1:"+a[i]+"<->"+a[j]);
+				swap(a,i,j); //将第i个元素和第j个元素交换				
+				findsublist(a, list, i+1);
+				System.out.println("2:"+a[i]+"<->"+a[j]);
+				swap(a,i,j); //再将第i个元素和第j个元素交换回来，方便找其它情况
+			}		
+		}	
+}
+//交换两个字符
+public void swap(char[] ch,int i,int j) {
+	char tmp = ch[i];
+	ch[i]=ch[j];
+	ch[j]=tmp;	
+}
+*/
+
+
+/*
  * 面试题42. 连续子数组的最大和
  */
 public int maxSubArray(int[] nums) {
@@ -551,6 +594,16 @@ public int singleNumber(int[] nums) {
 	}
 	return nums[nums.length-1];       
     }
+/*
+ * 面试题58 - II. 左旋转字符串
+ */
+public String reverseLeftWords(String s, int n) {
+	//思路：先整体反转，abcdefg->gfedcba,再分割字符串分别反转gfedc->cdefg,ba->ab
+	String s1=s.substring(0,n);
+	String s2=s.substring(n);
+	return s2+s1;   
+}
+
 
 /*
  * 面试题59 - I. 滑动窗口的最大值
@@ -707,9 +760,8 @@ public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
 public static void main(String[] args){
 	int[] nums=new int[]{1,-1};
 	int k=1;
-	String message = String.join("-", "Java", "is", null,"cool");
-    // message returned is: "Java-is-cool"
-	System.out.println(message);
+	String s = "abc";
+	SwordToOffer test = new SwordToOffer();
 }
 
 

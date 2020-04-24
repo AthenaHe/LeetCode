@@ -205,8 +205,8 @@ public int maxSubArray(int[] nums) {
 public int majorityElement(int[] nums) {
 	Arrays.sort(nums);
 	int i=0,j=nums.length-1;
-	while(nums[i]!=nums[nums.length/2]) i++;	
-	while(nums[j]!=nums[nums.length/2]) j--;
+	while(nums[i]!=nums[nums.length/2]) {i++;}	
+	while(nums[j]!=nums[nums.length/2]) {j--;}
 	return j-i-1>nums[nums.length/2]?nums[nums.length/2]:-1;  
 }
 
